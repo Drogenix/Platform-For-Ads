@@ -1,0 +1,40 @@
+
+.advertise-card {
+  display: block;
+  cursor: pointer;
+}
+
+.advertise-card:hover img {
+  vertical-align: middle;
+  transform: scale(1.1);
+}
+
+.img-wrapper {
+  display: flex;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.card-img {
+  width: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+  transition: 150ms;
+}
+
+.card-header p {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 24px;
+}
+
+.card-title {
+  margin-top: 8px;
+  color: #3B82F6;
+}
+
+.card-info {
+  font-size: 14px;
+  color: #64748B;
+  line-height: 20px;
+}
