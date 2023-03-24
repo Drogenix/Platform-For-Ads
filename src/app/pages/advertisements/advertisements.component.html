@@ -18,25 +18,9 @@
       <div class="main-content">
         <h3>Рекомендации для вас</h3>
         <div class="advertisements">
-          <article class="advertise-card" *ngFor="let advertise of advertisements">
-            <a>
-              <div class="img-wrapper">
-                <img alt="Изображение товара" class="card-img" [src]="advertise.image">
-              </div>
-              <div>
-                <div class="card-header">
-                  <p class="card-title">{{advertise.name}}</p>
-                  <p class="card-price">
-                    <span>20 000</span> ₽
-                  </p>
-                </div>
-                <p class="card-info">Москва, Ленинский проспект</p>
-                <p class="card-info">
-                  Сегодня <span>14:12</span>
-                </p>
-              </div>
-            </a>
-          </article>
+          <advertisement-card *ngFor="let advertisement of advertisements"
+                              [advertisement]="advertisement">
+          </advertisement-card>
         </div>
       </div>
     </div>

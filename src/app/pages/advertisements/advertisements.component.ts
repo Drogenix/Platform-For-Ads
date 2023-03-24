@@ -1,28 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AdvertisementsService} from "../../core/services/advertisements.service";
-import {AsyncPipe, JsonPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {AdvertisementCardComponent} from "./advertisement-card/advertisement-card.component";
 
 @Component({
   selector: 'app-advertisements',
   templateUrl: './advertisements.component.html',
   styleUrls: ['./advertisements.component.css'],
   providers: [AdvertisementsService],
-  imports: [
-    NgIf,
-    NgForOf,
-    AsyncPipe,
-    JsonPipe
-  ],
+    imports: [
+        NgIf,
+        NgForOf,
+        AsyncPipe,
+        AdvertisementCardComponent
+    ],
   standalone: true
 })
-export class AdvertisementsComponent implements OnInit{
+export class AdvertisementsComponent{
 
   response$ = this.advertisementsService.getAll();
-  constructor(public advertisementsService: AdvertisementsService) {
-  }
-
-  ngOnInit(): void {
-
-  }
-
+  constructor(public advertisementsService: AdvertisementsService) {}
 }
