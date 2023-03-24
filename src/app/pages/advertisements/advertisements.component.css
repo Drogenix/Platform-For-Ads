@@ -1,59 +1,3 @@
-.btn {
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  font-size: 14px;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 0 12px;
-  transition: 150ms;
-}
-
-.btn:is(:hover, :active)
-{
-  opacity: .85;
-}
-
-.container {
-  width: 100%;
-  max-width: 1296px;
-  margin: 0 auto;
-}
-
-/* Header */
-header {
-  background: #1E293B;
-  padding: 8px 16px;
-  margin-bottom: 24px;
-}
-
-header .container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  height: 36px;
-}
-
-.sign-in {
-  height: 32px;
-  background: transparent;
-  margin-right: 24px;
-}
-
-.sign-in img {
-  margin-right: 8px;
-}
-
-.new-add {
-  height: 32px;
-  background: #3B82F6;
-}
-
-.new-add img {
-  margin-left: 8px;
-}
-
 /* Main */
 main{
   padding: 0 16px;
@@ -185,8 +129,8 @@ main{
   }
 }
 
-@media screen and (max-width: 438px){
-  .all-categories-btn {
+@media screen and (max-width: 455px){
+  .all-categories {
     margin-top: 12px;
   }
 }

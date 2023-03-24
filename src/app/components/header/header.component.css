@@ -1,0 +1,31 @@
+header {
+  background: #1E293B;
+  padding: 8px 16px;
+  margin-bottom: 24px;
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 36px;
+}
+
+.sign-in {
+  height: 32px;
+  background: transparent;
+  margin-right: 24px;
+}
+
+.sign-in img {
+  margin-right: 8px;
+}
+
+.new-add {
+  height: 32px;
+  background: #3B82F6;
+}
+
+.new-add img {
+  margin-left: 8px;
+}
