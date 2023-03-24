@@ -1,0 +1,57 @@
+<ng-container *ngIf="(response$ | async)?.data as advertisements">
+  <header>
+    <div class="container">
+      <a class="btn sign-in">
+        <img src="assets/icon/profile.svg" alt="Профиль">
+        Войти
+      </a>
+      <a class="btn new-add">
+        Новое объявление
+        <img src="assets/icon/plus.svg" alt="Новое объявление">
+      </a>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <div class="main-header">
+        <h2>Доска объявлений</h2>
+        <button class="btn all-categories">
+          <img src="assets/icon/listed.svg" alt="Список категорий">
+          Все категории
+        </button>
+        <form class="search-box">
+          <input class="search-input" placeholder="Поиск по объявлениям">
+          <button class="btn search">
+            Найти
+            <img src="assets/icon/search.svg" alt="Поиск">
+          </button>
+        </form>
+      </div>
+      <div class="main-content">
+        <h3>Рекомендации для вас</h3>
+        <div class="advertisements">
+          <article class="advertise-card" *ngFor="let advertise of advertisements">
+            <a>
+              <div class="img-wrapper">
+                <img alt="Изображение товара" class="card-img" [src]="advertise.image">
+              </div>
+              <div>
+                <div class="card-header">
+                  <p class="card-title">{{advertise.name}}</p>
+                  <p class="card-price">
+                    <span>20 000</span> ₽
+                  </p>
+                </div>
+                <p class="card-info">Москва, Ленинский проспект</p>
+                <p class="card-info">
+                  Сегодня <span>14:12</span>
+                </p>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </main>
+</ng-container>
+
