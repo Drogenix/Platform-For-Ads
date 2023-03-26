@@ -1,13 +1,39 @@
 <header>
+  <nav>
+    <div class="container">
+      <div class="nav-items">
+        <a class="btn sign-in">
+          <img class="person-img" src="assets/icon/profile.svg" alt="Профиль">
+          <ng-container *ngIf="(userService.isAuth$ | async); else signIn">
+            Алексей
+            <img class="arrow-img" src="assets/icon/arrow.svg" alt="Выпадающий список">
+          </ng-container>
+          <ng-template #signIn>
+            Войти
+          </ng-template>
+        </a>
+        <a class="btn new-add">
+          Новое объявление
+          <img src="assets/icon/plus.svg" alt="Новое объявление">
+        </a>
+      </div>
+    </div>
+  </nav>
   <div class="container">
-    <a class="btn sign-in">
-      <img src="assets/icon/profile.svg" alt="Профиль">
-      Войти
-    </a>
-    <a class="btn new-add">
-      Новое объявление
-      <img src="assets/icon/plus.svg" alt="Новое объявление">
-    </a>
+    <div class="header-search">
+      <h2>Доска объявлений</h2>
+      <button class="btn all-categories">
+        <img src="assets/icon/listed.svg" alt="Список категорий">
+        Все категории
+      </button>
+      <form class="search-box">
+        <input class="search-input" placeholder="Поиск по объявлениям">
+        <button class="btn search">
+          Найти
+          <img src="assets/icon/search.svg" alt="Поиск">
+        </button>
+      </form>
+    </div>
   </div>
 </header>
 

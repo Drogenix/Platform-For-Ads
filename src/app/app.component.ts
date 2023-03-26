@@ -12,4 +12,8 @@ import {HeaderComponent} from "./components/header/header.component";
   ],
   standalone: true
 })
-export class AppComponent {}
+export class AppComponent {
+
+
+
+}

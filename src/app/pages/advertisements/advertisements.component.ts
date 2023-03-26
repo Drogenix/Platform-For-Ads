@@ -19,5 +19,5 @@ import {AdvertisementCardComponent} from "./advertisement-card/advertisement-car
 export class AdvertisementsComponent{
 
   response$ = this.advertisementsService.getAll();
-  constructor(public advertisementsService: AdvertisementsService) {}
+  constructor(private advertisementsService: AdvertisementsService) {}
 }

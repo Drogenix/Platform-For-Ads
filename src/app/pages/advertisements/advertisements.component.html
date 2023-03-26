@@ -1,20 +1,6 @@
 <ng-container *ngIf="(response$ | async)?.data as advertisements">
   <main>
     <div class="container">
-      <div class="main-header">
-        <h2>Доска объявлений</h2>
-        <button class="btn all-categories">
-          <img src="assets/icon/listed.svg" alt="Список категорий">
-          Все категории
-        </button>
-        <form class="search-box">
-          <input class="search-input" placeholder="Поиск по объявлениям">
-          <button class="btn search">
-            Найти
-            <img src="assets/icon/search.svg" alt="Поиск">
-          </button>
-        </form>
-      </div>
       <div class="main-content">
         <h3>Рекомендации для вас</h3>
         <div class="advertisements">

@@ -1,0 +1,170 @@
+.container{
+  animation: show 200ms;
+}
+
+@keyframes show {
+  0%{
+    transform: scale(0.95);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
+ul{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 32px 0 8px;
+  padding: 0;
+}
+
+li{
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #64748B;
+  margin-left: 24px;
+}
+
+li:nth-child(1)
+{
+  margin: 0;
+  list-style: none;
+}
+
+main
+{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.advertisement-preview{
+  flex: 9 1;
+  max-width: 856px;
+}
+
+.advertisement-preview img{
+  border-radius: 4px;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: auto;
+}
+
+h2,h3,p{
+  color: #1E293B;
+}
+
+h2{
+  font-size: clamp(24px, 5vw, 30px);
+  line-height: 36px;
+  margin-bottom: 16px;
+}
+
+.img-wrapper{
+  max-width: 856px;
+}
+
+.img-carousel{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(76px, max-content));
+  margin-top: 24px;
+  gap: 12px;
+}
+
+.carousel-img-wrapper{
+  flex: 1 1 60px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  max-width: 120px;
+}
+
+.carousel-img-wrapper img{
+  height: 100%;
+}
+
+.img-selected{
+  border: 3px solid #3B82F6;
+  padding: 2px;
+}
+
+.img-selected img{
+  border-radius: 0;
+}
+
+.advertisement-details
+{
+  display: flex;
+  flex-direction: column;
+  max-width: 416px;
+}
+
+section{
+  margin-bottom: 32px;
+}
+
+.show-number{
+  justify-content: center;
+  height: 68px;
+  background: #3B82F6;
+  margin-bottom: 40px;
+}
+
+.show-number img{
+  margin-right: 12px;
+}
+
+h3{
+  font-size: clamp(20px, 4vw, 24px);
+  line-height: 32px;
+  color: #1E293B;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+p, a{
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.open-on-map{
+  color: #3B82F6;
+  height: 24px;
+  padding: 0;
+  margin-top: 4px;
+}
+
+.open-on-map img{
+  margin-left: 8px;
+}
+
+@media (max-width: 992px){
+  .advertisement-preview{
+    flex-basis: 100%;
+  }
+
+  .show-number{
+    height: 42px;
+    max-width: 276px;
+    margin-bottom: 20px;
+  }
+
+  .show-number img{
+    height: 18px;
+    width: 18px;
+  }
+
+  .advertisement-preview, .img-wrapper{
+    max-width: 100%;
+  }
+
+  .carousel-img-wrapper{
+    max-width: 104px;
+  }
+
+  .advertisement-details{
+    max-width: 100%;
+  }
+}
