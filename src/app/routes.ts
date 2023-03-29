@@ -17,7 +17,7 @@ export const routes: Routes = [
     loadComponent: () => import('src/app/pages/user-settings/user-settings.component').then(mod => mod.UserSettingsComponent)
   },
   {
-    path:'account/advertisements', title:'Настройки',
+    path:'account/advertisements', title:'Мои объявления',
     loadComponent: () => import('src/app/pages/user-advertisements/user-advertisements.component').then(mod => mod.UserAdvertisementsComponent)
   },
 
