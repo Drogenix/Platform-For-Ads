@@ -2,8 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   box-sizing: border-box;
+  overflow: hidden;
   height: 100%;
   width: 100%;
   inset: 0;

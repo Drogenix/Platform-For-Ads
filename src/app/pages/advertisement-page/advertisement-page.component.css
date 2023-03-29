@@ -1,4 +1,5 @@
 .container{
+  position: relative;
   animation: show 200ms;
 }
 
@@ -80,10 +81,12 @@ h2{
   box-sizing: border-box;
   border-radius: 4px;
   cursor: pointer;
+  transition: 200ms;
 }
 
 .carousel-img-wrapper:not(.img-selected):is(:hover, :active){
-  box-shadow: 0 0 6px 3px #8fb7f8;
+  transform: scale(0.94);
+  box-shadow: 0 4px 12px 3px #c9cddc;
 }
 
 .carousel-img-wrapper img{
