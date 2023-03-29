@@ -6,7 +6,7 @@ import {BehaviorSubject, shareReplay} from "rxjs";
 })
 export class UserService {
 
-  private _isAuthSubject = new BehaviorSubject<boolean>(true);
+  private _isAuthSubject = new BehaviorSubject<boolean>(false);
 
   public isAuth$ = this._isAuthSubject.asObservable().pipe(shareReplay())
   constructor() { }

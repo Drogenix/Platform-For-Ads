@@ -19,6 +19,8 @@ import { CommonModule } from '@angular/common';
 export class DialogComponent {
   @Input() header: string;
 
+  @Input() maxWidth: string = '516px';
+
   private _state: 'opened' | 'closed' = 'closed';
 
   get state(){

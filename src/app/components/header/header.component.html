@@ -2,7 +2,7 @@
   <nav>
     <div class="container">
       <div class="nav-items">
-        <a class="btn sign-in">
+        <a class="btn sign-in" (click)="showAuth()">
           <img class="person-img" src="assets/icon/profile.svg" alt="Профиль">
           <ng-container *ngIf="(userService.isAuth$ | async); else signIn">
             Алексей
@@ -36,4 +36,4 @@
     </div>
   </div>
 </header>
-
+<app-auth></app-auth>

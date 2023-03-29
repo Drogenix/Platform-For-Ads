@@ -1,6 +1,8 @@
 <ng-container *ngIf="state === 'opened'">
   <div class="overlay">
-    <div #dialog class="dialog">
+    <div #dialog
+         [style.max-width]="maxWidth"
+         class="dialog">
       <div class="dialog-header">
         <h2>{{header}}</h2>
         <button #closeButton class="close-btn">

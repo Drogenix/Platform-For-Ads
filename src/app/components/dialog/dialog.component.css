@@ -11,12 +11,13 @@
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(2px);
   padding: 0 12px;
+  z-index: 1;
 }
 
 .dialog{
   display: flex;
   flex-direction: column;
-  max-width: 516px;
+  box-sizing: border-box;
   width: 100%;
   background: white;
   border-radius: 4px;
