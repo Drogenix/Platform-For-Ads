@@ -5,6 +5,7 @@ import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import {provideRouter} from "@angular/router";
 import {routes} from "./app/routes";
 import {HttpClientModule} from "@angular/common/http";
+import {provideEnvironmentNgxMask} from "ngx-mask";
 
 if (environment.production) {
   enableProdMode();
@@ -19,6 +20,7 @@ bootstrapApplication(AppComponent, {
       HttpClientModule
     ),
       provideRouter(routes),
+      provideEnvironmentNgxMask(),
       {provide:BACKEND_URL, useValue: 'https://fakerapi.it/api/v1/'}
     ]
 })

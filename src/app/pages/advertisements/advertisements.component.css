@@ -1,26 +1,5 @@
 
-/* Main Content */
 .main-content {
   display: block;
   margin-top: 32px;
-  padding-bottom: 32px;
-}
-
-.main-content h3 {
-  font-size: clamp(20px, 4vw + 2px, 24px);
-  font-weight: 600;
-  line-height: 32px;
-  margin-bottom: 24px;
-}
-
-.advertisements {
-  display: grid;
-  gap: 32px 24px;
-  grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
-}
-
-@media screen and (max-width: 586px){
-  .advertisements {
-    grid-template-columns: repeat(auto-fill,minmax(170px,1fr));
-  }
 }

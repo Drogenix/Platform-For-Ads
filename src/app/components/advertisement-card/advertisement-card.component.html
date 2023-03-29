@@ -1,7 +1,9 @@
 <article class="advertise-card">
   <a [routerLink]="['/advertisements/1']">
     <div class="img-wrapper">
-      <img alt="Изображение товара" class="card-img" [src]="advertisement.image">
+      <img class="card-img"
+           [src]="advertisement.image"
+           alt="Изображение товара">
     </div>
     <div>
       <div class="card-header">

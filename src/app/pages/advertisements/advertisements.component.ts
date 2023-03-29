@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AdvertisementsService} from "../../core/services/advertisements.service";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
-import {AdvertisementCardComponent} from "./advertisement-card/advertisement-card.component";
+import {AdvertisementCardComponent} from "../../components/advertisement-card/advertisement-card.component";
 
 @Component({
   selector: 'app-advertisements',
@@ -18,6 +18,6 @@ import {AdvertisementCardComponent} from "./advertisement-card/advertisement-car
 })
 export class AdvertisementsComponent{
 
-  response$ = this.advertisementsService.getAll();
+  response$ = this.advertisementsService.getAll(16);
   constructor(private advertisementsService: AdvertisementsService) {}
 }

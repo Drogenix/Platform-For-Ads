@@ -1,0 +1,50 @@
+<div class="container">
+  <h3>Настройки</h3>
+  <form>
+    <div class="inputs">
+      <div class="input-field">
+        <label for="name">Имя</label>
+        <input id="name" placeholder="Введите имя">
+      </div>
+      <div class="input-field">
+        <label for="phone">Номер телефона</label>
+        <input id="phone"
+               [mask]="'000) 000-00-00'"
+               [showMaskTyped]="true"
+               prefix="+7("
+               placeHolderCharacter="0"
+               placeholder="Введите номер телефона">
+      </div>
+    </div>
+    <label>Адрес<span> (будет указываться в объявлениях по умолчанию)</span></label>
+    <input class="input-big" placeholder="Не указан">
+
+    <div class="submit">
+      <button type="submit">Сохранить</button>
+      <p *ngIf="false" class="submit-success">
+        <img src="assets/icon/check-circle.svg" alt="Изменения сохранены">
+        Изменения сохранены
+      </p>
+    </div>
+  </form>
+
+  <h3>Смена пароля</h3>
+  <form>
+    <div>
+      <label>Текущий пароль</label>
+      <input type="password" id="pass" placeholder="Введите текущий пароль">
+    </div>
+    <div>
+      <label>Новый пароль<span>(минимум 8 символов)</span></label>
+      <input type="password" id="new-pass" placeholder="Введите новый пароль">
+    </div>
+
+    <div class="submit">
+      <button [disabled]="true" type="submit">Изменить пароль</button>
+      <p *ngIf="false" class="submit-success">
+        <img src="assets/icon/check-circle.svg" alt="Изменения сохранены">
+        Изменения сохранены
+      </p>
+    </div>
+  </form>
+</div>

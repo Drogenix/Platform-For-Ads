@@ -8,6 +8,13 @@ h1,h2,h3,h4,h5,h6,p {
   margin: 0;
 }
 
+h3 {
+  font-size: clamp(20px, 4vw + 2px, 24px);
+  font-weight: 600;
+  line-height: 32px;
+  margin-bottom: 24px;
+}
+
 a{
   text-decoration: none;
   color: currentColor;
@@ -31,8 +38,20 @@ a{
 }
 
 .container {
-  box-sizing: border-box;
   max-width: 1296px;
   padding: 0 12px;
   margin: 0 auto;
+}
+
+.advertisements {
+  display: grid;
+  padding-bottom: 32px;
+  gap: 32px 24px;
+  grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+}
+
+@media screen and (max-width: 586px){
+  .advertisements {
+    grid-template-columns: repeat(auto-fill,minmax(176px,1fr));
+  }
 }

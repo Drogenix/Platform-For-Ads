@@ -1,5 +1,5 @@
 <div class="container">
-  <ul>
+  <ul class="breadcrumbs">
     <li>
       Севастополь
     </li>
@@ -41,8 +41,8 @@
     </div>
     <div class="advertisement-details">
       <h2>80 000 ₽</h2>
-      <button class="btn show-number">
-        <img alt="Показать номер" height="28px" width="28px" src="assets/icon/phone.svg">
+      <button class="btn show-number" (click)="showNumber()">
+        <img alt="Показать номер" height="22px" width="22px" src="assets/icon/phone.svg">
         Показать номер телефона
       </button>
       <section>
@@ -60,4 +60,18 @@
       </section>
     </div>
   </main>
+  <ng-container>
+    <app-dialog [header]="'Пользователь'">
+      <p class="phone-num">+7 (978) 987-65-43</p>
+      <div class="divider"></div>
+      <div class="deal-rules">
+        <p>Правила безопасных сделок</p>
+        <ul>
+          <li>Храните в тайне почту, данные паспорта, и код с карты</li>
+          <li>Игнорируйте ссылки на оплату, которые присылает собеседник</li>
+          <li>Никому не говорите коды из смс и пуш-уведомлений</li>
+        </ul>
+      </div>
+    </app-dialog>
+  </ng-container>
 </div>

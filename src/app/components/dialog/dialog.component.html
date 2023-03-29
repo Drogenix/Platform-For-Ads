@@ -1,0 +1,14 @@
+<ng-container *ngIf="state === 'opened'">
+  <div class="overlay">
+    <div #dialog class="dialog">
+      <div class="dialog-header">
+        <h2>{{header}}</h2>
+        <button #closeButton class="close-btn">
+          <img src="assets/icon/x-mark.svg" alt="Закрыть">
+        </button>
+      </div>
+      <ng-content></ng-content>
+    </div>
+  </div>
+</ng-container>
+

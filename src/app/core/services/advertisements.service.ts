@@ -14,7 +14,7 @@ export class AdvertisementsService {
     this._baseUrl = baseUrl;
   }
 
-  getAll():Observable<Response> {
-    return this._http.get<Response>(this._baseUrl + 'products?_quantity=16&_taxes=12')
+  getAll(quantity:number):Observable<Response> {
+    return this._http.get<Response>(this._baseUrl + 'products?_quantity='+ quantity +'&_taxes=12')
   }
 }
