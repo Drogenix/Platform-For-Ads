@@ -4,7 +4,6 @@ header {
 
 nav
 {
-  height: 36px;
   padding: 8px 0;
   background: #1E293B;
 }
@@ -20,6 +19,10 @@ nav
   height: 32px;
   background: transparent;
   margin-right: 12px;
+}
+
+.logout{
+  color: #EF4444;
 }
 
 .person-img {
@@ -98,6 +101,27 @@ nav
 
 .search img{
   margin-left: 8px;
+}
+
+p-overlay a{
+  font-size:14px;
+  line-height:20px;
+  text-align:right;
+  padding: 8px 16px;
+  cursor:pointer;
+  transition: 200ms;
+}
+
+p-overlay a:first-child{
+  border-radius: 4px 4px 0 0;
+}
+
+p-overlay a:last-child{
+  border-radius: 0 0 4px 4px;
+}
+
+p-overlay a:hover{
+  background: #f3f3f3;
 }
 
 @media screen and (max-width: 785px) {

@@ -2,17 +2,26 @@
   <nav>
     <div class="container">
       <div class="nav-items">
-        <a class="btn sign-in" (click)="showAuth()">
-          <img class="person-img" src="assets/icon/profile.svg" alt="Профиль">
-          <ng-container *ngIf="(userService.isAuth$ | async); else signIn">
+        <ng-container *ngIf="(isAuth$ | async); else signIn">
+          <a class="btn sign-in" (click)="toggleMenu()">
             Алексей
             <img class="arrow-img" src="assets/icon/arrow.svg" alt="Выпадающий список">
-          </ng-container>
-          <ng-template #signIn>
+          </a>
+          <p-overlay [(visible)]="overlayVisible"
+                     [contentStyleClass]="'overlay-content'"
+                     [responsive]="{direction: 'right'}">
+              <a [routerLink]="['/account/advertisements']">Мои объявления</a>
+              <a [routerLink]="['/account/settings']">Настройки</a>
+              <a class="logout" (click)="logout()">Выйти</a>
+          </p-overlay>
+        </ng-container>
+        <ng-template #signIn>
+          <a (click)="showAuth()" class="btn sign-in">
+            <img class="person-img" src="assets/icon/profile.svg" alt="Профиль">
             Войти
-          </ng-template>
-        </a>
-        <a class="btn new-add">
+          </a>
+        </ng-template>
+        <a [routerLink]="['/advertisements/create']" class="btn new-add">
           Новое объявление
           <img src="assets/icon/plus.svg" alt="Новое объявление">
         </a>
@@ -36,4 +45,3 @@
     </div>
   </div>
 </header>
-<app-auth></app-auth>

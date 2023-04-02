@@ -1,0 +1,30 @@
+<form>
+  <div class="inputs">
+    <div class="input-field">
+      <input [mask]="'000) 000-00-00'"
+             [showMaskTyped]="true"
+             prefix="+7("
+             placeHolderCharacter="0"
+             placeholder="Номер телефона">
+      <p style="display: none" class="error">Введите номер телефона</p>
+    </div>
+    <div *ngIf="false" class="input-field">
+      <input placeholder="Имя">
+      <p class="error">Введите имя</p>
+    </div>
+    <div  class="input-field">
+      <input type="password" placeholder="Пароль">
+      <p style="display: none" class="error">Введите пароль</p>
+    </div>
+    <div class="form-bottom">
+      <div class="remember-me">
+        <input class="checkbox" type="checkbox">
+        <p>Запомнить меня</p>
+      </div>
+      <a>Забыли пароль?</a>
+    </div>
+  </div>
+  <button type="submit">Войти
+  </button>
+</form>
+

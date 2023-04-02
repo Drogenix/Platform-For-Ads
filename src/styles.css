@@ -1,3 +1,7 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
 html, body {
   display: flex;
   flex-direction: column;
@@ -5,6 +9,10 @@ html, body {
   padding: 0;
   margin: 0;
   font-family: 'Inter', sans-serif;
+}
+
+body::-webkit-scrollbar{
+  width: 0;
 }
 
 app-root, app-advertisement-page{
@@ -21,6 +29,7 @@ h3 {
   font-size: clamp(20px, 4vw + 2px, 24px);
   font-weight: 600;
   line-height: 32px;
+  margin-top: 32px;
   margin-bottom: 24px;
 }
 
@@ -52,6 +61,21 @@ a{
   margin: 0 auto;
 }
 
+.animated{
+  animation: show 200ms;
+}
+
+@keyframes show {
+  0%{
+    opacity: .7;
+    transform: scale(0.95);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .advertisements {
   display: grid;
   padding-bottom: 32px;
@@ -62,5 +86,122 @@ a{
 @media screen and (max-width: 586px){
   .advertisements {
     grid-template-columns: repeat(auto-fill,minmax(176px,1fr));
+  }
+}
+
+.overlay{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  padding: 0 12px;
+  z-index: 1;
+}
+
+.app-form{
+  max-width: 856px;
+}
+
+.form-input{
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 416px;
+  border: 1px solid #CBD5E1;
+  border-radius: 4px;
+  height: 48px;
+  padding: 12px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: #1E293B;
+}
+
+.form-input:focus-visible{
+  outline: none;
+  border-color: #3B82F6;
+}
+
+.input-big{
+  max-width: 100%;
+}
+
+.form-label{
+  display: inline-block;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #1E293B;
+  margin-bottom: 8px;
+}
+
+.p-cascadeselect{
+  display: flex !important;
+  max-width: 416px;
+  margin-bottom: 12px;
+}
+
+.p-inputtext{
+  font-family: 'Inter', sans-serif;
+}
+
+.p-dialog-mask{
+  padding: 0 12px;
+}
+
+@media screen and (max-width: 576px){
+  .form-input{
+    font-size: 15px;
+    padding: 8px 12px;
+    height: 40px;
+  }
+
+    h3{
+      margin: 12px 0;
+    }
+
+    .form-input{
+      max-width: 100%;
+    }
+
+  .p-cascadeselect-label{
+    font-size: 15px !important;
+  }
+
+  .p-cascadeselect{
+    max-width: 100%;
+  }
+}
+
+.spinner{
+  display: block !important;
+  width: 40px !important;
+  height: 40px !important;
+  top: 32vh;
+}
+
+.p-progress-spinner-circle{
+  stroke: #3B82F6 !important;
+}
+
+.overlay-content{
+  display: flex;
+  flex-direction: column;
+  max-width: 147px;
+  background: white;
+  border-radius: 4px;
+  transform: translateX(-60px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+@media screen and (max-width: 576px){
+  .overlay-content{
+    transform:translateX(0);
   }
 }

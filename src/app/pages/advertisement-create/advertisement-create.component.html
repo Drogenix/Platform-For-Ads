@@ -1,0 +1,62 @@
+<div class="container animated">
+  <h3>Новое объявление</h3>
+  <form class="app-form">
+    <div>
+      <label class="form-label">
+        Выберите категорию
+        <span>*</span>
+      </label>
+      <p-cascadeSelect  [options]="categories"
+                        optionLabel="name"
+                        optionGroupLabel="name"
+                        [optionGroupChildren]="['subCategories']"
+                        placeholder="Нажмите, чтобы выбрать"
+                        (onChange)="log($event)"
+      ></p-cascadeSelect>
+    </div>
+    <div>
+      <label class="form-label">
+        Название объявления
+        <span>*</span>
+      </label>
+      <input class="form-input input-big" placeholder="Что хотите продать?">
+    </div>
+    <div>
+      <label class="form-label">
+        Описание
+      </label>
+      <textarea class="form-input input-big" placeholder="Расскажите подробнее о товаре или услуге"></textarea>
+    </div>
+    <div>
+      <label class="form-label">
+        Адрес (место проведения сделки)
+        <span>*</span>
+      </label>
+      <input class="form-input" placeholder="Начните вводить адрес">
+    </div>
+    <div class="form-input input-big upload">
+      <label class="upload-btn">
+        <input type="file"
+               accept="image/*">
+        <img alt="Картинки" src="assets/icon/images.svg">
+        Добавить картинки
+      </label>
+      Максимум 10 картинок в формате jpeg, png или heic
+    </div>
+    <div>
+      <label class="form-label">
+        Цена
+      </label>
+      <input class="form-input"
+             type="text"
+             [allowNegativeNumbers]="false"
+             mask="separator"
+             separatorLimit="9999999"
+             suffix=" ₽"
+             placeholder="0 ₽">
+    </div>
+    <button [disabled]="true" class="submit">Разместить объявление</button>
+  </form>
+  <p class="policy">Нажимая кнопку «Разместить объявление»<br>
+    Вы соглашаетесь с <a>правилами площадки</a></p>
+</div>

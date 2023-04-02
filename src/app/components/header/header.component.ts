@@ -1,22 +1,34 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {AsyncPipe, NgIf} from "@angular/common";
 import {UserService} from "../../core/services/user.service";
 import {AuthComponent} from "../auth/auth.component";
+import {RouterLink} from "@angular/router";
+import {OverlayModule} from "primeng/overlay";
+import {AuthDialogService} from "../../core/services/auth-dialog.service";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [NgIf, AsyncPipe, AuthComponent],
+  imports: [NgIf, AsyncPipe, AuthComponent, RouterLink, OverlayModule],
   standalone:true
 })
 export class HeaderComponent {
 
-  @ViewChild(AuthComponent) private _authRef:AuthComponent
-  constructor(public userService:UserService) {
+  isAuth$ = this.userService.isAuth$;
+  overlayVisible:boolean = false;
+  constructor(private userService:UserService, private authDialog:AuthDialogService) {
   }
 
   showAuth(){
-    this._authRef.show()
+    this.authDialog.showAuth();
+  }
+
+  toggleMenu(){
+    this.overlayVisible = !this.overlayVisible;
+  }
+
+  logout(){
+    this.userService.logout();
   }
 }

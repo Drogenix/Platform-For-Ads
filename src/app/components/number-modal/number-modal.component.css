@@ -1,0 +1,39 @@
+:host{
+  font-family: 'Inter', sans-serif;
+}
+
+.phone-num{
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 36px;
+  color: #3B82F6;
+  margin: 0;
+}
+
+.divider{
+  border-top: 1px solid #E2E8F0;
+  margin: 16px 0;
+}
+
+.deal-rules > p, li{
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #1E293B;
+}
+
+.deal-rules ul{
+  display: block;
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+@media screen and (max-width: 576px){
+  .phone-num{
+    font-size: 24px;
+  }
+
+  .deal-rules > p, li{
+    font-size: 16px;
+  }
+}

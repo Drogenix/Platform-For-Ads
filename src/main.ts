@@ -4,8 +4,11 @@ import { AppComponent } from './app/app.component';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import {provideRouter} from "@angular/router";
 import {routes} from "./app/routes";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {provideEnvironmentNgxMask} from "ngx-mask";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {LoaderInterceptor} from "./app/core/interceptors/loader.interceptor";
+import {DialogService, DynamicDialogModule} from "primeng/dynamicdialog";
 
 if (environment.production) {
   enableProdMode();
@@ -17,11 +20,15 @@ bootstrapApplication(AppComponent, {
     providers: [
       importProvidersFrom(
       BrowserModule,
-      HttpClientModule
-    ),
+        BrowserAnimationsModule,
+      HttpClientModule,
+        DynamicDialogModule
+      ),
       provideRouter(routes),
       provideEnvironmentNgxMask(),
-      {provide:BACKEND_URL, useValue: 'https://fakerapi.it/api/v1/'}
+      DialogService,
+      {provide:BACKEND_URL, useValue: 'https://fakerapi.it/api/v1/'},
+      {provide:HTTP_INTERCEPTORS, useClass:LoaderInterceptor, multi:true}
     ]
 })
   .catch(err => console.error(err));

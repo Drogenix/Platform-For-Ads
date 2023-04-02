@@ -1,0 +1,84 @@
+h3{
+  margin:32px 0 24px;
+}
+
+span{
+  color: #EF4444;
+}
+
+textarea{
+  font-family:'Inter', sans-serif;
+  min-height: 168px;
+  resize: none;
+}
+
+button, .upload-btn{
+  color: white;
+  background: #3B82F6;
+  border-radius: 4px;
+  transition:200ms;
+  cursor:pointer;
+}
+
+button:hover, .upload-btn:hover{
+  opacity: .8;
+}
+
+.upload{
+  display:flex;
+  flex-wrap:wrap;
+  align-items: center;
+  height: auto;
+  gap:8px 0;
+  background:#F8FAFC;
+  font-size: 14px;
+}
+
+.upload input{
+  display:none;
+}
+
+.upload-btn{
+  display:flex;
+  align-items:center;
+  height: 35px;
+  margin-right: 16px;
+  padding:7.5px 12px;
+  font-size:14px;
+  line-height:24px;
+}
+
+.upload-btn img{
+  margin-right: 8px;
+}
+
+.submit{
+  margin-top:8px;
+  border:none;
+  font-size: 18px;
+  padding: 12px;
+}
+
+.policy{
+  font-size: 14px;
+  line-height: 20px;
+  color: #64748B;
+  margin: 8px 0 32px;
+}
+
+.policy a{
+  text-decoration: none;
+  color: #3B82F6;
+  cursor:pointer;
+}
+
+.policy a:hover{
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 576px){
+  .submit{
+    font-size: 15px;
+    padding: 8px 12px;
+  }
+}

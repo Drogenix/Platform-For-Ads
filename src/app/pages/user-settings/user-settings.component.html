@@ -1,14 +1,15 @@
-<div class="container">
+<div class="container animated">
   <h3>Настройки</h3>
-  <form>
+  <form class="app-form">
     <div class="inputs">
       <div class="input-field">
-        <label for="name">Имя</label>
-        <input id="name" placeholder="Введите имя">
+        <label class="form-label" for="name">Имя</label>
+        <input class="form-input" id="name" placeholder="Введите имя">
       </div>
       <div class="input-field">
-        <label for="phone">Номер телефона</label>
-        <input id="phone"
+        <label class="form-label" for="phone">Номер телефона</label>
+        <input class="form-input"
+               id="phone"
                [mask]="'000) 000-00-00'"
                [showMaskTyped]="true"
                prefix="+7("
@@ -16,8 +17,8 @@
                placeholder="Введите номер телефона">
       </div>
     </div>
-    <label>Адрес<span> (будет указываться в объявлениях по умолчанию)</span></label>
-    <input class="input-big" placeholder="Не указан">
+    <label class="form-label">Адрес<span> (будет указываться в объявлениях по умолчанию)</span></label>
+    <input class="form-input input-big" placeholder="Не указан">
 
     <div class="submit">
       <button type="submit">Сохранить</button>
@@ -31,12 +32,12 @@
   <h3>Смена пароля</h3>
   <form>
     <div>
-      <label>Текущий пароль</label>
-      <input type="password" id="pass" placeholder="Введите текущий пароль">
+      <label class="form-label">Текущий пароль</label>
+      <input class="form-input" type="password" id="pass" placeholder="Введите текущий пароль">
     </div>
     <div>
-      <label>Новый пароль<span>(минимум 8 символов)</span></label>
-      <input type="password" id="new-pass" placeholder="Введите новый пароль">
+      <label class="form-label">Новый пароль<span> (минимум 8 символов)</span></label>
+      <input class="form-input" type="password" id="new-pass" placeholder="Введите новый пароль">
     </div>
 
     <div class="submit">
