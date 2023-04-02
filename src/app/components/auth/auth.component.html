@@ -8,9 +8,9 @@
              placeholder="Номер телефона">
       <p style="display: none" class="error">Введите номер телефона</p>
     </div>
-    <div *ngIf="false" class="input-field">
+    <div *ngIf="!isSignIn" class="input-field">
       <input placeholder="Имя">
-      <p class="error">Введите имя</p>
+      <p style="display: none" class="error">Введите имя</p>
     </div>
     <div  class="input-field">
       <input type="password" placeholder="Пароль">
@@ -21,10 +21,9 @@
         <input class="checkbox" type="checkbox">
         <p>Запомнить меня</p>
       </div>
-      <a>Забыли пароль?</a>
+      <a (click)="changeAuthType()">{{isSignIn ? 'Зарегистрироваться' : 'Авторизоваться'}}</a>
     </div>
   </div>
-  <button type="submit">Войти
-  </button>
+  <button type="submit">{{isSignIn ? 'Войти' : 'Зарегистрироваться'}}</button>
 </form>
 
