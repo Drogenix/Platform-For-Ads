@@ -1,8 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BACKEND_URL} from "../../../main";
-import {Observable, tap} from "rxjs";
-import {Response} from "../entities/response";
+import {Observable} from "rxjs";
+import {Advertisement} from "../entities/advertisement";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,11 @@ export class AdvertisementsService {
     this._baseUrl = baseUrl;
   }
 
-  getAll(quantity:number):Observable<Response> {
-    return this._http.get<Response>(this._baseUrl + 'products?_quantity='+ quantity +'&_taxes=12').pipe(tap(val => console.log(val)))
+  getAll():Observable<Advertisement[]> {
+    return this._http.get<Advertisement[]>(this._baseUrl + 'Advert')
+  }
+
+  getById(id:string):Observable<Advertisement> {
+    return this._http.get<Advertisement>(this._baseUrl + 'Advert/' + id)
   }
 }

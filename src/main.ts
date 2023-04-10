@@ -27,7 +27,7 @@ bootstrapApplication(AppComponent, {
       provideRouter(routes),
       provideEnvironmentNgxMask(),
       DialogService,
-      {provide:BACKEND_URL, useValue: 'https://fakerapi.it/api/v1/'},
+      {provide:BACKEND_URL, useValue: 'http://localhost:4200/api/'},
       {provide:HTTP_INTERCEPTORS, useClass:LoaderInterceptor, multi:true}
     ]
 })

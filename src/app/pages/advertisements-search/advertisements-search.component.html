@@ -1,0 +1,35 @@
+<ng-container *ngIf="(ads$ | async) as advertisements">
+  <div class="container">
+    <h3>Объявления по запросу «попугаи»</h3>
+    <main>
+        <div class="advertisements-filters" [ngClass]="isMenuVisible ? '':'hide'">
+          <h4>Все категории</h4>
+          <p-tree [value]="categories"></p-tree>
+          <h4>Цена</h4>
+          <form>
+            <div>
+              <input class="price-input" placeholder="Цена от">
+              <input class="price-input" placeholder="до, руб.">
+            </div>
+            <button type="submit" class="submit">Показать объявления</button>
+          </form>
+        </div>
+      <div class="advertisements-results">
+        <div class="search-result">
+          <p class="result">Всего найдено 1 234 объявления</p>
+          <div class="sort">
+            <p>Сортировка по</p>
+            <p-dropdown [options]="sortBy"
+                        [editable]="false"
+                        optionLabel="label"></p-dropdown>
+            <button class="btn filters" (click)="toggleMenu()">Фильтры</button>
+          </div>
+        </div>
+        <div class="advertisements">
+          <advertisement-card *ngFor="let ad of advertisements" [advertisement]="ad"></advertisement-card>
+        </div>
+      </div>
+    </main>
+  </div>
+</ng-container>
+

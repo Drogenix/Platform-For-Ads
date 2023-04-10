@@ -1,29 +1,27 @@
-<form>
+<form [formGroup]="authForm" (ngSubmit)="submitAuth()">
   <div class="inputs">
     <div class="input-field">
-      <input [mask]="'000) 000-00-00'"
+      <input [ngClass]="{'input-alert': authForm.controls.login.invalid && authForm.controls.login.touched}"
+             [mask]="'000) 000-00-00'"
              [showMaskTyped]="true"
              prefix="+7("
-             placeHolderCharacter="0"
-             placeholder="Номер телефона">
-      <p style="display: none" class="error">Введите номер телефона</p>
+             placeHolderCharacter="_"
+             placeholder="Номер телефона"
+             formControlName="login">
+      <p *ngIf="authForm.controls.login.invalid && authForm.controls.login.touched" class="alert">Введите номер телефона</p>
     </div>
     <div *ngIf="!isSignIn" class="input-field">
-      <input placeholder="Имя">
-      <p style="display: none" class="error">Введите имя</p>
+      <input [ngClass]="{'input-alert': authForm.controls.name.invalid && authForm.controls.name.touched}" placeholder="Имя" formControlName="name" required>
+      <p *ngIf="authForm.controls.name.invalid &&  authForm.controls.name.touched" class="alert">Введите имя</p>
     </div>
-    <div  class="input-field">
-      <input type="password" placeholder="Пароль">
-      <p style="display: none" class="error">Введите пароль</p>
+    <div class="input-field">
+      <input [ngClass]="{'input-alert': authForm.controls.password.invalid && authForm.controls.password.touched}" type="password" placeholder="Пароль" formControlName="password">
+      <p *ngIf="authForm.controls.password.invalid && authForm.controls.password.touched" class="alert">Введите пароль</p>
     </div>
     <div class="form-bottom">
-      <div class="remember-me">
-        <input class="checkbox" type="checkbox">
-        <p>Запомнить меня</p>
-      </div>
       <a (click)="changeAuthType()">{{isSignIn ? 'Зарегистрироваться' : 'Авторизоваться'}}</a>
     </div>
   </div>
-  <button type="submit">{{isSignIn ? 'Войти' : 'Зарегистрироваться'}}</button>
+  <button [disabled]="authForm.invalid" type="submit">{{isSignIn ? 'Войти' : 'Зарегистрироваться'}}</button>
 </form>
 

@@ -1,22 +1,22 @@
-import {Routes} from "@angular/router";
+import {ActivatedRouteSnapshot, createUrlTreeFromSnapshot, Routes} from "@angular/router";
 import {inject} from "@angular/core";
 import {AuthDialogService} from "./core/services/auth-dialog.service";
 import {UserService} from "./core/services/user.service";
-import {take, tap} from "rxjs";
+import {map, take} from "rxjs";
 
-const HasAuthorizedGuard = () => {
+const HasAuthorizedGuard = (route:ActivatedRouteSnapshot) => {
   const authDialogService = inject(AuthDialogService);
 
   const userService = inject(UserService);
 
   return userService.isAuth$.pipe(
-    tap(isAuth => {
-      console.log(isAuth)
+    map((isAuth) => {
       if(!isAuth)
       {
         authDialogService.showAuth();
+        return createUrlTreeFromSnapshot(route, route.url)
       }
-
+      return isAuth;
     }),
     take(1)
   )
@@ -42,7 +42,8 @@ export const routes: Routes = [
   },
   {
     path:'account/settings', title:'Настройки',
-    loadComponent: () => import('src/app/pages/user-settings/user-settings.component').then(mod => mod.UserSettingsComponent)
+    loadComponent: () => import('src/app/pages/user-settings/user-settings.component').then(mod => mod.UserSettingsComponent),
+    canActivate:[HasAuthorizedGuard]
   },
   {
     path:'account/advertisements', title:'Мои объявления',

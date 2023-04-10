@@ -7,9 +7,10 @@
   border: dashed 3px rgba(59, 130, 246, 0.16);
   border-radius: 4px;
   color: #3B82F6;
-  font-size: 18px;
+  font-size: clamp(15px, 3vw, 18px);
   font-weight: 500;
-  padding: 8px 0;
+  text-align: center;
+  padding: 4px;
   cursor: pointer;
   transition: 200ms;
 }
@@ -23,11 +24,13 @@
 }
 
 @media screen and (max-width: 586px){
-  .advertisements {
-    grid-template-columns: repeat(auto-fill,minmax(186px,1fr));
-  }
 
   .new-add{
     height: 100%;
+  }
+
+  .new-add img{
+    height: 50px;
+    width: 50px;
   }
 }

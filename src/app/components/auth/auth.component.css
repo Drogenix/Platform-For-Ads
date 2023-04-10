@@ -3,11 +3,15 @@
   flex-direction: column;
 }
 
+.input-alert{
+  border:1px solid #EF4444;
+}
+
 .input-field{
   margin-bottom: 16px;
 }
 
-.input-field input{
+input{
   flex: 1 1;
   box-sizing: border-box;
   height: 48px;
@@ -29,7 +33,7 @@
   border-color: #3B82F6;
 }
 
-.error{
+.alert{
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
@@ -94,11 +98,11 @@ button{
   transition: 200ms;
 }
 
-button:hover{
+button:hover, :disabled{
   opacity: .8;
 }
 
-button:active{
+button:not(:disabled):active{
   transform: scale(0.94);
   opacity: .7;
 }

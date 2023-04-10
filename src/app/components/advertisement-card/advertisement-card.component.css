@@ -38,3 +38,13 @@
   color: #64748B;
   line-height: 20px;
 }
+
+@media screen and (max-width: 586px){
+  .card-header p {
+    font-size: 15px;
+  }
+
+  .card-info {
+    font-size: 13px;
+  }
+}
