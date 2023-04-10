@@ -1,7 +1,3 @@
 <app-header></app-header>
-<ng-container *ngIf="loaderService.loading$ | async">
-  <p-progressSpinner strokeWidth="4"
-                     animationDuration="4s"
-                     styleClass="spinner"></p-progressSpinner>
-</ng-container>
+<app-search></app-search>
 <router-outlet></router-outlet>

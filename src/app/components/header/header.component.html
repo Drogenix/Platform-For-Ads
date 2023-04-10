@@ -1,47 +1,29 @@
 <header>
-  <nav>
-    <div class="container">
-      <div class="nav-items">
-        <ng-container *ngIf="(isAuth$ | async); else signIn">
-          <a class="btn sign-in" (click)="toggleMenu()">
-            Алексей
-            <img class="arrow-img" src="assets/icon/arrow.svg" alt="Выпадающий список">
-          </a>
-          <p-overlay [(visible)]="overlayVisible"
-                     [contentStyleClass]="'overlay-content'"
-                     [responsive]="{direction: 'right'}">
-              <a [routerLink]="['/account/advertisements']">Мои объявления</a>
-              <a [routerLink]="['/account/settings']">Настройки</a>
-              <a class="logout" (click)="logout()">Выйти</a>
-          </p-overlay>
-        </ng-container>
-        <ng-template #signIn>
-          <a (click)="showAuth()" class="btn sign-in">
-            <img class="person-img" src="assets/icon/profile.svg" alt="Профиль">
-            Войти
-          </a>
-        </ng-template>
-        <a [routerLink]="['/advertisements/create']" class="btn new-add">
-          Новое объявление
-          <img src="assets/icon/plus.svg" alt="Новое объявление">
-        </a>
-      </div>
-    </div>
-  </nav>
   <div class="container">
-    <div class="header-search">
-      <h2>Доска объявлений</h2>
-      <button class="btn all-categories">
-        <img src="assets/icon/listed.svg" alt="Список категорий">
-        Все категории
-      </button>
-      <form class="search-box">
-        <input class="search-input" placeholder="Поиск по объявлениям">
-        <button class="btn search">
-          Найти
-          <img src="assets/icon/search.svg" alt="Поиск">
-        </button>
-      </form>
-    </div>
+    <nav>
+      <ng-container *ngIf="(isAuth$ | async); else signIn">
+        <a class="btn sign-in" (click)="toggleMenu()">
+          Профиль
+          <img class="arrow-img" src="assets/icon/arrow.svg" alt="Выпадающий список">
+        </a>
+        <p-overlay [(visible)]="overlayVisible"
+                   [contentStyleClass]="'overlay-content'"
+                   [responsive]="{direction: 'right'}">
+          <a [routerLink]="['/account/advertisements']">Мои объявления</a>
+          <a [routerLink]="['/account/settings']">Настройки</a>
+          <a class="logout" (click)="logout()">Выйти</a>
+        </p-overlay>
+      </ng-container>
+      <ng-template #signIn>
+        <a (click)="showAuth()" class="btn sign-in">
+          <img class="person-img" src="assets/icon/profile.svg" alt="Профиль">
+          Войти
+        </a>
+      </ng-template>
+      <a [routerLink]="['/advertisements/create']" class="btn new-add">
+        Новое объявление
+        <img src="assets/icon/plus.svg" alt="Новое объявление">
+      </a>
+    </nav>
   </div>
 </header>

@@ -85,7 +85,8 @@ a{
 
 @media screen and (max-width: 586px){
   .advertisements {
-    grid-template-columns: repeat(auto-fill,minmax(176px,1fr));
+    grid-template-columns: repeat(auto-fill,minmax(142px,1fr));
+    gap:12px;
   }
 }
 
@@ -186,6 +187,13 @@ a{
   top: 32vh;
 }
 
+.spinner-small{
+  display: block !important;
+  width: 32px !important;
+  height: 32px !important;
+  margin-top:24px !important;
+}
+
 .p-progress-spinner-circle{
   stroke: #3B82F6 !important;
 }
@@ -204,4 +212,39 @@ a{
   .overlay-content{
     transform:translateX(0);
   }
+}
+
+.p-slidemenu-content::-webkit-scrollbar{
+  width: 0;
+}
+
+.p-tree, p-tree{
+  padding: 0 !important;
+  border: none;
+}
+
+.p-treenode-content{
+  padding: 0 0 0 4px !important;
+
+}
+
+.p-treenode-label, .pi-chevron-right:before{
+  color: #3B82F6;
+}
+
+.pi-chevron-right:before{
+  font-size: 12px;
+}
+
+.p-tree-toggler{
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.p-cascadeselect-label{
+  font-family: "Inter", sans-serif !important;
+}
+
+app-advertisements-search .p-inputtext{
+  padding:8px !important;
 }

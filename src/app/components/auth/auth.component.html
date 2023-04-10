@@ -1,29 +1,48 @@
-<form>
+<form [formGroup]="authForm" (ngSubmit)="submit()">
   <div class="inputs">
     <div class="input-field">
-      <input [mask]="'000) 000-00-00'"
+      <input [class.input-alert]= "authForm.controls.login.invalid && authForm.controls.login.touched"
+             [mask]="'000) 000-00-00'"
              [showMaskTyped]="true"
              prefix="+7("
-             placeHolderCharacter="0"
-             placeholder="Номер телефона">
-      <p style="display: none" class="error">Введите номер телефона</p>
+             placeHolderCharacter="_"
+             placeholder="Номер телефона"
+             formControlName="login">
+      <p class="alert"
+         *ngIf="authForm.controls.login.invalid && authForm.controls.login.touched">
+        Введите номер телефона
+      </p>
     </div>
     <div *ngIf="!isSignIn" class="input-field">
-      <input placeholder="Имя">
-      <p style="display: none" class="error">Введите имя</p>
+      <input [class.input-alert]= "authForm.controls.email.invalid && authForm.controls.email.touched"
+             placeholder="E-mail"
+             formControlName="email">
+      <p class="alert"
+         *ngIf="authForm.controls.email.invalid && authForm.controls.email.touched">
+        Введите e-mail
+      </p>
     </div>
-    <div  class="input-field">
-      <input type="password" placeholder="Пароль">
-      <p style="display: none" class="error">Введите пароль</p>
+    <div class="input-field">
+      <input [class.input-alert]= "authForm.controls.password.invalid && authForm.controls.password.touched"
+             type="password"
+             placeholder="Пароль"
+             formControlName="password">
+      <p class="alert"
+          *ngIf="authForm.controls.password.invalid && authForm.controls.password.touched">
+        Введите пароль
+      </p>
     </div>
     <div class="form-bottom">
-      <div class="remember-me">
-        <input class="checkbox" type="checkbox">
-        <p>Запомнить меня</p>
-      </div>
       <a (click)="changeAuthType()">{{isSignIn ? 'Зарегистрироваться' : 'Авторизоваться'}}</a>
     </div>
   </div>
-  <button type="submit">{{isSignIn ? 'Войти' : 'Зарегистрироваться'}}</button>
+  <p class="alert" style="margin:16px 0; text-align:center">{{error}}</p>
+  <ng-container *ngIf="!(submitting$ | async); else loading">
+    <button [disabled]="authForm.invalid" type="submit">{{isSignIn ? 'Войти' : 'Зарегистрироваться'}}</button>
+  </ng-container>
+  <ng-template #loading>
+    <p-progressSpinner strokeWidth="4"
+                       animationDuration="4s" styleClass="spinner-small"></p-progressSpinner>
+  </ng-template>
 </form>
 

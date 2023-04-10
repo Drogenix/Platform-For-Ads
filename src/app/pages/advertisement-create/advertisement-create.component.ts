@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {CascadeSelectModule} from "primeng/cascadeselect";
 import {Category} from "../../core/entities/category";
 import {NgxMaskDirective} from "ngx-mask";
@@ -9,6 +9,7 @@ type AdvertiseCategory = Category & {subCategories?: Category[]}
   selector: 'app-advertisement-create',
   templateUrl: './advertisement-create.component.html',
   styleUrls: ['./advertisement-create.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CascadeSelectModule, NgxMaskDirective],
 })

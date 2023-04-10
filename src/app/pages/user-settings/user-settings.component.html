@@ -1,10 +1,10 @@
 <div class="container animated">
   <h3>Настройки</h3>
-  <form class="app-form">
+  <form class="app-form" [formGroup]="userDataForm" (ngSubmit)="submitUserData()">
     <div class="inputs">
       <div class="input-field">
         <label class="form-label" for="name">Имя</label>
-        <input class="form-input" id="name" placeholder="Введите имя">
+        <input type="text" class="form-input" id="name" placeholder="Введите имя" formControlName="name">
       </div>
       <div class="input-field">
         <label class="form-label" for="phone">Номер телефона</label>
@@ -13,16 +13,16 @@
                [mask]="'000) 000-00-00'"
                [showMaskTyped]="true"
                prefix="+7("
-               placeHolderCharacter="0"
-               placeholder="Введите номер телефона">
+               placeholder="Введите номер телефона"
+               formControlName="phone">
       </div>
     </div>
     <label class="form-label">Адрес<span> (будет указываться в объявлениях по умолчанию)</span></label>
-    <input class="form-input input-big" placeholder="Не указан">
+    <input class="form-input input-big" placeholder="Не указан" formControlName="address">
 
     <div class="submit">
-      <button type="submit">Сохранить</button>
-      <p *ngIf="false" class="submit-success">
+      <button [disabled]="userDataForm.invalid" type="submit">Сохранить</button>
+      <p *ngIf="isUserDataChanged" class="submit-success">
         <img src="assets/icon/check-circle.svg" alt="Изменения сохранены">
         Изменения сохранены
       </p>
@@ -30,19 +30,27 @@
   </form>
 
   <h3>Смена пароля</h3>
-  <form>
+  <form [formGroup]="userPassForm" (ngSubmit)="submitUserPass()">
     <div>
       <label class="form-label">Текущий пароль</label>
-      <input class="form-input" type="password" id="pass" placeholder="Введите текущий пароль">
+      <input class="form-input"
+             type="password"
+             id="pass"
+             placeholder="Введите текущий пароль"
+             formControlName="currentPass">
     </div>
     <div>
       <label class="form-label">Новый пароль<span> (минимум 8 символов)</span></label>
-      <input class="form-input" type="password" id="new-pass" placeholder="Введите новый пароль">
+      <input class="form-input"
+             type="password"
+             id="new-pass"
+             placeholder="Введите новый пароль"
+             formControlName="newPass">
     </div>
 
     <div class="submit">
-      <button [disabled]="true" type="submit">Изменить пароль</button>
-      <p *ngIf="false" class="submit-success">
+      <button [disabled]="userPassForm.invalid" type="submit">Изменить пароль</button>
+      <p *ngIf="isUserPassChanged" class="submit-success">
         <img src="assets/icon/check-circle.svg" alt="Изменения сохранены">
         Изменения сохранены
       </p>

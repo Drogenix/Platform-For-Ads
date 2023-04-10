@@ -1,22 +1,13 @@
-<ng-container *ngIf="data$ | async">
+<ng-container *ngIf="(ad$ | async) as ad; else loading">
   <div class="container animated">
     <ul class="breadcrumbs">
       <li>
-        Севастополь
-      </li>
-      <li>
-        Электроника
-      </li>
-      <li>
-        Ноутбуки
-      </li>
-      <li>
-        Apple
+        {{ad.category.name}}
       </li>
     </ul>
     <main>
       <div class="advertisement-preview">
-        <h2>Macbook pro 13 2020 m1 8/256</h2>
+        <h2>{{ad.content.name}}</h2>
         <div class="advertisement-images">
           <div class="img-wrapper">
             <img alt="Изображение товара" src="assets/icon/Rectangle%201.png">
@@ -41,14 +32,14 @@
         </div>
       </div>
       <div class="advertisement-details">
-        <h2>80 000 ₽</h2>
+        <h2>{{ad.content.price}} ₽</h2>
         <button class="btn show-number" (click)="showNumber()">
           <img alt="Показать номер" height="22px" width="22px" src="assets/icon/phone.svg">
           Показать номер телефона
         </button>
         <section>
           <h3>Адрес</h3>
-          <p class="details">Севастополь, ул. Гоголя, 33Б</p>
+          <p class="details">{{ad.content.address}}</p>
           <a class="btn open-on-map">
             Открыть на карте
             <img alt="Стрелка вверх" height="20px" width="20px" src="assets/icon/arrow-up.svg">
@@ -56,10 +47,14 @@
         </section>
         <section>
           <h3>Описание</h3>
-          <p class="details">Продается MacBook Pro 13 8/256<br>
-            Сам ноутбук в отличном состоянии, количество циклов перезарядки 123, в комплекте: коробка,ноутбук,блок,кабель и чек!</p>
+          <p class="details">{{ad.content.description}}</p>
         </section>
       </div>
     </main>
   </div>
 </ng-container>
+<ng-template #loading>
+  <p-progressSpinner strokeWidth="4"
+                     animationDuration="4s"
+                     styleClass="spinner"></p-progressSpinner>
+</ng-template>

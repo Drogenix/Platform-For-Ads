@@ -1,20 +1,21 @@
-import {Inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BACKEND_URL} from "../../../main";
-import {Observable, tap} from "rxjs";
-import {Response} from "../entities/response";
+import {Observable} from "rxjs";
+import {Advertisement} from "../entities/advertisement";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdvertisementsService {
 
-  private readonly _baseUrl: string = ''
-  constructor(@Inject(BACKEND_URL) baseUrl: string, private _http:HttpClient) {
-    this._baseUrl = baseUrl;
+  constructor(private _http:HttpClient) {
   }
 
-  getAll(quantity:number):Observable<Response> {
-    return this._http.get<Response>(this._baseUrl + 'products?_quantity='+ quantity +'&_taxes=12').pipe(tap(val => console.log(val)))
+  getAll():Observable<Advertisement[]> {
+    return this._http.get<Advertisement[]>('api/Advert')
+  }
+
+  getById(id:string):Observable<Advertisement> {
+    return this._http.get<Advertisement>('api/Advert/' + id)
   }
 }

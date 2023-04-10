@@ -1,20 +1,21 @@
 <article class="advertise-card">
-  <a [routerLink]="['/advertisements/1']">
+  <a [routerLink]="['/advertisements',advertisement.id]">
     <div class="img-wrapper">
       <img class="card-img"
-           [src]="advertisement.image"
+           [src]="(advertisement.imageUrl && advertisement.imageUrl != 'string') ? advertisement.imageUrl : 'assets/guitar.png'"
            alt="Изображение товара">
     </div>
     <div>
       <div class="card-header">
         <p class="card-title">{{advertisement.name}}</p>
-        <p class="card-price">
-          <span>20 000</span> ₽
+        <p>
+          <span>{{advertisement.price}}</span> ₽
         </p>
       </div>
-      <p class="card-info">Москва, Ленинский проспект</p>
+      <p class="card-info">{{advertisement.address}}</p>
       <p class="card-info">
-        Сегодня <span>14:12</span>
+        {{advertisement.createdAt | date:'LLLL dd':'':'ru'|titlecase}},
+        <span>в {{advertisement.createdAt | date: 'hh:mm'}}</span>
       </p>
     </div>
   </a>

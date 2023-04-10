@@ -1,4 +1,4 @@
-<ng-container *ngIf="(response$ | async)?.data as advertisements">
+<ng-container *ngIf="(response$ | async) as advertisements; else loading">
   <main>
     <div class="container animated">
       <div class="main-content">
@@ -12,4 +12,8 @@
     </div>
   </main>
 </ng-container>
-
+<ng-template #loading>
+    <p-progressSpinner strokeWidth="4"
+                       animationDuration="4s"
+                       styleClass="spinner"></p-progressSpinner>
+</ng-template>

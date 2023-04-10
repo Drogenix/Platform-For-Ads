@@ -1,8 +1,8 @@
-<ng-container *ngIf="(response$ | async)?.data as advertisements">
+<ng-container *ngIf="(response$ | async) as advertisements; else loading">
   <div class="container animated">
     <h3>Мой объявления</h3>
     <div class="advertisements">
-      <a class="new-add">
+      <a routerLink="/advertisements/create" class="new-add">
         <img height="60px" width="60px" alt="Новое объявление" src="assets/icon/new-add.svg">
         Новое объявление
       </a>
@@ -12,3 +12,8 @@
     </div>
   </div>
 </ng-container>
+<ng-template #loading>
+  <p-progressSpinner strokeWidth="4"
+                     animationDuration="4s"
+                     styleClass="spinner"></p-progressSpinner>
+</ng-template>

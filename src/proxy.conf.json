@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "http://cw47185.tw1.ru:5000/",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "changeOrigin": true
+  }
+}

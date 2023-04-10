@@ -1,4 +1,10 @@
 export interface Advertisement {
-  name: string
-  image: string
+  id:string;
+  name: string;
+  imageUrl: string;
+  price: number;
+  address: string;
+  createdAt: string;
+  categoryId:string;
+  description?: string;
 }

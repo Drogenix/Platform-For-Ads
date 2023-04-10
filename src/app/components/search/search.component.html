@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="search-container">
+    <h2>Доска объявлений</h2>
+    <button type="button" class="btn all-categories" (click)="menu.toggle($event)">
+      <img src="assets/icon/listed.svg" alt="Список категорий">
+      Все категории
+    </button>
+    <form class="search-box">
+      <input class="search-input" placeholder="Поиск по объявлениям">
+      <button class="btn search">
+        Найти
+        <img src="assets/icon/search.svg" alt="Поиск">
+      </button>
+    </form>
+  </div>
+</div>
+<p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu>

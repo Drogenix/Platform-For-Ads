@@ -1,4 +1,4 @@
-import {inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {AuthComponent} from "../../components/auth/auth.component";
 
@@ -7,10 +7,9 @@ import {AuthComponent} from "../../components/auth/auth.component";
 })
 export class AuthDialogService {
   private _ref:DynamicDialogRef;
-  public _dialogService = inject(DialogService);
-  constructor() { }
+  constructor(private dialogService:DialogService) { }
   showAuth(){
-    this._ref = this._dialogService.open(AuthComponent, {
+    this._ref = this.dialogService.open(AuthComponent, {
       header:'Авторизация',
       width:'416px'
     })

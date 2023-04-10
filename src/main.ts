@@ -1,4 +1,6 @@
-import {enableProdMode, importProvidersFrom, InjectionToken} from '@angular/core';
+/// <reference types="@angular/localize" />
+
+import {enableProdMode, importProvidersFrom} from '@angular/core';
 import { environment } from './environments/environment';
 import { AppComponent } from './app/app.component';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
@@ -9,12 +11,15 @@ import {provideEnvironmentNgxMask} from "ngx-mask";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {LoaderInterceptor} from "./app/core/interceptors/loader.interceptor";
 import {DialogService, DynamicDialogModule} from "primeng/dynamicdialog";
+import {registerLocaleData} from "@angular/common";
+import localeRu from "@angular/common/locales/ru"
+import {AuthInterceptor} from "./app/core/interceptors/auth.interceptor";
 
 if (environment.production) {
   enableProdMode();
 }
 
-export const BACKEND_URL = new InjectionToken<string>('Backend api url');
+registerLocaleData(localeRu,'ru')
 
 bootstrapApplication(AppComponent, {
     providers: [
@@ -27,7 +32,7 @@ bootstrapApplication(AppComponent, {
       provideRouter(routes),
       provideEnvironmentNgxMask(),
       DialogService,
-      {provide:BACKEND_URL, useValue: 'https://fakerapi.it/api/v1/'},
+      {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true},
       {provide:HTTP_INTERCEPTORS, useClass:LoaderInterceptor, multi:true}
     ]
 })

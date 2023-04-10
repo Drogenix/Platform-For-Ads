@@ -1,14 +1,9 @@
 header {
-  border-bottom: 1px solid #E2E8F0;
+  background: #1E293B;
+  padding: 8px 0;
 }
 
 nav
-{
-  padding: 8px 0;
-  background: #1E293B;
-}
-
-.nav-items
 {
   display: flex;
   align-items: center;
@@ -43,66 +38,6 @@ nav
   margin-left: 5px;
 }
 
-.header-search {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 24px 0;
-
-}
-
-.header-search h2 {
-  font-size: clamp(24px, 5vw, 30px);
-  margin-right: 24px;
-}
-
-.all-categories {
-  border: 1px solid #3B82F6;
-  background: transparent;
-  color: #3B82F6;
-  margin-right: 12px;
-  height: 36px;
-}
-
-.all-categories img {
-  margin-right: 8px;
-}
-
-.search-box {
-  display: flex;
-  flex: 1 1 196px;
-  height: 36px;
-}
-
-.search-box input, button {
-  padding: 8px 12px;
-}
-
-.search-input {
-  flex: 1 1;
-  border: 1px solid #CBD5E1;
-  border-radius: 4px 0 0 4px;
-}
-
-.search-input:focus-visible {
-  outline: none;
-  border-color: #3B82F6;
-}
-
-.search-input::placeholder {
-  color: #64748B;
-}
-
-.search {
-  background:#3B82F6;
-  margin-left: -1px;
-  border-radius: 0 4px 4px 0;
-}
-
-.search img{
-  margin-left: 8px;
-}
-
 p-overlay a{
   font-size:14px;
   line-height:20px;
@@ -122,16 +57,4 @@ p-overlay a:last-child{
 
 p-overlay a:hover{
   background: #f3f3f3;
-}
-
-@media screen and (max-width: 785px) {
-  .search-box {
-    margin-top: 12px;
-  }
-}
-
-@media screen and (max-width: 455px){
-  .all-categories {
-    margin-top: 12px;
-  }
 }
