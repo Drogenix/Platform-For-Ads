@@ -1,8 +1,7 @@
 <form [formGroup]="authForm" (ngSubmit)="submit()">
   <div class="inputs">
     <div class="input-field">
-      <input [class.input-alert]= "authForm.controls.login.invalid && authForm.controls.login.touched"
-             [mask]="'000) 000-00-00'"
+      <input [mask]="'000) 000-00-00'"
              [showMaskTyped]="true"
              prefix="+7("
              placeHolderCharacter="_"
@@ -14,8 +13,7 @@
       </p>
     </div>
     <div *ngIf="!isSignIn" class="input-field">
-      <input [class.input-alert]= "authForm.controls.email.invalid && authForm.controls.email.touched"
-             placeholder="E-mail"
+      <input placeholder="E-mail"
              formControlName="email">
       <p class="alert"
          *ngIf="authForm.controls.email.invalid && authForm.controls.email.touched">
@@ -23,8 +21,7 @@
       </p>
     </div>
     <div class="input-field">
-      <input [class.input-alert]= "authForm.controls.password.invalid && authForm.controls.password.touched"
-             type="password"
+      <input type="password"
              placeholder="Пароль"
              formControlName="password">
       <p class="alert"

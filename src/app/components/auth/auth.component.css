@@ -3,7 +3,7 @@
   flex-direction: column;
 }
 
-.input-alert{
+.ng-invalid .ng-touched{
   border:1px solid #EF4444;
 }
 
