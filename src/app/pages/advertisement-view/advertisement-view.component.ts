@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AsyncPipe, NgIf} from "@angular/common";
 import {DialogService, DynamicDialogModule, DynamicDialogRef} from "primeng/dynamicdialog";
-import {NumberModalComponent} from "../../components/number-modal/number-modal.component";
+import {AdvertisementNumberComponent} from "../../components/advertisement-number/advertisement-number.component";
 import {AdvertisementsService} from "../../core/services/advertisements.service";
 import {combineLatest, map, Observable, switchMap} from "rxjs";
 import {Advertisement} from "../../core/entities/advertisement";
@@ -34,7 +34,7 @@ export class AdvertisementViewComponent implements OnInit{
               private activatedRoute:ActivatedRoute) {
   }
   showNumber(){
-    this._ref = this.dialogService.open(NumberModalComponent, {
+    this._ref = this.dialogService.open(AdvertisementNumberComponent, {
       header: "Пользователь",
       width:'516px'
     })

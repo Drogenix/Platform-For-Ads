@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {NgIf} from "@angular/common";
+import {JsonPipe, NgIf} from "@angular/common";
 import {NgxMaskDirective} from "ngx-mask";
 import {
   AbstractControl,
@@ -15,7 +15,7 @@ const passwordsNotEquals: ValidatorFn = (group:AbstractControl):ValidationErrors
 
   const newPass = group.get('newPass')?.value;
 
-  return currentPass!==newPass ? null : {equals:true}
+  return (currentPass!==newPass) ? null : {passwordsEquals:true}
 }
 
 @Component({
@@ -25,7 +25,7 @@ const passwordsNotEquals: ValidatorFn = (group:AbstractControl):ValidationErrors
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgIf, NgxMaskDirective, ReactiveFormsModule
+    NgIf, NgxMaskDirective, ReactiveFormsModule, JsonPipe
   ],
 })
 export class UserSettingsComponent{
@@ -34,7 +34,7 @@ export class UserSettingsComponent{
   isUserPassChanged = false;
 
   userDataForm = this.fb.group({
-    name:['', [Validators.required, Validators.minLength(8), Validators.maxLength(24), Validators.pattern('^[a-zA-Z]+$')]],
+    name:['', [Validators.required, Validators.minLength(3), Validators.maxLength(24), Validators.pattern('^[a-zA-Z]+$')]],
     phone:['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
     address:['', [Validators.required, Validators.minLength(10), Validators.maxLength(60)]]
   });
@@ -45,19 +45,11 @@ export class UserSettingsComponent{
 
   constructor(private fb:FormBuilder) {}
   submitUserData(){
-    console.log(this.userDataForm)
-
     this.isUserDataChanged = true;
-
-    this.userDataForm.reset();
   }
 
   submitUserPass(){
-    console.log(this.userPassForm)
-
     this.isUserDataChanged = true;
-
-    this.userDataForm.reset();
   }
 
 }

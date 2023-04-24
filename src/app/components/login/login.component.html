@@ -1,0 +1,52 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div class="inputs">
+    <div class="input-field">
+      <input [mask]="'000) 000-00-00'"
+             [showMaskTyped]="true"
+             prefix="+7("
+             placeHolderCharacter="_"
+             placeholder="Номер телефона"
+             formControlName="login">
+      <ng-container *ngIf="loginForm.controls.login.touched">
+        <p class="alert"
+           *ngIf="loginForm.controls.login.errors?.['required']">
+          Введите номер телефона
+        </p>
+        <p class="alert"
+           *ngIf="loginForm.controls.login.errors?.['minlength']">
+          Это поле нужно заполнить полностью
+        </p>
+      </ng-container>
+    </div>
+    <div class="input-field">
+      <input type="password"
+             placeholder="Пароль"
+             formControlName="password">
+      <ng-container *ngIf="loginForm.controls.password.touched">
+        <p class="alert"
+           *ngIf="loginForm.controls.password.errors?.['required']">
+          Введите пароль
+        </p>
+        <p class="alert"
+           *ngIf="loginForm.controls.password.errors?.['minlength']">
+          Минимальная длина пароля - 8 символов
+        </p>
+        <p class="alert"
+           *ngIf="loginForm.controls.password.errors?.['maxlength']">
+          Максимальная длина пароля - 24 символа
+        </p>
+      </ng-container>
+    </div>
+    <div class="form-bottom">
+      <a (click)="goToRegister()">Зарегистрироваться</a>
+    </div>
+  </div>
+  <p class="alert submit-alert">{{error}}</p>
+  <ng-container *ngIf="!isSubmitting; else loading">
+    <button [disabled]="loginForm.invalid" type="submit">Войти</button>
+  </ng-container>
+  <ng-template #loading>
+    <p-progressSpinner strokeWidth="4"
+                       animationDuration="4s" styleClass="spinner-small"></p-progressSpinner>
+  </ng-template>
+</form>

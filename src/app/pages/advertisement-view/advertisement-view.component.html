@@ -8,25 +8,25 @@
     <main>
       <div class="advertisement-preview">
         <h2>{{ad.content.name}}</h2>
-        <div class="advertisement-images">
-          <div class="img-wrapper">
-            <img alt="Изображение товара" src="assets/icon/Rectangle%201.png">
+        <div>
+          <div class="advertisement-image" [style.background-image]="'url('+ad.content.imageUrl+')'">
+            <img alt="Изображение товара" [src]="ad.content.imageUrl">
           </div>
           <div class="img-carousel">
             <div class="carousel-img-wrapper img-selected">
-              <img alt="Изображение товара" src="assets/icon/Rectangle%201.png">
+              <img alt="Изображение товара" [src]="ad.content.imageUrl">
             </div>
             <div class="carousel-img-wrapper">
-              <img alt="Изображение товара" src="assets/icon/Rectangle%201.png">
+              <img alt="Изображение товара" [src]="ad.content.imageUrl">
             </div>
             <div class="carousel-img-wrapper">
-              <img alt="Изображение товара" src="assets/icon/Rectangle%201.png">
+              <img alt="Изображение товара" [src]="ad.content.imageUrl">
             </div>
             <div class="carousel-img-wrapper">
-              <img alt="Изображение товара" src="assets/icon/Rectangle%201.png">
+              <img alt="Изображение товара" [src]="ad.content.imageUrl">
             </div>
             <div class="carousel-img-wrapper">
-              <img alt="Изображение товара" src="assets/icon/Rectangle%201.png">
+              <img alt="Изображение товара" [src]="ad.content.imageUrl">
             </div>
           </div>
         </div>

@@ -6,6 +6,10 @@ span{
   color: #EF4444;
 }
 
+.input-field{
+  margin-bottom: 12px;
+}
+
 textarea{
   font-family:'Inter', sans-serif;
   min-height: 168px;
@@ -28,55 +32,63 @@ button:hover, .upload-btn:hover{
   display:flex;
   flex-wrap:wrap;
   align-items: center;
+  max-width:100%;
   height: auto;
-  gap:8px 0;
+  border: 1px solid #CBD5E1;
   background:#F8FAFC;
   font-size: 14px;
-}
-
-.upload input{
-  display:none;
-}
-
-.upload-btn{
-  display:flex;
-  align-items:center;
-  height: 35px;
-  margin-right: 16px;
-  padding:7.5px 12px;
-  font-size:14px;
-  line-height:24px;
-}
-
-.upload-btn img{
-  margin-right: 8px;
+  padding:12px;
+  gap:8px 0;
 }
 
 .submit{
-  margin-top:8px;
   border:none;
   font-size: 18px;
+  margin-top:8px;
   padding: 12px;
 }
 
-.policy{
+.submit:disabled{
+  opacity: .8;
+}
+
+.rules{
   font-size: 14px;
   line-height: 20px;
   color: #64748B;
   margin: 8px 0 32px;
 }
 
-.policy a{
+.rules a{
   text-decoration: none;
   color: #3B82F6;
   cursor:pointer;
 }
 
-.policy a:hover{
+.rules a:hover{
   text-decoration: underline;
 }
 
+::ng-deep .p-cascadeselect{
+  border-radius: 4px;
+}
+
+::ng-deep .p-cascadeselect:not(.p-disabled).p-focus{
+  box-shadow: none;
+}
+
+@media screen and (min-width:576px) and (max-width: 992px){
+  ::ng-deep p-overlay .p-overlay{
+    min-width: 208px !important;
+  }
+}
+
 @media screen and (max-width: 576px){
+  ::ng-deep p-cascadeSelect .p-cascadeselect-item-active>.p-cascadeselect-sublist{
+    left:0;
+    top:90%;
+  }
+
   .submit{
     font-size: 15px;
     padding: 8px 12px;

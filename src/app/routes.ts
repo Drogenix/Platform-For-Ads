@@ -2,10 +2,10 @@ import {ActivatedRouteSnapshot, createUrlTreeFromSnapshot, Routes} from "@angula
 import {inject} from "@angular/core";
 import {AuthDialogService} from "./core/services/auth-dialog.service";
 import {UserService} from "./core/services/user.service";
-import {map, take} from "rxjs";
+import {map} from "rxjs";
 
 const HasAuthorizedGuard = (route:ActivatedRouteSnapshot) => {
-  const authDialogService = inject(AuthDialogService);
+  const authDialog = inject(AuthDialogService);
 
   const userService = inject(UserService);
 
@@ -13,12 +13,11 @@ const HasAuthorizedGuard = (route:ActivatedRouteSnapshot) => {
     map((isAuth) => {
       if(!isAuth)
       {
-        authDialogService.showAuth();
+        authDialog.showLogin();
         return createUrlTreeFromSnapshot(route, [''])
       }
       return isAuth;
-    }),
-    take(1)
+    })
   )
 };
 

@@ -11,12 +11,17 @@
 
 .img-wrapper {
   display: flex;
+  width: 100%;
+  max-height: 216px;
   overflow: hidden;
   border-radius: 4px;
 }
 
 .card-img {
-  width: 100%;
+  height:auto;
+  width:100%;
+  max-width: 100%;
+  aspect-ratio: 1/1;
   border-radius: 4px;
   object-fit: cover;
   transition: 150ms;

@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {AsyncPipe, NgIf} from "@angular/common";
 import {UserService} from "../../core/services/user.service";
-import {AuthComponent} from "../auth/auth.component";
 import {Router, RouterLink} from "@angular/router";
 import {OverlayModule} from "primeng/overlay";
 import {AuthDialogService} from "../../core/services/auth-dialog.service";
@@ -10,7 +9,7 @@ import {AuthDialogService} from "../../core/services/auth-dialog.service";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, AsyncPipe, AuthComponent, RouterLink, OverlayModule],
+  imports: [NgIf, AsyncPipe, RouterLink, OverlayModule],
   standalone:true
 })
 export class HeaderComponent {
@@ -19,8 +18,8 @@ export class HeaderComponent {
   constructor(private userService:UserService, private authDialog:AuthDialogService, private router:Router) {
   }
 
-  showAuth(){
-    this.authDialog.showAuth();
+  showLogin(){
+    this.authDialog.showLogin();
   }
 
   toggleMenu(){

@@ -11,6 +11,10 @@ html, body {
   font-family: 'Inter', sans-serif;
 }
 
+.ng-invalid.ng-touched:not(form, app-file-input){
+  border:1px solid #EF4444;
+}
+
 body::-webkit-scrollbar{
   width: 0;
 }
@@ -112,14 +116,12 @@ a{
 
 .form-input{
   display: flex;
-  box-sizing: border-box;
   width: 100%;
   max-width: 416px;
   border: 1px solid #CBD5E1;
   border-radius: 4px;
   height: 48px;
   padding: 12px;
-  margin-bottom: 16px;
   font-size: 16px;
   color: #1E293B;
 }
@@ -247,4 +249,13 @@ a{
 
 app-advertisements-search .p-inputtext{
   padding:8px !important;
+}
+
+.alert{
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #EF4444;
+  margin-top: 2px;
+  margin-bottom: 0;
 }

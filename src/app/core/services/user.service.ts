@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, of, switchMap, tap} from "rxjs";
+import {BehaviorSubject, Observable, switchMap, tap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {JwtHandlerService} from "./jwt-handler.service";
 
@@ -7,13 +7,11 @@ import {JwtHandlerService} from "./jwt-handler.service";
   providedIn: 'root'
 })
 export class UserService {
-  private _isAuthSubject = new BehaviorSubject<boolean>(true);
+  private _isAuthSubject = new BehaviorSubject<boolean>(false);
   public isAuth$: Observable<boolean> = this._isAuthSubject.asObservable().pipe();
-  constructor(private http:HttpClient, private jwtHandler:JwtHandlerService) {
-  }
+  constructor(private http:HttpClient, private jwtHandler:JwtHandlerService) {}
 
   private _setAuth(token:string){
-    console.log(token)
     this.jwtHandler.setToken(token)
     this._isAuthSubject.next(true);
   }
@@ -23,12 +21,16 @@ export class UserService {
     }
   }
 
-  auth(authType: 'login' | 'register' ,user:any):Observable<string>{
-    const url = 'api/Account/'+ authType;
+  login(user:any):Observable<string>{
 
-    return this.http.post<string>(url, user).pipe(
-      switchMap(response => authType === 'register' ? this.http.post<string>('api/Account/login', user) : of(response)),
+    return this.http.post<string>('api/Account/login', user).pipe(
       tap(token => this._setAuth(token))
+    )
+  }
+
+  register(user:any):Observable<string>{
+    return this.http.post<string>('api/Account/register', user).pipe(
+      switchMap(()=> this.login(user))
     )
   }
 

@@ -54,8 +54,18 @@ h2{
   margin-bottom: 16px;
 }
 
-.img-wrapper{
+.advertisement-image{
+  display: flex !important;
   max-width: 856px;
+  max-height: 512px;
+  background: rgba(0, 0, 0, 0.12) no-repeat center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.advertisement-image img{
+  object-fit: contain;
+  backdrop-filter: blur(22px);
 }
 
 .img-carousel{
@@ -67,10 +77,14 @@ h2{
 
 .carousel-img-wrapper{
   max-width: 120px;
-  box-sizing: border-box;
+  max-height: 84px;
   border-radius: 4px;
   cursor: pointer;
   transition: 200ms;
+}
+
+.carousel-img-wrapper img{
+  aspect-ratio:16/9;
 }
 
 .carousel-img-wrapper:not(.img-selected):is(:hover, :active){

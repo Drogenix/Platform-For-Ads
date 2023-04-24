@@ -9,7 +9,7 @@ export class DestroyService extends ReplaySubject<boolean> implements OnDestroy{
     super(1)
   }
   ngOnDestroy() {
-    console.log('destroy service callback')
+    console.log('Destroy...')
     this.next(true);
     this.complete();
   }

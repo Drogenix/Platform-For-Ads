@@ -1,0 +1,12 @@
+<ng-container *ngIf="!isFileLoading; else loading" >
+  <input #input type="file" accept=".jpg, .png, .heic" (change)="upload($event)">
+  <button type="button" (blur)="onTouched()" (click)="input.click()">
+    <img alt="Картинки" src="assets/icon/images.svg">
+    Добавить картинки
+  </button>
+  <small class="alert">{{error}}</small>
+</ng-container>
+<ng-template #loading>
+  <p-progressSpinner strokeWidth="4"
+                     animationDuration="4s"></p-progressSpinner>
+</ng-template>

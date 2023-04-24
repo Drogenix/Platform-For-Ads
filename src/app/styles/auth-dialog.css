@@ -3,10 +3,6 @@
   flex-direction: column;
 }
 
-.ng-invalid .ng-touched{
-  border:1px solid #EF4444;
-}
-
 .input-field{
   margin-bottom: 16px;
 }
@@ -24,22 +20,18 @@ input{
   padding: 12px;
 }
 
-.input-field input::placeholder{
+input::placeholder{
   color: #64748B;
 }
 
-.input-field input:focus-visible{
+input:focus-visible{
   outline: none;
   border-color: #3B82F6;
 }
 
-.alert{
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: #EF4444;
-  margin-top: 2px;
-  margin-bottom: 0;
+.submit-alert{
+  text-align: center;
+  margin:16px 0;
 }
 
 .form-bottom{
@@ -64,21 +56,6 @@ input{
 
 .form-bottom a:hover{
   text-decoration: underline;
-}
-
-.remember-me{
-  display: flex;
-  align-items: center;
-  margin-right: 16px;
-}
-
-.checkbox{
-  box-sizing: border-box;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #CBD5E1;
-  border-radius: 4px;
-  margin-right: 8px;
 }
 
 button{
@@ -128,3 +105,4 @@ button:not(:disabled):active{
     font-size: 14px;
   }
 }
+

@@ -1,10 +1,20 @@
 <div class="container animated">
   <h3>Настройки</h3>
   <form class="app-form" [formGroup]="userDataForm" (ngSubmit)="submitUserData()">
-    <div class="inputs">
+    <div class="input-row">
       <div class="input-field">
         <label class="form-label" for="name">Имя</label>
         <input type="text" class="form-input" id="name" placeholder="Введите имя" formControlName="name">
+        <ng-container *ngIf="userDataForm.controls.name.touched">
+          <p class="alert"
+             *ngIf="userDataForm.controls.name.errors?.['required']">
+            Введите имя
+          </p>
+          <p class="alert"
+             *ngIf="userDataForm.controls.name.errors?.['minlength']">
+            Минимальная длина имени - 3 символа
+          </p>
+        </ng-container>
       </div>
       <div class="input-field">
         <label class="form-label" for="phone">Номер телефона</label>
@@ -15,11 +25,32 @@
                prefix="+7("
                placeholder="Введите номер телефона"
                formControlName="phone">
+        <ng-container *ngIf="userDataForm.controls.phone.touched">
+          <p class="alert"
+             *ngIf="userDataForm.controls.phone.errors?.['required']">
+            Введите номер телефона
+          </p>
+          <p class="alert"
+             *ngIf="userDataForm.controls.phone.errors?.['minlength']">
+            Это поле нужно заполнить полностью
+          </p>
+        </ng-container>
       </div>
     </div>
-    <label class="form-label">Адрес<span> (будет указываться в объявлениях по умолчанию)</span></label>
-    <input class="form-input input-big" placeholder="Не указан" formControlName="address">
-
+    <div class="input-field">
+      <label class="form-label">Адрес<span> (будет указываться в объявлениях по умолчанию)</span></label>
+      <input class="form-input input-big" placeholder="Не указан" formControlName="address">
+      <ng-container *ngIf="userDataForm.controls.address.touched">
+        <p class="alert"
+           *ngIf="userDataForm.controls.address.errors?.['required']">
+          Введите адрес
+        </p>
+        <p class="alert"
+           *ngIf="userDataForm.controls.address.errors?.['minlength']">
+          Минимальная длина адреса - 10 символов
+        </p>
+      </ng-container>
+    </div>
     <div class="submit">
       <button [disabled]="userDataForm.invalid" type="submit">Сохранить</button>
       <p *ngIf="isUserDataChanged" class="submit-success">
@@ -31,23 +62,46 @@
 
   <h3>Смена пароля</h3>
   <form [formGroup]="userPassForm" (ngSubmit)="submitUserPass()">
-    <div>
+    <div class="input-field">
       <label class="form-label">Текущий пароль</label>
       <input class="form-input"
              type="password"
              id="pass"
              placeholder="Введите текущий пароль"
              formControlName="currentPass">
+      <ng-container *ngIf="userPassForm.controls.currentPass.touched">
+        <p class="alert"
+           *ngIf="userPassForm.controls.currentPass.errors?.['required']">
+          Введите текущий пароль
+        </p>
+        <p class="alert"
+           *ngIf="userPassForm.controls.currentPass.errors?.['minlength']">
+          Минимальная длина пароля - 8 символов
+        </p>
+      </ng-container>
     </div>
-    <div>
+    <div class="input-field">
       <label class="form-label">Новый пароль<span> (минимум 8 символов)</span></label>
       <input class="form-input"
              type="password"
              id="new-pass"
              placeholder="Введите новый пароль"
              formControlName="newPass">
+      <ng-container *ngIf="userPassForm.controls.newPass.touched">
+        <p class="alert"
+           *ngIf="userPassForm.controls.newPass.errors?.['required']">
+          Введите новый пароль
+        </p>
+        <p class="alert"
+           *ngIf="userPassForm.controls.newPass.errors?.['minlength']">
+          Минимальная длина пароля - 8 символов
+        </p>
+        <p class="alert"
+           *ngIf="userPassForm.errors?.['passwordsEquals'] && userPassForm.controls.newPass.valid">
+          Пароли не должны совпадать
+        </p>
+      </ng-container>
     </div>
-
     <div class="submit">
       <button [disabled]="userPassForm.invalid" type="submit">Изменить пароль</button>
       <p *ngIf="isUserPassChanged" class="submit-success">

@@ -3,6 +3,7 @@
     <nav>
       <ng-container *ngIf="(isAuth$ | async); else signIn">
         <a class="btn sign-in" (click)="toggleMenu()">
+          <img class="person-img" src="assets/icon/profile.svg" alt="Профиль">
           Профиль
           <img class="arrow-img" src="assets/icon/arrow.svg" alt="Выпадающий список">
         </a>
@@ -15,7 +16,7 @@
         </p-overlay>
       </ng-container>
       <ng-template #signIn>
-        <a (click)="showAuth()" class="btn sign-in">
+        <a (click)="showLogin()" class="btn sign-in">
           <img class="person-img" src="assets/icon/profile.svg" alt="Профиль">
           Войти
         </a>
