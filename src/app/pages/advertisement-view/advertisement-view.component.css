@@ -56,7 +56,6 @@ h2{
 
 .advertisement-image{
   display: flex !important;
-  max-width: 856px;
   max-height: 512px;
   background: rgba(0, 0, 0, 0.12) no-repeat center;
   background-size: cover;

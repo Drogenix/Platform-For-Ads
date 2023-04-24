@@ -11,12 +11,8 @@ html, body {
   font-family: 'Inter', sans-serif;
 }
 
-.ng-invalid.ng-touched:not(form, app-file-input){
+.ng-invalid.ng-touched:not(form, p-cascadeSelect){
   border:1px solid #EF4444;
-}
-
-body::-webkit-scrollbar{
-  width: 0;
 }
 
 app-root, app-advertisement-page{
@@ -186,7 +182,7 @@ a{
   display: block !important;
   width: 40px !important;
   height: 40px !important;
-  top: 32vh;
+  top: 36vh;
 }
 
 .spinner-small{

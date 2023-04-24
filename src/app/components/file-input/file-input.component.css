@@ -1,4 +1,18 @@
 :host{
+  display:flex;
+  flex-wrap:wrap;
+  align-items: center;
+  max-width:100%;
+  height: auto;
+  border: 1px solid #CBD5E1;
+  border-radius: 4px;
+  background:#F8FAFC;
+  font-size: 14px;
+  padding:12px;
+  gap:8px 0;
+}
+
+div{
   display: flex;
   align-items: center;
 }
@@ -38,7 +52,7 @@ button img{
   margin-right:12px;
 }
 
-::ng-deep p-progressSpinner .p-progress-spinner{
+::ng-deep :host p-progressSpinner .p-progress-spinner{
   width: 32px;
   height: 32px;
   margin: 0 12px;

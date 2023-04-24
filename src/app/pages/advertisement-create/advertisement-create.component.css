@@ -28,19 +28,6 @@ button:hover, .upload-btn:hover{
   opacity: .8;
 }
 
-.upload{
-  display:flex;
-  flex-wrap:wrap;
-  align-items: center;
-  max-width:100%;
-  height: auto;
-  border: 1px solid #CBD5E1;
-  background:#F8FAFC;
-  font-size: 14px;
-  padding:12px;
-  gap:8px 0;
-}
-
 .submit{
   border:none;
   font-size: 18px;
@@ -71,10 +58,35 @@ button:hover, .upload-btn:hover{
 
 ::ng-deep .p-cascadeselect{
   border-radius: 4px;
+  margin-bottom: 0;
+}
+
+::ng-deep form p-progressSpinner .p-progress-spinner{
+  width: 32px;
+  height: 32px;
+  margin: 0 12px;
+}
+
+::ng-deep .ng-invalid.ng-touched > .p-cascadeselect{
+  border-color:#EF4444;
 }
 
 ::ng-deep .p-cascadeselect:not(.p-disabled).p-focus{
   box-shadow: none;
+  border-color: #3B82F6;;
+}
+
+.new-add-link{
+  margin-left:16px;
+  color: black;
+}
+
+.new-add-link a{
+  color: #3B82F6;
+}
+
+.new-add-link a:hover{
+  text-decoration: underline;
 }
 
 @media screen and (min-width:576px) and (max-width: 992px){

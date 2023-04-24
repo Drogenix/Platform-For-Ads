@@ -1,13 +1,15 @@
 <div class="container animated">
   <h3>Новое объявление</h3>
-  <form [formGroup]="advertisementForm" class="app-form">
-    <div>
+  <form class="app-form"
+        [formGroup]="advertisementForm"
+        (ngSubmit)="createAdvertisement()">
+    <div class="input-field">
       <label class="form-label">
         Выберите категорию
-        <span>*</span>
       </label>
       <p-cascadeSelect  [optionGroupChildren]="['subCategories']"
                         [options]="categories"
+                        (click)="markCategoryAsTouched()"
                         formControlName="category"
                         optionLabel="name"
                         optionGroupLabel="name"
@@ -16,14 +18,13 @@
       <ng-container *ngIf="advertisementForm.controls.category.touched">
         <p class="alert"
            *ngIf="advertisementForm.controls.category.errors?.['required']">
-          Это поле обязательно
+          Выберите категорию
         </p>
       </ng-container>
     </div>
     <div class="input-field">
       <label class="form-label">
         Название объявления
-        <span>*</span>
       </label>
       <input class="form-input input-big"
              placeholder="Что хотите продать?"
@@ -31,7 +32,7 @@
       <ng-container *ngIf="advertisementForm.controls.name.touched">
         <p class="alert"
            *ngIf="advertisementForm.controls.name.errors?.['required']">
-          Это поле обязательно
+          Введите название объявления
         </p>
         <p class="alert"
            *ngIf="advertisementForm.controls.name.errors?.['minlength']">
@@ -49,7 +50,7 @@
       <ng-container *ngIf="advertisementForm.controls.description.touched">
         <p class="alert"
            *ngIf="advertisementForm.controls.description.errors?.['required']">
-          Это поле обязательно
+          Введите описание
         </p>
         <p class="alert"
            *ngIf="advertisementForm.controls.description.errors?.['minlength']">
@@ -64,14 +65,13 @@
     <div class="input-field">
       <label class="form-label">
         Адрес (место проведения сделки)
-        <span>*</span>
       </label>
       <input class="form-input" placeholder="Начните вводить адрес"
              formControlName="address">
       <ng-container *ngIf="advertisementForm.controls.address.touched">
         <p class="alert"
            *ngIf="advertisementForm.controls.address.errors?.['required']">
-          Это поле обязательно
+          Введите адрес
         </p>
         <p class="alert"
            *ngIf="advertisementForm.controls.address.errors?.['minlength']">
@@ -84,18 +84,10 @@
       </ng-container>
     </div>
     <div class="input-field">
-      <div class="upload">
-        <app-file-input formControlName="image"></app-file-input>
-        <ng-container *ngIf="advertisementForm.controls.image.invalid; else uploaded">
-          Максимум 10 картинок в формате jpeg, png или heic
-        </ng-container>
-        <ng-template #uploaded>
-          Изображение загружено
-        </ng-template>
-      </div>
-      <ng-container *ngIf="advertisementForm.controls.image.touched">
+      <app-file-input formControlName="imageUrl"></app-file-input>
+      <ng-container *ngIf="advertisementForm.controls.imageUrl.touched">
         <p class="alert"
-           *ngIf="advertisementForm.controls.image.errors?.['required']">
+           *ngIf="advertisementForm.controls.imageUrl.errors?.['required']">
           Необходимо загрузить изображение
         </p>
       </ng-container>
@@ -115,11 +107,23 @@
       <ng-container *ngIf="advertisementForm.controls.price.touched">
         <p class="alert"
            *ngIf="advertisementForm.controls.price.errors?.['required']">
-          Это поле обязательно
+          Введите цену
         </p>
       </ng-container>
     </div>
-    <button (click)="createAdvertisement()" class="submit">Разместить объявление</button>
+    <ng-container *ngIf="!isLoading; else loading">
+      <button [disabled]="advertisementForm.invalid" class="submit">Разместить объявление</button>
+    </ng-container>
+    <ng-template #loading>
+      <p-progressSpinner strokeWidth="4"
+                         animationDuration="4s"></p-progressSpinner>
+    </ng-template>
+    <ng-container *ngIf="newAdvertisementId">
+      <span class="new-add-link">Объявление создано!
+      <a [routerLink]="['/advertisements',newAdvertisementId]">Ссылка</a>
+    </span>
+    </ng-container>
+    <p class="alert">{{error}}</p>
   </form>
   <p class="rules">Нажимая кнопку «Разместить объявление»<br>
     Вы соглашаетесь с <a>правилами площадки</a></p>

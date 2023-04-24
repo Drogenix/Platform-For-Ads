@@ -8,14 +8,17 @@ import {Advertisement} from "../entities/advertisement";
 })
 export class AdvertisementsService {
 
-  constructor(private _http:HttpClient) {
+  constructor(private http:HttpClient) {}
+
+  create(advertisement:Advertisement):Observable<Advertisement>{
+    return this.http.post<Advertisement>('api/Advert', advertisement)
   }
 
   getAll():Observable<Advertisement[]> {
-    return this._http.get<Advertisement[]>('api/Advert')
+    return this.http.get<Advertisement[]>('api/Advert')
   }
 
   getById(id:string):Observable<Advertisement> {
-    return this._http.get<Advertisement>('api/Advert/' + id)
+    return this.http.get<Advertisement>('api/Advert/' + id)
   }
 }
