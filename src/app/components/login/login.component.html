@@ -3,7 +3,7 @@
     <div class="input-field">
       <input [mask]="'000) 000-00-00'"
              [showMaskTyped]="true"
-             prefix="+7("
+             prefix="+7 ("
              placeHolderCharacter="_"
              placeholder="Номер телефона"
              formControlName="login">
@@ -46,7 +46,8 @@
     <button [disabled]="loginForm.invalid" type="submit">Войти</button>
   </ng-container>
   <ng-template #loading>
-    <p-progressSpinner strokeWidth="4"
-                       animationDuration="4s" styleClass="spinner-small"></p-progressSpinner>
+    <p-progressSpinner strokeWidth="3"
+                       animationDuration="1s"
+                       styleClass="spinner-small"></p-progressSpinner>
   </ng-template>
 </form>

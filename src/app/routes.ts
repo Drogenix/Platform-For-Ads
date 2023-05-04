@@ -26,6 +26,10 @@ export const routes: Routes = [
     path:'', redirectTo:'advertisements', pathMatch:'full'
   },
   {
+    path:'search', title:'Поиск объявлений',
+    loadComponent: () => import('src/app/pages/advertisements-search/advertisements-search.component').then(mod => mod.AdvertisementsSearchComponent)
+  },
+  {
     path:'advertisements', title:'Объявления',
     loadComponent: () => import('src/app/pages/advertisements/advertisements.component').then(mod => mod.AdvertisementsComponent)
   },

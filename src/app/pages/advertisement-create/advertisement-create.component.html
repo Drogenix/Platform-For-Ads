@@ -66,8 +66,7 @@
       <label class="form-label">
         Адрес (место проведения сделки)
       </label>
-      <input class="form-input" placeholder="Начните вводить адрес"
-             formControlName="address">
+      <app-address-input formControlName="address"></app-address-input>
       <ng-container *ngIf="advertisementForm.controls.address.touched">
         <p class="alert"
            *ngIf="advertisementForm.controls.address.errors?.['required']">
@@ -115,8 +114,8 @@
       <button [disabled]="advertisementForm.invalid" class="submit">Разместить объявление</button>
     </ng-container>
     <ng-template #loading>
-      <p-progressSpinner strokeWidth="4"
-                         animationDuration="4s"></p-progressSpinner>
+      <p-progressSpinner strokeWidth="3"
+                         animationDuration="1s"></p-progressSpinner>
     </ng-template>
     <ng-container *ngIf="newAdvertisementId">
       <span class="new-add-link">Объявление создано!

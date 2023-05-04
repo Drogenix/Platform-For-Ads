@@ -5,6 +5,7 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {SearchComponent} from "./components/search/search.component";
 import {UserService} from "./core/services/user.service";
+import {ErrorService} from "./core/services/error.service";
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,10 @@ import {UserService} from "./core/services/user.service";
   standalone: true
 })
 export class AppComponent implements OnInit{
-  constructor(private userService:UserService) {}
+
+  error$ = this.errorService.error$;
+
+  constructor(private userService:UserService, private errorService:ErrorService) {}
 
   ngOnInit(): void {
     this.userService.checkAuth();

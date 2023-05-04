@@ -8,13 +8,15 @@ import {JwtHandlerService} from "./jwt-handler.service";
 })
 export class UserService {
   private _isAuthSubject = new BehaviorSubject<boolean>(false);
-  public isAuth$: Observable<boolean> = this._isAuthSubject.asObservable().pipe();
+  public isAuth$: Observable<boolean> = this._isAuthSubject.asObservable();
+
   constructor(private http:HttpClient, private jwtHandler:JwtHandlerService) {}
 
-  private _setAuth(token:string){
+  private _setAuth(token:string) {
     this.jwtHandler.setToken(token)
     this._isAuthSubject.next(true);
   }
+
   checkAuth(){
     if(this.jwtHandler.getToken()){
       this._isAuthSubject.next(true)
@@ -22,7 +24,6 @@ export class UserService {
   }
 
   login(user:any):Observable<string>{
-
     return this.http.post<string>('api/Account/login', user).pipe(
       tap(token => this._setAuth(token))
     )

@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {SlideMenuModule} from "primeng/slidemenu";
 import {MenuItem} from "primeng/api";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search',
@@ -140,4 +141,10 @@ export class SearchComponent {
       icon: 'pi pi-fw pi-power-off'
     }
   ];
+
+  constructor(private router:Router) {}
+
+  goToSearch(){
+    this.router.navigate(['search'])
+  }
 }

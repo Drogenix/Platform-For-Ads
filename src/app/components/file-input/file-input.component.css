@@ -52,8 +52,6 @@ button img{
   margin-right:12px;
 }
 
-::ng-deep :host p-progressSpinner .p-progress-spinner{
-  width: 32px;
-  height: 32px;
+:host ::ng-deep  p-progressSpinner .p-progress-spinner{
   margin: 0 12px;
 }

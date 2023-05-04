@@ -84,6 +84,18 @@ button:not(:disabled):active{
   opacity: .7;
 }
 
+:host ::ng-deep .spinner-small {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin-top:24px;
+}
+
+:host ::ng-deep .p-progress-spinner-circle{
+  stroke: #3B82F6;
+  animation:none;
+}
+
 @media screen and (max-width: 576px){
   .input-field input{
     padding: 10px;

@@ -47,14 +47,27 @@ p-overlay a{
   transition: 200ms;
 }
 
-p-overlay a:first-child{
-  border-radius: 4px 4px 0 0;
-}
-
-p-overlay a:last-child{
-  border-radius: 0 0 4px 4px;
-}
-
 p-overlay a:hover{
   background: #f3f3f3;
+}
+
+:host ::ng-deep .p-overlay-content{
+  display: flex;
+  flex-direction: column;
+  max-width: 147px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateX(-30px);
+  overflow: hidden;
+}
+
+@media screen and (max-width: 576px){
+  :host ::ng-deep .p-overlay-content{
+    transform:translateX(0);
+  }
+
+  .sign-in span{
+    display:none;
+  }
 }

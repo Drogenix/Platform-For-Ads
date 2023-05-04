@@ -5,10 +5,10 @@ main{
 
 .advertisements-filters{
   display:flex;
+  flex-direction: column;
   flex: 1 1;
   min-width: 186px;
   max-width: 306px;
-  flex-direction: column;
 }
 
 p-tree{
@@ -74,6 +74,15 @@ form div{
   margin-top: 24px;
   padding: 12px;
   cursor: pointer;
+  transition: 150ms;
+}
+
+.submit:is(:active,:hover):not(:disabled){
+  opacity:.85;
+}
+
+.submit:disabled{
+  opacity:.6;
 }
 
 .sort{
@@ -93,6 +102,37 @@ form div{
 
 .advertisements{
   padding: 24px 0;
+}
+
+:host ::ng-deep .p-slidemenu-content::-webkit-scrollbar{
+  width: 0;
+}
+
+:host ::ng-deep .p-tree, p-tree{
+  padding: 0;
+  border: none;
+}
+
+:host ::ng-deep p-treeNode .p-treenode-content{
+  padding: 0 0 0 4px !important;
+}
+
+:host ::ng-deep .p-treenode-label, .pi-chevron-right:before{
+  color: #3B82F6;
+}
+
+:host ::ng-deep .pi-chevron-right:before{
+  font-size: 12px;
+}
+
+:host ::ng-deep p-treeNode .p-tree-toggler{
+  width: 28px !important;
+  height: 28px !important;
+  color: #3B82F6 !important;
+}
+
+:host ::ng-deep .p-inputtext{
+  padding:8px;
 }
 
 @media screen and (max-width: 992px){

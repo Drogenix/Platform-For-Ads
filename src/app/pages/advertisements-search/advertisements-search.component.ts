@@ -1,29 +1,36 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {PanelMenuModule} from "primeng/panelmenu";
-import {AdvertisementCardComponent} from "../../components/advertisement-card/advertisement-card.component";
-import {AdvertisementsService} from "../../core/services/advertisements.service";
-import {DropdownModule} from "primeng/dropdown";
-import {TreeModule} from "primeng/tree";
-import {TreeNode} from "primeng/api";
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AdvertisementCardComponent } from '../../components/advertisement-card/advertisement-card.component';
+import { AdvertisementsService } from '../../core/services/advertisements.service';
+import { DropdownModule } from 'primeng/dropdown';
+import { TreeModule } from 'primeng/tree';
+import { TreeNode } from 'primeng/api';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-advertisements-search',
   standalone: true,
-  imports: [CommonModule, PanelMenuModule, AdvertisementCardComponent, DropdownModule, TreeModule],
+  imports: [
+    AdvertisementCardComponent,
+    DropdownModule,
+    ProgressSpinnerModule,
+    TreeModule,
+    AsyncPipe,
+    NgForOf,
+    NgIf,
+  ],
   templateUrl: './advertisements-search.component.html',
-  styleUrls: ['./advertisements-search.component.css']
+  styleUrls: ['./advertisements-search.component.css'],
 })
 export class AdvertisementsSearchComponent {
-  isMenuVisible:boolean = false;
-  sortBy = [
+  readonly sortOptions = [
     {
-      label:'Новизне',
+      label: 'Новизне',
     },
     {
-      label:'Стоимости',
-    }
-    ]
+      label: 'Стоимости',
+    },
+  ];
   categories: TreeNode[] = [
     {
       key: '0',
@@ -31,13 +38,13 @@ export class AdvertisementsSearchComponent {
       children: [
         {
           key: '0-0',
-          label: 'Коты'
+          label: 'Коты',
         },
         {
           key: '0-1',
-          label: 'Собаки'
-        }
-      ]
+          label: 'Собаки',
+        },
+      ],
     },
     {
       key: '0',
@@ -45,13 +52,13 @@ export class AdvertisementsSearchComponent {
       children: [
         {
           key: '0-0',
-          label: 'Коты'
+          label: 'Коты',
         },
         {
           key: '0-1',
-          label: 'Собаки'
-        }
-      ]
+          label: 'Собаки',
+        },
+      ],
     },
     {
       key: '0',
@@ -59,13 +66,13 @@ export class AdvertisementsSearchComponent {
       children: [
         {
           key: '0-0',
-          label: 'Коты'
+          label: 'Коты',
         },
         {
           key: '0-1',
-          label: 'Собаки'
-        }
-      ]
+          label: 'Собаки',
+        },
+      ],
     },
     {
       key: '0',
@@ -73,24 +80,25 @@ export class AdvertisementsSearchComponent {
       children: [
         {
           key: '0-0',
-          label: 'Коты'
+          label: 'Коты',
         },
         {
           key: '0-1',
-          label: 'Собаки'
-        }
-      ]
+          label: 'Собаки',
+        },
+      ],
     },
     {
       key: '0',
-      label: 'Животные'
+      label: 'Животные',
     },
   ];
-  ads$ = this.adsService.getAll();
-  constructor(private adsService:AdvertisementsService) {
-  }
+  isMenuVisible: boolean = false;
+  advertisements$ = this.advertisementsService.getAll();
 
-  toggleMenu(){
-    this.isMenuVisible = ! this.isMenuVisible;
+  constructor(private advertisementsService: AdvertisementsService) {}
+
+  toggleMenu() {
+    this.isMenuVisible = !this.isMenuVisible;
   }
 }

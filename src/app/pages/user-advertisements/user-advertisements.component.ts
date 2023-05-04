@@ -9,11 +9,11 @@ import {ProgressSpinnerModule} from "primeng/progressspinner";
   selector: 'app-user-advertisements',
   templateUrl: './user-advertisements.component.html',
   styleUrls: ['./user-advertisements.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgIf, NgForOf, AsyncPipe, AdvertisementCardComponent, RouterLink, ProgressSpinnerModule],
-  standalone:true
+  imports: [NgIf, NgForOf, AsyncPipe, AdvertisementCardComponent, RouterLink, ProgressSpinnerModule],
+  standalone:true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserAdvertisementsComponent {
-  response$ = this.advertisementsService.getAll();
+  advertisements$ = this.advertisementsService.getAll();
   constructor(private advertisementsService: AdvertisementsService) {}
 }

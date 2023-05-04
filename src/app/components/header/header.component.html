@@ -1,21 +1,22 @@
 <header>
   <div class="container">
     <nav>
-      <ng-container *ngIf="(isAuth$ | async); else signIn">
+      <ng-container *ngIf="(isAuth$ | async); else login">
         <a class="btn sign-in" (click)="toggleMenu()">
           <img class="person-img" src="assets/icon/profile.svg" alt="Профиль">
+          <span>
           Профиль
+          </span>
           <img class="arrow-img" src="assets/icon/arrow.svg" alt="Выпадающий список">
         </a>
         <p-overlay [(visible)]="overlayVisible"
-                   [contentStyleClass]="'overlay-content'"
                    [responsive]="{direction: 'right'}">
           <a [routerLink]="['/account/advertisements']">Мои объявления</a>
           <a [routerLink]="['/account/settings']">Настройки</a>
           <a class="logout" (click)="logout()">Выйти</a>
         </p-overlay>
       </ng-container>
-      <ng-template #signIn>
+      <ng-template #login>
         <a (click)="showLogin()" class="btn sign-in">
           <img class="person-img" src="assets/icon/profile.svg" alt="Профиль">
           Войти

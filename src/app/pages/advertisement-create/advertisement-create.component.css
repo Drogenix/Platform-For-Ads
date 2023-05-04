@@ -56,12 +56,18 @@ button:hover, .upload-btn:hover{
   text-decoration: underline;
 }
 
-::ng-deep .p-cascadeselect{
+:host ::ng-deep .p-cascadeselect{
+  display: flex;
+  max-width: 416px;
   border-radius: 4px;
   margin-bottom: 0;
 }
 
-::ng-deep form p-progressSpinner .p-progress-spinner{
+:host ::ng-deep .p-inputtext{
+  font-family: 'Inter', sans-serif;
+}
+
+:host ::ng-deep form p-progressSpinner .p-progress-spinner{
   width: 32px;
   height: 32px;
   margin: 0 12px;
@@ -96,9 +102,17 @@ button:hover, .upload-btn:hover{
 }
 
 @media screen and (max-width: 576px){
-  ::ng-deep p-cascadeSelect .p-cascadeselect-item-active>.p-cascadeselect-sublist{
+  :host ::ng-deep p-cascadeSelect .p-cascadeselect-item-active>.p-cascadeselect-sublist{
     left:0;
     top:90%;
+  }
+
+  :host ::ng-deep .p-cascadeselect-label{
+    font-size: 15px;
+  }
+
+  :host ::ng-deep .p-cascadeselect{
+    max-width: 100%;
   }
 
   .submit{

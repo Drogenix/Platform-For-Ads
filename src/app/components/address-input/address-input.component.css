@@ -1,0 +1,41 @@
+:host{
+  display:block;
+  position: relative;
+}
+:host ::ng-deep .p-overlay-content{
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+}
+
+:host ::ng-deep .p-overlay{
+  top:48px !important;
+}
+
+@media screen and (max-width: 576px){
+  :host ::ng-deep .p-overlay{
+    top:40px !important;
+  }
+}
+
+:host:is(.ng-invalid.ng-touched) input{
+  border: 1px solid #EF4444;
+}
+
+.address{
+  font-size: 16px;
+  line-height: 24px;
+  color: #1E293B;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition:150ms;
+}
+
+.address:hover{
+  background: #f3f3f3;
+}
+
