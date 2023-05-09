@@ -1,17 +1,20 @@
 <div class="container">
   <div class="search-container">
     <h2>Доска объявлений</h2>
-    <button type="button" class="btn all-categories" (click)="menu.toggle($event)">
+    <button type="button" class="btn all-categories" (click)="categoriesMenuVisible = !categoriesMenuVisible">
       <img src="assets/icon/listed.svg" alt="Список категорий">
       Все категории
     </button>
     <form class="search-box">
-      <input class="search-input" placeholder="Поиск по объявлениям">
-      <button type="button" (click)="goToSearch()" class="btn search">
+      <input class="search-input" placeholder="Поиск по объявлениям" [formControl]="inputControl">
+      <button class="btn search"
+              type="button"
+              [disabled]="inputControl.invalid"
+              (click)="goToSearch()">
         Найти
         <img src="assets/icon/search.svg" alt="Поиск">
       </button>
     </form>
   </div>
+  <app-categories-menu [(visible)]="categoriesMenuVisible"></app-categories-menu>
 </div>
-<p-slideMenu #menu [model]="items" [popup]="true"></p-slideMenu>

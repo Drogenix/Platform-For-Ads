@@ -11,6 +11,12 @@ main{
   max-width: 306px;
 }
 
+h2{
+  font-size: clamp(20px, 4vw + 2px, 24px);
+  font-weight: 600;
+  line-height: 32px;
+}
+
 p-tree{
   margin: 8px 0;
 }
@@ -48,17 +54,20 @@ form div{
 }
 
 .advertisements-results{
+  position:relative;
   flex:2 1;
 }
 
-.search-result{
+.result-header{
   display: flex;
   flex-wrap:wrap;
   justify-content: space-between;
-  gap:16px 12px;
+  gap:12px;
 }
 
 .result{
+  display: flex;
+  align-items: center;
   font-size: 16px;
   color:#64748B;
 }
@@ -90,22 +99,17 @@ form div{
   flex-wrap:wrap;
   align-items: center;
   gap:12px 8px;
-  margin-top:-8px;
 }
 
 .filters{
   display:none;
-  height: 36px;
+  height: 31px;
   background: #3B82F6;
   color: white;
 }
 
 .advertisements{
   padding: 24px 0;
-}
-
-:host ::ng-deep .p-slidemenu-content::-webkit-scrollbar{
-  width: 0;
 }
 
 :host ::ng-deep .p-tree, p-tree{
@@ -131,8 +135,14 @@ form div{
   color: #3B82F6 !important;
 }
 
+:host ::ng-deep .p-dropdown{
+  border-radius: 4px;
+}
+
 :host ::ng-deep .p-inputtext{
-  padding:8px;
+  padding:6px 8px;
+  font-size:15px;
+  font-family:"Inter",sans-serif;
 }
 
 @media screen and (max-width: 992px){

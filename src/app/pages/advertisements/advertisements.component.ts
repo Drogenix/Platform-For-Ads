@@ -8,7 +8,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   selector: 'app-advertisements',
   templateUrl: './advertisements.component.html',
   styleUrls: ['./advertisements.component.css'],
-  providers: [AdvertisementsService],
   imports: [
     NgIf,
     NgForOf,

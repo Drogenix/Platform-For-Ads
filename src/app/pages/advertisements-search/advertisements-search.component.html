@@ -1,40 +1,74 @@
 <ng-container *ngIf="(advertisements$ | async) as advertisements; else loading">
   <div class="container animated">
-    <h3>Объявления по запросу «попугаи»</h3>
+    <h3>Объявления</h3>
     <main>
-        <div class="advertisements-filters">
-          <h4>Все категории</h4>
-          <p-tree [value]="categories"></p-tree>
-          <h4>Цена</h4>
-          <form>
-            <div>
-              <input class="price-input" placeholder="Цена от">
-              <input class="price-input" placeholder="до, руб.">
-            </div>
-            <button type="button" class="submit">Показать объявления</button>
-          </form>
-        </div>
-      <div class="advertisements-results">
-        <div class="search-result">
-          <p class="result">Всего найдено 1 234 объявления</p>
-          <div class="sort">
-            <p>Сортировка по</p>
-            <p-dropdown [options]="sortOptions"
-                        [editable]="false"
-                        optionLabel="label"></p-dropdown>
-            <button type="button" class="btn filters" (click)="toggleMenu()">Фильтры</button>
+      <div class="advertisements-filters">
+        <h4>Все категории</h4>
+        <ng-container *ngIf="(categories$ | async) as categories">
+          <p-tree
+            selectionMode="single"
+            [value]="categories"
+            [(selection)]="selectedCategory"
+            (onNodeSelect)="onCategorySelect()"
+          ></p-tree>
+        </ng-container>
+        <h4>Цена</h4>
+        <form>
+          <div>
+            <input class="price-input" placeholder="Цена от" />
+            <input class="price-input" placeholder="до, руб." />
           </div>
-        </div>
-        <div class="advertisements">
-          <advertisement-card *ngFor="let ad of advertisements" [advertisement]="ad"></advertisement-card>
-        </div>
+          <button type="button" class="submit">Показать объявления</button>
+        </form>
       </div>
+        <div class="advertisements-results">
+          <ng-container *ngIf="(loading$ | async); else result">
+            <p-progressSpinner
+              strokeWidth="3"
+              animationDuration="1s"
+              styleClass="spinner"
+            ></p-progressSpinner>
+          </ng-container>
+          <ng-template #result>
+            <ng-container *ngIf="advertisements.length > 0; else noResults">
+              <div class="result-header">
+                <p class="result">
+                  Всего найдено {{ advertisements.length }} объявления(-ий)
+                </p>
+                <div class="sort">
+                  <p>Сортировка по</p>
+                  <p-dropdown
+                    [options]="sortOptions"
+                    [editable]="false"
+                    optionLabel="label"
+                  ></p-dropdown>
+                  <button type="button" class="btn filters" (click)="toggleMenu()">
+                    Фильтры
+                  </button>
+                </div>
+              </div>
+              <div class="advertisements">
+                <advertisement-card
+                  *ngFor="let advertisement of advertisements"
+                  [advertisement]="advertisement"
+                ></advertisement-card>
+              </div>
+            </ng-container>
+          </ng-template>
+        </div>
+      <ng-template #noResults>
+        <div>
+          <h2>Ничего не найдено по данному запросу</h2>
+          <p>Попробуйте ввести Ваш запрос по другому</p>
+        </div>
+      </ng-template>
     </main>
   </div>
 </ng-container>
 <ng-template #loading>
-  <p-progressSpinner strokeWidth="3"
-                     animationDuration="1s"
-                     styleClass="spinner"
+  <p-progressSpinner
+    strokeWidth="3"
+    animationDuration="1s"
+    styleClass="spinner"
   ></p-progressSpinner>
 </ng-template>

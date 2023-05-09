@@ -96,17 +96,12 @@ button:hover, .upload-btn:hover{
 }
 
 @media screen and (min-width:576px) and (max-width: 992px){
-  ::ng-deep p-overlay .p-overlay{
-    min-width: 208px !important;
+  :host ::ng-deep p-cascadeSelect p-overlay .p-overlay{
+    min-width: 208px!important;
   }
 }
 
 @media screen and (max-width: 576px){
-  :host ::ng-deep p-cascadeSelect .p-cascadeselect-item-active>.p-cascadeselect-sublist{
-    left:0;
-    top:90%;
-  }
-
   :host ::ng-deep .p-cascadeselect-label{
     font-size: 15px;
   }
@@ -118,5 +113,12 @@ button:hover, .upload-btn:hover{
   .submit{
     font-size: 15px;
     padding: 8px 12px;
+  }
+}
+
+@media screen and (max-width: 1256px){
+  :host ::ng-deep p-cascadeSelect .p-cascadeselect-item-active>.p-cascadeselect-sublist{
+    left:0;
+    top:90%;
   }
 }

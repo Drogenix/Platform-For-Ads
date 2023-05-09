@@ -1,0 +1,44 @@
+<ng-container *ngIf="(categories$ | async) as categories">
+  <p-overlay
+    [(visible)]="visible"
+    showTransitionOptions="0s"
+    hideTransitionOptions="0s">
+    <div class="container animated">
+      <div class="categories">
+        <div class="categories-list">
+          <button
+            class="category-btn"
+            [class.category-selected]="selected === i"
+            (click)="changeSelected(i)"
+            *ngFor="let category of categories; index as i">
+            <span>{{ category.name }}</span>
+            <img src="assets/icon/arrow-right.svg" alt="Выбрать категорию" />
+          </button>
+        </div>
+          <div class="category-children">
+            <a class="category root-category">
+              <span>{{ categories[selected].name }}</span>
+              <img alt="Выбрать категорию" src="assets/icon/arrow-right.svg" />
+            </a>
+            <div class="subcategories">
+              <div
+                class="subcategory"
+                *ngFor="let subcategory of categories[selected].children">
+                <a class="category">
+                  <span>{{ subcategory.name }}</span>
+                  <img
+                    alt="Выбрать категорию"
+                    src="assets/icon/arrow-right.svg"/>
+                </a>
+                <div class="subcategory-children">
+                  <a *ngFor="let children of subcategory.children">
+                    {{children.name}}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </p-overlay>
+</ng-container>

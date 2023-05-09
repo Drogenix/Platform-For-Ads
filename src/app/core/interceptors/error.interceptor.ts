@@ -9,21 +9,15 @@ import {
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { ErrorService } from '../services/error.service';
 
-const URLS_TO_SHOW_ERROR = ['api/asfasfasf'];
-
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(private errorService: ErrorService) {}
 
   private _handleError(error: HttpErrorResponse) {
-    for (const url of URLS_TO_SHOW_ERROR) {
-      const urlToCompare = url.toLowerCase();
-
-      if (error.url?.toLowerCase().includes(urlToCompare)) {
-        this.errorService.showError();
-      }
+    if (error.status === 504) {
+      this.errorService.showError();
     }
-    return throwError(error);
+    return throwError(() => error.message);
   }
 
   intercept(

@@ -1,14 +1,18 @@
-<input #input
+<div>
+  <input #input
          class="form-input input-big"
-         placeholder="Начните вводить адрес">
-<ng-container *ngIf="(addresses$ | async) as addresses">
-  <p-overlay [(visible)]="selectVisible"
-             [responsive]="{direction: 'bottom'}"
-             (blur)="onBlur()">
-    <p class="address"
+         placeholder="Начните вводить адрес"
+         (blur)="markAsTouched()">
+  <ng-container *ngIf="(addresses$ | async) as addresses">
+    <p-overlay [(visible)]="selectVisible"
+               [responsive]="{direction: 'bottom'}"
+               (blur)="onBlur()">
+      <p class="address"
          *ngFor="let address of addresses"
          (click)="selectAddress(address.value)">
         {{address.value}}
-    </p>
-  </p-overlay>
-</ng-container>
+      </p>
+    </p-overlay>
+  </ng-container>
+</div>
+

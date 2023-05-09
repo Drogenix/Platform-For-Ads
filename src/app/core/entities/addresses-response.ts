@@ -1,5 +1,5 @@
-import {Address} from "./address";
+import { Address } from './address';
 
-export interface AddressesResponse{
-  suggestions:Address[];
+export interface AddressesResponse {
+  suggestions: Address[];
 }

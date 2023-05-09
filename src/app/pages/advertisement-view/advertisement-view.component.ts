@@ -3,12 +3,13 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { AdvertisementNumberComponent } from '../../components/advertisement-number/advertisement-number.component';
 import { AdvertisementsService } from '../../core/services/advertisements.service';
-import { combineLatest, map, Observable, switchMap } from 'rxjs';
+import { combineLatest, map, Observable, switchMap, tap } from 'rxjs';
 import { Advertisement } from '../../core/entities/advertisement';
 import { ActivatedRoute } from '@angular/router';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Category } from '../../core/entities/category';
 import { CategoriesService } from '../../core/services/categories.service';
+import { Title } from '@angular/platform-browser';
 
 type AdvertisementView = {
   content: Advertisement;
@@ -18,7 +19,6 @@ type AdvertisementView = {
   selector: 'app-advertisement-view',
   templateUrl: './advertisement-view.component.html',
   styleUrls: ['./advertisement-view.component.css'],
-  providers: [DialogService],
   imports: [DynamicDialogModule, NgIf, AsyncPipe, ProgressSpinnerModule],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,7 +29,8 @@ export class AdvertisementViewComponent implements OnInit {
     private dialogService: DialogService,
     private advertisementsService: AdvertisementsService,
     private categoriesService: CategoriesService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title
   ) {}
   showNumber() {
     this.dialogService.open(AdvertisementNumberComponent, {
@@ -39,18 +40,21 @@ export class AdvertisementViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const ad$ = this.activatedRoute.params.pipe(
-      switchMap((params) => this.advertisementsService.getById(params['id']))
+    const advertisement$ = this.activatedRoute.params.pipe(
+      switchMap((params) => this.advertisementsService.getById(params['id'])),
+      tap((advertisement) =>
+        this.titleService.setTitle('Объявление | ' + advertisement.name)
+      )
     );
 
-    const category$ = ad$.pipe(
-      switchMap((ad) => this.categoriesService.getById(ad.categoryId))
+    const category$ = advertisement$.pipe(
+      switchMap((ad) => this.categoriesService.getById(ad.categoryId!))
     );
 
-    this.advertisement$ = combineLatest(ad$, category$).pipe(
-      map(([ad, category]) => {
+    this.advertisement$ = combineLatest(advertisement$, category$).pipe(
+      map(([advertisement, category]) => {
         return {
-          content: ad,
+          content: advertisement,
           category,
         };
       })

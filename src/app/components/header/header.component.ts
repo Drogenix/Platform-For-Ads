@@ -1,34 +1,36 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {AsyncPipe, NgIf} from "@angular/common";
-import {UserService} from "../../core/services/user.service";
-import {Router, RouterLink} from "@angular/router";
-import {OverlayModule} from "primeng/overlay";
-import {AuthDialogService} from "../../core/services/auth-dialog.service";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { UserService } from '../../core/services/user.service';
+import { Router, RouterLink } from '@angular/router';
+import { OverlayModule } from 'primeng/overlay';
+import { AuthDialogService } from '../../core/services/auth-dialog.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIf, AsyncPipe, RouterLink, OverlayModule],
-  standalone:true
+  standalone: true,
 })
 export class HeaderComponent {
+  userMenuVisible: boolean = false;
   isAuth$ = this.userService.isAuth$;
-  overlayVisible:boolean = false;
-  constructor(private userService:UserService, private authDialog:AuthDialogService, private router:Router) {
-  }
+  constructor(
+    private userService: UserService,
+    private authDialog: AuthDialogService,
+    private router: Router
+  ) {}
 
-  showLogin(){
+  showLogin() {
     this.authDialog.showLogin();
   }
 
-  toggleMenu(){
-    this.overlayVisible = !this.overlayVisible;
+  toggleMenu() {
+    this.userMenuVisible = !this.userMenuVisible;
   }
 
-  logout(){
+  logout() {
     this.userService.logout();
-
-    this.router.navigateByUrl('')
+    this.router.navigateByUrl('');
   }
 }

@@ -32,10 +32,10 @@ import { OverlayModule } from 'primeng/overlay';
   standalone: true,
 })
 export class AddressInputComponent implements OnInit, ControlValueAccessor {
-  selectVisible: boolean = false;
-  addresses$: Observable<Address[]>;
   onChange: Function;
   onTouched: Function;
+  selectVisible: boolean = false;
+  addresses$: Observable<Address[]>;
   @ViewChild('input', { static: true })
   private _input: ElementRef<HTMLInputElement>;
   private _touched: boolean = false;
@@ -79,14 +79,12 @@ export class AddressInputComponent implements OnInit, ControlValueAccessor {
 
   onBlur() {
     this.markAsTouched();
-
     this.selectVisible = false;
   }
 
   selectAddress(value: string) {
     this._input.nativeElement.value = value;
     this.onChange(value);
-
     this.selectVisible = false;
   }
 }

@@ -1,6 +1,6 @@
 export interface Advertisement {
   id: string;
-  categoryId: string;
+  categoryId?: string;
   name: string;
   description?: string;
   address: string;

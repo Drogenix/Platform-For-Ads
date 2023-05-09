@@ -8,7 +8,7 @@ import { Category } from '../../core/entities/category';
 import { NgxMaskDirective } from 'ngx-mask';
 import { FileInputComponent } from '../../components/file-input/file-input.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { JsonPipe, NgIf } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
 import { AdvertisementsService } from '../../core/services/advertisements.service';
 import { Advertisement } from '../../core/entities/advertisement';
 import { takeUntil } from 'rxjs';
@@ -16,8 +16,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RouterLink } from '@angular/router';
 import { DestroyService } from '../../core/services/destroy.service';
 import { AddressInputComponent } from '../../components/address-input/address-input.component';
-
-type AdvertisementCategory = Category & { subCategories?: Category[] };
+import { CategoriesService } from '../../core/services/categories.service';
 
 @Component({
   selector: 'app-advertisement-create',
@@ -34,6 +33,7 @@ type AdvertisementCategory = Category & { subCategories?: Category[] };
     ProgressSpinnerModule,
     RouterLink,
     AddressInputComponent,
+    AsyncPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
@@ -42,42 +42,7 @@ export class AdvertisementCreateComponent {
   isLoading: boolean = false;
   newAdvertisementId: string;
   error: string;
-  categories: AdvertisementCategory[] = [
-    {
-      id: 'afa',
-      name: 'Животные',
-      parentId: 'none',
-      subCategories: [
-        {
-          id: 'aaslfalsf',
-          name: 'Коты',
-          parentId: 'afa',
-        },
-        {
-          id: 'sfasfasf',
-          name: 'Собаки',
-          parentId: 'afa',
-        },
-      ],
-    },
-    {
-      id: 'aba',
-      name: 'Автомобили',
-      parentId: 'none',
-      subCategories: [
-        {
-          id: 'aaslfalsf',
-          name: 'Легковые',
-          parentId: 'aba',
-        },
-        {
-          id: 'sfasfasf',
-          name: 'Грузовые',
-          parentId: 'aba',
-        },
-      ],
-    },
-  ];
+  categories$ = this.categoriesService.getAll();
   advertisementForm = this.fb.group({
     category: ['', Validators.required],
     name: [
@@ -103,6 +68,7 @@ export class AdvertisementCreateComponent {
   constructor(
     private fb: FormBuilder,
     private advertisementsService: AdvertisementsService,
+    private categoriesService: CategoriesService,
     private destroy$: DestroyService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -128,9 +94,7 @@ export class AdvertisementCreateComponent {
 
   createAdvertisement() {
     if (this.advertisementForm.valid) {
-      debugger;
       const advertisement = this.getFormValue();
-
       this.isLoading = true;
       this.error = '';
 
@@ -140,7 +104,6 @@ export class AdvertisementCreateComponent {
         .subscribe({
           next: () => {
             this.newAdvertisementId = advertisement.id;
-
             this.isLoading = false;
 
             this.cdr.markForCheck();
@@ -148,7 +111,6 @@ export class AdvertisementCreateComponent {
           error: () => {
             this.error =
               'Не удалось создать объявление, проверьте правильность данных и попробуйте снова';
-
             this.isLoading = false;
 
             this.cdr.markForCheck();

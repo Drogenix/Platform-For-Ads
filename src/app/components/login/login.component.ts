@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { DestroyService } from '../../core/services/destroy.service';
 import { AuthDialogService } from '../../core/services/auth-dialog.service';
+import { NgIf } from '@angular/common';
 
 const LOGIN_ERROR = 'Не удалось авторизоваться! Попробуйте снова';
 
@@ -15,7 +16,7 @@ const LOGIN_ERROR = 'Не удалось авторизоваться! Попр�
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   providers: [DestroyService],
-  imports: [ProgressSpinnerModule, ReactiveFormsModule, NgxMaskDirective],
+  imports: [ProgressSpinnerModule, ReactiveFormsModule, NgxMaskDirective, NgIf],
   standalone: true,
 })
 export class LoginComponent {
@@ -42,7 +43,6 @@ export class LoginComponent {
   login() {
     if (this.loginForm.valid) {
       this.isSubmitting = true;
-
       this.error = '';
 
       const user = this.loginForm.value;

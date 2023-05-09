@@ -8,7 +8,7 @@ html, body {
   font-family: 'Inter', sans-serif;
 }
 
-.ng-invalid.ng-touched:not(form, p-cascadeSelect, app-address-input){
+.ng-invalid.ng-touched:not(form, p-cascadeSelect, app-address-input, .search-input){
   border:1px solid #EF4444;
 }
 

@@ -57,9 +57,14 @@
   border-radius: 0 4px 4px 0;
 }
 
+.search:disabled{
+  opacity: .6;
+}
+
 .search img{
   margin-left: 8px;
 }
+
 
 @media screen and (max-width: 785px) {
   .search-box {

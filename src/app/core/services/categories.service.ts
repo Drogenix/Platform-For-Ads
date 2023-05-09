@@ -12,4 +12,8 @@ export class CategoriesService {
   getById(id: string): Observable<Category> {
     return this.http.get<Category>('api/Category/' + id);
   }
+
+  getAll(): Observable<Category[]> {
+    return this.http.get<Category[]>('/assets/mock-categories.json');
+  }
 }
