@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   AsyncPipe,
-  JsonPipe,
+
   NgForOf,
   NgIf,
-  NgTemplateOutlet,
+
 } from '@angular/common';
 import { OverlayModule } from 'primeng/overlay';
 import { CategoriesService } from '../../core/services/categories.service';
@@ -17,8 +17,8 @@ import { CategoriesService } from '../../core/services/categories.service';
     NgForOf,
     OverlayModule,
     AsyncPipe,
-    JsonPipe,
-    NgTemplateOutlet,
+
+
   ],
   templateUrl: './categories-menu.component.html',
   styleUrls: ['./categories-menu.component.css'],

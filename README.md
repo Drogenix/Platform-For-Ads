@@ -1,4 +1,4 @@
-# SolarProject
+# Platform for ads
 
 Angular version - 15.2.4;
 
