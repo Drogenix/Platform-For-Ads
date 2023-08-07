@@ -2,6 +2,16 @@ h3{
   margin:32px 0 24px;
 }
 
+.text-area-footer{
+  display: flex;
+  justify-content: space-between;
+}
+
+.symbols-counter{
+  margin-top:6px;
+  color: #64748B;
+}
+
 span{
   color: #EF4444;
 }

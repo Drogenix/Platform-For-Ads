@@ -1,0 +1,9 @@
+:host{
+  display: block;
+  max-height: 48px;
+  max-width: 416px;
+}
+
+:host:is(.ng-invalid.ng-touched)::ng-deep .p-cascadeselect{
+  border: 1px solid #EF4444;
+}

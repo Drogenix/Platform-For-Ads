@@ -8,8 +8,7 @@
           <p-tree
             selectionMode="single"
             [value]="categories"
-            [(selection)]="selectedCategory"
-            (onNodeSelect)="onCategorySelect()"
+            (onNodeSelect)="onCategorySelect($event)"
           ></p-tree>
         </ng-container>
         <h4>Цена</h4>
@@ -21,32 +20,33 @@
           <button type="button" class="submit">Показать объявления</button>
         </form>
       </div>
-        <div class="advertisements-results">
-          <ng-container *ngIf="(loading$ | async); else result">
+      <div class="advertisements-results">
+          <div class="result-header">
+            <p class="result">
+              Всего найдено {{ advertisements.length }} объявления(-ий)
+            </p>
+            <div class="sort">
+              <p>Сортировка по</p>
+              <p-dropdown
+                [options]="sortOptions"
+                [editable]="false"
+                (onChange)="onSortOptionChange($event)"
+                optionLabel="label"
+              ></p-dropdown>
+              <button type="button" class="btn filters" (click)="toggleFilters()">
+                Фильтры
+              </button>
+            </div>
+          </div>
+          <ng-container *ngIf="(loading$ | async); else data">
             <p-progressSpinner
               strokeWidth="3"
               animationDuration="1s"
               styleClass="spinner"
             ></p-progressSpinner>
           </ng-container>
-          <ng-template #result>
+          <ng-template #data>
             <ng-container *ngIf="advertisements.length > 0; else noResults">
-              <div class="result-header">
-                <p class="result">
-                  Всего найдено {{ advertisements.length }} объявления(-ий)
-                </p>
-                <div class="sort">
-                  <p>Сортировка по</p>
-                  <p-dropdown
-                    [options]="sortOptions"
-                    [editable]="false"
-                    optionLabel="label"
-                  ></p-dropdown>
-                  <button type="button" class="btn filters" (click)="toggleMenu()">
-                    Фильтры
-                  </button>
-                </div>
-              </div>
               <div class="advertisements">
                 <advertisement-card
                   *ngFor="let advertisement of advertisements"
@@ -55,13 +55,32 @@
               </div>
             </ng-container>
           </ng-template>
+          <ng-template #noResults>
+            <div>
+              <h2>Ничего не найдено по данному запросу</h2>
+            </div>
+          </ng-template>
         </div>
-      <ng-template #noResults>
-        <div>
-          <h2>Ничего не найдено по данному запросу</h2>
-          <p>Попробуйте ввести Ваш запрос по другому</p>
+      <p-dialog [(visible)]="showFiltersDialog" [showHeader]="false" [modal]="true" [dismissableMask]="true" [draggable]="false">
+        <div class="advertisements-filters dialog-filters">
+          <h4>Все категории</h4>
+          <ng-container *ngIf="(categories$ | async) as categories">
+            <p-tree
+              selectionMode="single"
+              [value]="categories"
+              (onNodeSelect)="onCategorySelect($event)"
+            ></p-tree>
+          </ng-container>
+          <h4>Цена</h4>
+          <form>
+            <div>
+              <input class="price-input" placeholder="Цена от" />
+              <input class="price-input" placeholder="до, руб." />
+            </div>
+            <button type="button" class="submit">Показать объявления</button>
+          </form>
         </div>
-      </ng-template>
+      </p-dialog>
     </main>
   </div>
 </ng-container>

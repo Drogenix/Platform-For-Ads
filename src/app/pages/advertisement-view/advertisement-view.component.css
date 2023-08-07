@@ -79,8 +79,8 @@ main
 
 .img-gallery{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(76px, max-content));
-  margin-top: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
+  margin-top: 12px;
   gap: 12px;
 }
 
@@ -89,7 +89,6 @@ main
   max-height: 84px;
   border-radius: 4px;
   cursor: pointer;
-  transition: 200ms;
 }
 
 .img-gallery-wrapper img{

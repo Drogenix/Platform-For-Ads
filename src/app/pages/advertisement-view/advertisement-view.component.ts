@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { AdvertisementNumberComponent } from '../../components/advertisement-number/advertisement-number.component';
 import { AdvertisementsService } from '../../core/services/advertisements.service';
@@ -10,6 +10,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Category } from '../../core/entities/category';
 import { CategoriesService } from '../../core/services/categories.service';
 import { Title } from '@angular/platform-browser';
+import { NgxMaskPipe } from 'ngx-mask';
 
 type AdvertisementView = {
   content: Advertisement;
@@ -19,12 +20,22 @@ type AdvertisementView = {
   selector: 'app-advertisement-view',
   templateUrl: './advertisement-view.component.html',
   styleUrls: ['./advertisement-view.component.css'],
-  imports: [DynamicDialogModule, NgIf, AsyncPipe, ProgressSpinnerModule],
+  imports: [
+    DynamicDialogModule,
+    NgIf,
+    AsyncPipe,
+    ProgressSpinnerModule,
+    NgForOf,
+    NgxMaskPipe,
+  ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdvertisementViewComponent implements OnInit {
   advertisement$: Observable<AdvertisementView>;
+
+  selectedImage: number = 0;
+  private _userId: string;
   constructor(
     private dialogService: DialogService,
     private advertisementsService: AdvertisementsService,
@@ -32,19 +43,13 @@ export class AdvertisementViewComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private titleService: Title
   ) {}
-  showNumber() {
-    this.dialogService.open(AdvertisementNumberComponent, {
-      header: 'Пользователь',
-      width: '516px',
-    });
-  }
-
   ngOnInit(): void {
     const advertisement$ = this.activatedRoute.params.pipe(
       switchMap((params) => this.advertisementsService.getById(params['id'])),
-      tap((advertisement) =>
-        this.titleService.setTitle('Объявление | ' + advertisement.name)
-      )
+      tap((advertisement) => {
+        this.titleService.setTitle(advertisement.name);
+        this._userId = advertisement.userId;
+      })
     );
 
     const category$ = advertisement$.pipe(
@@ -59,5 +64,25 @@ export class AdvertisementViewComponent implements OnInit {
         };
       })
     );
+  }
+
+  showNumber() {
+    this.dialogService.open(AdvertisementNumberComponent, {
+      header: 'Пользователь',
+      width: '516px',
+      style: {
+        'min-height': '325px',
+        margin: '0 12px',
+      },
+      data: {
+        userId: this._userId,
+      },
+    });
+  }
+
+  selectImage(imageIndex: number) {
+    if (imageIndex != this.selectedImage) {
+      this.selectedImage = imageIndex;
+    }
   }
 }

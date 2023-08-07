@@ -1,36 +1,7 @@
 <form [formGroup]="registerForm" (ngSubmit)="register()">
   <div class="inputs">
     <div class="input-field">
-      <input [mask]="'000) 000-00-00'"
-             [showMaskTyped]="true"
-             prefix="+7 ("
-             placeHolderCharacter="_"
-             placeholder="Номер телефона"
-             formControlName="login">
-      <ng-container *ngIf="registerForm.controls.login.touched">
-        <p class="alert"
-           *ngIf="registerForm.controls.login.errors?.['required']">
-          Введите номер телефона
-        </p>
-        <p class="alert"
-           *ngIf="registerForm.controls.login.errors?.['minlength']">
-          Это поле нужно заполнить полностью
-        </p>
-      </ng-container>
-    </div>
-    <div class="input-field">
-      <input placeholder="E-mail"
-             formControlName="email">
-      <ng-container *ngIf="registerForm.controls.email.touched">
-        <p class="alert"
-           *ngIf="registerForm.controls.email.errors?.['required']">
-          Введите e-mail
-        </p>
-        <p class="alert"
-           *ngIf="registerForm.controls.email.errors?.['email']">
-          Некорректный e-mail
-        </p>
-      </ng-container>
+      <app-phone-input formControlName="phone"></app-phone-input>
     </div>
     <div class="input-field">
       <input type="password"
@@ -51,6 +22,7 @@
         </p>
       </ng-container>
     </div>
+    {{registerForm.errors}}
     <div class="form-bottom">
       <a (click)="goToLogin()">Авторизоваться</a>
     </div>

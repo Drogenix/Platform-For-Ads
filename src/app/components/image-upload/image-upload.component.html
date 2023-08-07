@@ -1,0 +1,22 @@
+<p-fileUpload
+  name="file"
+  chooseLabel="Выбрать"
+  uploadLabel="Загрузить"
+  accept="image/*"
+  [fileLimit]="20"
+  [multiple]="true"
+  [maxFileSize]="10000000"
+  [headers]="headers"
+  [url]="API_URL"
+  (onUpload)="onUpload($event)">
+  <ng-template pTemplate="toolbar">
+    <p class="file-upload-info">
+      Максимум 20 картинок в формате jpeg, png или heic
+    </p>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <p *ngIf="uploadedImages.length" class="file-upload-info">
+      Изображения загружены
+    </p>
+  </ng-template>
+</p-fileUpload>

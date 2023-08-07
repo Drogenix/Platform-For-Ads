@@ -8,27 +8,33 @@ import { Router } from '@angular/router';
 import { DestroyService } from '../../core/services/destroy.service';
 import { AuthDialogService } from '../../core/services/auth-dialog.service';
 import { NgIf } from '@angular/common';
-
-const LOGIN_ERROR = 'Не удалось авторизоваться! Попробуйте снова';
+import { PhoneInputComponent } from '../phone-input/phone-input.component';
+import { NotificationsService } from '../../core/services/notifications.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   providers: [DestroyService],
-  imports: [ProgressSpinnerModule, ReactiveFormsModule, NgxMaskDirective, NgIf],
+  imports: [
+    ProgressSpinnerModule,
+    ReactiveFormsModule,
+    NgxMaskDirective,
+    NgIf,
+    PhoneInputComponent,
+  ],
   standalone: true,
 })
 export class LoginComponent {
   isSubmitting: boolean = false;
   error: string;
-  loginForm = this.fb.group({
-    login: [
-      '',
-      [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
+  loginForm = this.fb.nonNullable.group({
+    phone: [
+      '71111111111',
+      [Validators.required, Validators.minLength(11), Validators.maxLength(11)],
     ],
     password: [
-      '',
+      'password1',
       [Validators.required, Validators.minLength(8), Validators.maxLength(24)],
     ],
   });
@@ -38,7 +44,8 @@ export class LoginComponent {
     private authDialog: AuthDialogService,
     private userService: UserService,
     private router: Router,
-    private destroy$: DestroyService
+    private destroy$: DestroyService,
+    private notificationsService: NotificationsService
   ) {}
   login() {
     if (this.loginForm.valid) {
@@ -46,7 +53,6 @@ export class LoginComponent {
       this.error = '';
 
       const user = this.loginForm.value;
-      user.login = '+7' + user.login;
 
       this.userService
         .login(user)
@@ -54,11 +60,12 @@ export class LoginComponent {
         .subscribe({
           next: () => {
             this.authDialog.close();
+            this.notificationsService.showInfo('Вы успешно авторизовались');
             this.router.navigate(['']);
           },
-          error: () => {
+          error: (err) => {
             this.isSubmitting = false;
-            this.error = LOGIN_ERROR;
+            this.error = err;
           },
         });
     }

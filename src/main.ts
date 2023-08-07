@@ -6,14 +6,12 @@ import { AppComponent } from './app/app.component';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/routes';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
-import { AuthInterceptor } from './app/core/interceptors/auth.interceptor';
-import { ErrorInterceptor } from './app/core/interceptors/error.interceptor';
 
 if (environment.production) {
   enableProdMode();
@@ -32,7 +30,5 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes),
     provideEnvironmentNgxMask(),
     DialogService,
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
 }).catch((err) => console.error(err));

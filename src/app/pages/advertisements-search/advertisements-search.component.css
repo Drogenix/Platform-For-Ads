@@ -1,14 +1,48 @@
 main{
   display: flex;
-  gap:24px;
 }
 
 .advertisements-filters{
   display:flex;
+  margin-right: 24px;
   flex-direction: column;
   flex: 1 1;
+  background: white;
   min-width: 186px;
   max-width: 306px;
+}
+
+.advertisements-filters-overlay{
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  position: fixed;
+  inset:0;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+:host::ng-deep .p-dialog{
+  max-width: 340px;
+  width: 100%;
+}
+
+:host::ng-deep .p-dialog-content{
+  padding:24px;
+  width:100%;
+  border-radius:4px;
+  border:1px solid #E2E8F0;
+}
+
+.dialog-filters .price-input{
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.dialog-filters .submit{
+  font-size: 15px;
+  height: auto;
+  line-height: 18px;
+  margin-top: 16px;
 }
 
 h2{
@@ -151,25 +185,26 @@ form div{
   }
 }
 
-@media screen and (min-width: 576px){
+
+
+@media screen and (min-width: 768px){
   .advertisements{
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns:repeat(3,1fr);
   }
 }
 
 @media screen and (max-width: 768px){
-  .advertisements-filters{
+  main > .advertisements-filters{
     display: none;
-    z-index: 1;
-    position: absolute;
-    max-width: 100%;
-    inset: 0;
-    background: white;
-    padding: 12px;
-    border: none;
   }
 
   .filters{
     display:flex;
+  }
+}
+
+@media screen and (max-width: 768px) and (min-width: 576px){
+  .advertisements{
+    grid-template-columns:repeat(auto-fit,158px);
   }
 }

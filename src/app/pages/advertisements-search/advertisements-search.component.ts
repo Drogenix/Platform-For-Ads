@@ -9,6 +9,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Advertisement } from '../../core/entities/advertisement';
 import {
   BehaviorSubject,
+  combineLatest,
   map,
   merge,
   Observable,
@@ -19,13 +20,19 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { CategoriesService } from '../../core/services/categories.service';
 import { Category } from '../../core/entities/category';
+import { DialogModule } from 'primeng/dialog';
+import { NotificationsService } from '../../core/services/notifications.service';
+
+type SortOption = 'date' | 'price';
 
 const SORT_OPTIONS = [
   {
     label: 'Новизне',
+    option: 'date',
   },
   {
     label: 'Стоимости',
+    option: 'price',
   },
 ];
 
@@ -40,34 +47,35 @@ const SORT_OPTIONS = [
     AsyncPipe,
     NgForOf,
     NgIf,
+    DialogModule,
   ],
   templateUrl: './advertisements-search.component.html',
   styleUrls: ['./advertisements-search.component.css'],
 })
 export class AdvertisementsSearchComponent implements OnInit {
   readonly sortOptions = SORT_OPTIONS;
-  isMenuVisible: boolean = false;
-  selectedCategory: TreeNode;
+  showFiltersDialog: boolean = false;
   advertisements$: Observable<Advertisement[]>;
   categories$ = this.categoriesService
     .getAll()
     .pipe(map((categories) => this.convertCategoriesToTree(categories)));
   loading$ = new BehaviorSubject<boolean>(true);
   private _selectedCategorySubject = new Subject<string>();
-
+  private _selectedSortOption = new BehaviorSubject<SortOption>('date');
   constructor(
     private advertisementsService: AdvertisementsService,
     private activatedRoute: ActivatedRoute,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private notificationsService: NotificationsService
   ) {}
 
   ngOnInit(): void {
-    const advertisementsFromSearch$ = this.activatedRoute.queryParams.pipe(
+    const advertisementsByName$ = this.activatedRoute.queryParams.pipe(
       tap(() => this.loading$.next(true)),
       switchMap((params) => this.advertisementsService.getByName(params['s']))
     );
 
-    const selectedCategoryAdvertisement$ = this._selectedCategorySubject
+    const advertisementsByCategory$ = this._selectedCategorySubject
       .asObservable()
       .pipe(
         tap(() => this.loading$.next(true)),
@@ -76,10 +84,40 @@ export class AdvertisementsSearchComponent implements OnInit {
         )
       );
 
-    this.advertisements$ = merge(
-      advertisementsFromSearch$,
-      selectedCategoryAdvertisement$
+    const sortOption$ = this._selectedSortOption.asObservable();
+
+    const advertisements$ = merge(
+      advertisementsByName$,
+      advertisementsByCategory$
     ).pipe(tap(() => this.loading$.next(false)));
+
+    this.advertisements$ = combineLatest(advertisements$, sortOption$).pipe(
+      map(([advertisements, sortOption]) =>
+        this._sortAdvertisements(advertisements, sortOption)
+      )
+    );
+  }
+
+  private _sortAdvertisements(
+    advertisements: Advertisement[],
+    sortOption: SortOption
+  ): Advertisement[] {
+    switch (sortOption) {
+      case 'date':
+        return advertisements.sort((a, b) => {
+          if (a.createdAt < b.createdAt) return 1;
+          if (a.createdAt > b.createdAt) return -1;
+
+          return 0;
+        });
+      case 'price':
+        return advertisements.sort((a, b) => {
+          if (a.price < b.price) return 1;
+          if (a.price > b.price) return -1;
+
+          return 0;
+        });
+    }
   }
 
   private convertCategoriesToTree(categories: Category[]): TreeNode[] {
@@ -102,15 +140,23 @@ export class AdvertisementsSearchComponent implements OnInit {
     return treeNodeArray;
   }
 
-  onCategorySelect() {
-    const categoryId = this.selectedCategory.key;
+  onCategorySelect(event: any) {
+    const categoryId = event.node.key;
 
     if (categoryId) {
       this._selectedCategorySubject.next(categoryId);
     }
   }
 
-  toggleMenu() {
-    this.isMenuVisible = !this.isMenuVisible;
+  onSortOptionChange(event: any) {
+    const value = event.value;
+
+    this._selectedSortOption.next(value.option);
+
+    this.notificationsService.showInfo('Объявления отсортированы');
+  }
+
+  toggleFilters() {
+    this.showFiltersDialog = !this.showFiltersDialog;
   }
 }

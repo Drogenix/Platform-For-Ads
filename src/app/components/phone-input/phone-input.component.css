@@ -1,0 +1,4 @@
+@import "src/app/styles/auth-dialog.css";
+:host{
+  display: flex;
+}

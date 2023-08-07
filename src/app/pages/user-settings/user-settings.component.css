@@ -64,6 +64,10 @@ button:disabled{
   margin-right: 8px;
 }
 
+:host::ng-deep app-phone-input input{
+  max-width: 416px;
+}
+
 @media screen and (max-width: 576px){
   input{
     font-size: 15px;

@@ -4,6 +4,7 @@ import { UserService } from '../../core/services/user.service';
 import { Router, RouterLink } from '@angular/router';
 import { OverlayModule } from 'primeng/overlay';
 import { AuthDialogService } from '../../core/services/auth-dialog.service';
+import { NotificationsService } from '../../core/services/notifications.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -18,7 +19,8 @@ export class HeaderComponent {
   constructor(
     private userService: UserService,
     private authDialog: AuthDialogService,
-    private router: Router
+    private router: Router,
+    private notificationsService: NotificationsService
   ) {}
 
   showLogin() {
@@ -32,5 +34,6 @@ export class HeaderComponent {
   logout() {
     this.userService.logout();
     this.router.navigateByUrl('');
+    this.notificationsService.showInfo('Вы вышли из аккаунта');
   }
 }

@@ -31,7 +31,11 @@
   font-size: 18px;
   font-weight: bold;
   line-height: 24px;
+  word-break: break-word;
+  max-height: 48px;
+  overflow: hidden;
 }
+
 
 .card-title {
   margin-top: 8px;

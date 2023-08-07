@@ -1,0 +1,14 @@
+<ng-container *ngIf="control.touched">
+  <p class="alert"
+     *ngIf="control.errors?.['required']">
+    Это поле обязательно
+  </p>
+  <p class="alert"
+     *ngIf="control.errors?.['minlength']">
+    Минимальная длина - {{lengthError.requiredLength}} символов
+  </p>
+  <p class="alert"
+     *ngIf="control.errors?.['maxlength']">
+    Максимальная длина поля - {{lengthError.requiredLength}} символов
+  </p>
+</ng-container>

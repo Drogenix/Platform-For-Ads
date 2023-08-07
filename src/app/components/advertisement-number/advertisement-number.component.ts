@@ -1,4 +1,9 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { UserService } from '../../core/services/user.service';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { Observable } from 'rxjs';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { NgxMaskPipe } from 'ngx-mask';
 
 @Component({
   selector: 'app-advertisement-number',
@@ -6,7 +11,18 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   styleUrls: ['./advertisement-number.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  imports: [AsyncPipe, NgxMaskPipe, NgIf],
 })
-export class AdvertisementNumberComponent {
+export class AdvertisementNumberComponent implements OnInit {
+  number$: Observable<string>;
+  constructor(
+    private userService: UserService,
+    private dialogConfig: DynamicDialogConfig
+  ) {}
 
+  ngOnInit(): void {
+    const userId = this.dialogConfig.data.userId;
+
+    this.number$ = this.userService.getUserPhone(userId);
+  }
 }

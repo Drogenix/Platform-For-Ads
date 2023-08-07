@@ -1,19 +1,14 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()">
   <div class="inputs">
     <div class="input-field">
-      <input [mask]="'000) 000-00-00'"
-             [showMaskTyped]="true"
-             prefix="+7 ("
-             placeHolderCharacter="_"
-             placeholder="Номер телефона"
-             formControlName="login">
-      <ng-container *ngIf="loginForm.controls.login.touched">
+      <app-phone-input formControlName="phone"></app-phone-input>
+      <ng-container *ngIf="loginForm.controls.phone.touched">
         <p class="alert"
-           *ngIf="loginForm.controls.login.errors?.['required']">
+           *ngIf="loginForm.controls.phone.errors?.['required']">
           Введите номер телефона
         </p>
         <p class="alert"
-           *ngIf="loginForm.controls.login.errors?.['minlength']">
+           *ngIf="loginForm.controls.phone.errors?.['minlength']">
           Это поле нужно заполнить полностью
         </p>
       </ng-container>

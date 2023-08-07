@@ -8,9 +8,7 @@ import { RegisterComponent } from '../../components/register/register.component'
 })
 export class AuthDialogService {
   private _ref: DynamicDialogRef;
-
   constructor(private dialogService: DialogService) {}
-
   close() {
     if (this._ref) {
       this._ref.close();

@@ -1,0 +1,9 @@
+<input [mask]="'000) 000-00-00'"
+       [showMaskTyped]="true"
+       (input)="onChange()"
+       (focus)="markAsTouched()"
+       (change)="onChange()"
+       [(ngModel)]="value"
+       prefix="+7 ("
+       placeHolderCharacter="_"
+       placeholder="Номер телефона">

@@ -1,71 +1,14 @@
 <div class="container animated">
   <h3>Настройки</h3>
-  <form class="app-form" [formGroup]="userDataForm" (ngSubmit)="changeUserData()">
-    <div class="input-row">
-      <div class="input-field">
-        <label class="form-label" for="name">Имя</label>
-        <input type="text" class="form-input" id="name" placeholder="Введите имя" formControlName="name">
-        <ng-container *ngIf="userDataForm.controls.name.touched">
-          <p class="alert"
-             *ngIf="userDataForm.controls.name.errors?.['required']">
-            Введите имя
-          </p>
-          <p class="alert"
-             *ngIf="userDataForm.controls.name.errors?.['minlength']">
-            Минимальная длина имени - 3 символа
-          </p>
-          <p class="alert"
-             *ngIf="userDataForm.controls.name.errors?.['maxlength']">
-            Максимальная длина имени - 24 символа
-          </p>
-          <p class="alert"
-             *ngIf="userDataForm.controls.name.errors?.['pattern']">
-            Имя можеть содержать только кириллицу, без специальных символов
-          </p>
-        </ng-container>
-      </div>
-      <div class="input-field">
-        <label class="form-label" for="phone">Номер телефона</label>
-        <input class="form-input"
-               id="phone"
-               [mask]="'000) 000-00-00'"
-               [showMaskTyped]="true"
-               prefix="+7 ("
-               placeholder="Введите номер телефона"
-               formControlName="phone">
-        <ng-container *ngIf="userDataForm.controls.phone.touched">
-          <p class="alert"
-             *ngIf="userDataForm.controls.phone.errors?.['required']">
-            Введите номер телефона
-          </p>
-          <p class="alert"
-             *ngIf="userDataForm.controls.phone.errors?.['minlength']">
-            Это поле нужно заполнить полностью
-          </p>
-        </ng-container>
-      </div>
-    </div>
+  <form class="app-form" [formGroup]="userDataForm" (ngSubmit)="changeUserAddress()">
     <div class="input-field">
       <label class="form-label">Адрес<span> (будет указываться в объявлениях по умолчанию)</span></label>
       <app-address-input formControlName="address"></app-address-input>
-      <ng-container *ngIf="userDataForm.controls.address.touched">
-        <p class="alert"
-           *ngIf="userDataForm.controls.address.errors?.['required']">
-          Введите адрес
-        </p>
-        <p class="alert"
-           *ngIf="userDataForm.controls.address.errors?.['minlength']">
-          Минимальная длина адреса - 10 символов
-        </p>
-        <p class="alert"
-           *ngIf="userDataForm.controls.address.errors?.['maxlength']">
-          Максимальная длина адреса - 60 символов
-        </p>
-      </ng-container>
+      <app-input-errors [control]="userDataForm.controls.address"></app-input-errors>
     </div>
     <div class="submit">
       <button [disabled]="userDataForm.invalid" type="submit">Сохранить</button>
-      <p *ngIf="isUserDataChanged" class="submit-success">
+      <p *ngIf="userChanged$ | async" class="submit-success">
         <img src="assets/icon/check-circle.svg" alt="Изменения сохранены">
         Изменения сохранены
       </p>
@@ -81,42 +24,28 @@
              id="pass"
              placeholder="Введите текущий пароль"
              formControlName="currentPass">
-      <ng-container *ngIf="userPassForm.controls.currentPass.touched">
-        <p class="alert"
-           *ngIf="userPassForm.controls.currentPass.errors?.['required']">
-          Введите текущий пароль
-        </p>
-        <p class="alert"
-           *ngIf="userPassForm.controls.currentPass.errors?.['minlength']">
-          Минимальная длина пароля - 8 символов
-        </p>
-      </ng-container>
+      <app-input-errors [control]="userPassForm.controls.currentPass"></app-input-errors>
     </div>
     <div class="input-field">
-      <label class="form-label">Новый пароль<span> (минимум 8 символов)</span></label>
+      <label class="form-label">Новый пароль</label>
       <input class="form-input"
              type="password"
              id="new-pass"
              placeholder="Введите новый пароль"
              formControlName="newPass">
-      <ng-container *ngIf="userPassForm.controls.newPass.touched">
-        <p class="alert"
-           *ngIf="userPassForm.controls.newPass.errors?.['required']">
-          Введите новый пароль
-        </p>
-        <p class="alert"
-           *ngIf="userPassForm.controls.newPass.errors?.['minlength']">
-          Минимальная длина пароля - 8 символов
-        </p>
-        <p class="alert"
-           *ngIf="userPassForm.errors?.['passwordsEquals'] && userPassForm.controls.newPass.valid">
-          Пароли не должны совпадать
-        </p>
-      </ng-container>
+      <app-input-errors [control]="userPassForm.controls.newPass"></app-input-errors>
+      <p class="alert"
+         *ngIf="userPassForm.errors?.['passwordsNotMatch'] && userPassForm.controls.newPass.valid">
+        Пароли не должны совпадать
+      </p>
+      <p class="alert"
+         *ngIf="userPassForm.errors?.['passwordsLengthNotEquals'] && userPassForm.controls.newPass.valid && userPassForm.controls.currentPass.valid">
+        Длинна паролей должна совпадать
+      </p>
     </div>
     <div class="submit">
       <button [disabled]="userPassForm.invalid" type="submit">Изменить пароль</button>
-      <p *ngIf="isUserPassChanged" class="submit-success">
+      <p *ngIf="passChanged | async" class="submit-success">
         <img src="assets/icon/check-circle.svg" alt="Изменения сохранены">
         Изменения сохранены
       </p>

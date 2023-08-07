@@ -1,14 +1,5 @@
 [
   {
-    "id": "6eb3b9af-d42d-4b92-aacd-72835118d00b",
-    "name": "Подкрадули-скороходы",
-    "price": 123456,
-    "imageUrl": "https://50.img.avito.st/image/1/1.aYoKqra5xWM8HUduVJ8VgsIJw2m-idPhswnHZ7YDz2E.KF_mzTxMGAVN8GZG1Z61yfuMJc16YyRHtoIBSC45fWM",
-    "address": "Камчатский край, Елизовский р-н, СНТ Дорожник, Солнечная ул., 75",
-    "createdAt": "2023-04-18T22:39:03.64721Z",
-    "categoryId": "2aa"
-  },
-  {
     "id": "db44cd54-4161-47c3-9148-8ce26c2c2dfe",
     "categoryId": "1aa",
     "name": "Daewoo Matiz",
@@ -26,16 +17,6 @@
     "imageUrl": "https://ae04.alicdn.com/kf/H03ffa7961f80423b8b4c21b5823a027aa.jpg",
     "address": "1-1 Shang Xu Jia Wan, Wu Chang Qu, Wu Han Shi, Hu Bei Sheng, China, 430074",
     "createdAt": "2023-04-18T22:55:22.232948Z",
-    "isActive": true
-  },
-  {
-    "id": "79215ed3-7544-464d-8301-47d831022a54",
-    "categoryId": "1a",
-    "name": "Subaru impreza",
-    "price": 500000,
-    "imageUrl": "http://localhost:4200/apiFile/0165cf58-6a4f-4f07-9eaa-1a7147dd9118",
-    "address": "г. Астрахань, ул. Ленина",
-    "createdAt": "2023-05-09T05:13:27.090005Z",
     "isActive": true
   }
 ]

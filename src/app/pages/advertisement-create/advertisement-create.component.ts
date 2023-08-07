@@ -4,11 +4,9 @@ import {
   Component,
 } from '@angular/core';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
-import { Category } from '../../core/entities/category';
 import { NgxMaskDirective } from 'ngx-mask';
-import { FileInputComponent } from '../../components/file-input/file-input.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AsyncPipe, JsonPipe, NgIf } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgForOf, NgIf } from '@angular/common';
 import { AdvertisementsService } from '../../core/services/advertisements.service';
 import { Advertisement } from '../../core/entities/advertisement';
 import { takeUntil } from 'rxjs';
@@ -17,6 +15,12 @@ import { RouterLink } from '@angular/router';
 import { DestroyService } from '../../core/services/destroy.service';
 import { AddressInputComponent } from '../../components/address-input/address-input.component';
 import { CategoriesService } from '../../core/services/categories.service';
+import { InputErrorsComponent } from '../../components/input-errors/input-errors.component';
+import { CategoryInputComponent } from '../../components/category-input/category-input.component';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ImageUploadComponent } from '../../components/image-upload/image-upload.component';
+import { UserService } from '../../core/services/user.service';
+import { NotificationsService } from '../../core/services/notifications.service';
 
 @Component({
   selector: 'app-advertisement-create',
@@ -26,7 +30,6 @@ import { CategoriesService } from '../../core/services/categories.service';
   imports: [
     CascadeSelectModule,
     NgxMaskDirective,
-    FileInputComponent,
     ReactiveFormsModule,
     NgIf,
     JsonPipe,
@@ -34,67 +37,53 @@ import { CategoriesService } from '../../core/services/categories.service';
     RouterLink,
     AddressInputComponent,
     AsyncPipe,
+    InputErrorsComponent,
+    CategoryInputComponent,
+    FileUploadModule,
+    NgForOf,
+    ImageUploadComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
 export class AdvertisementCreateComponent {
+  readonly descriptionMaxLength = 1500;
   isLoading: boolean = false;
-  newAdvertisementId: string;
   error: string;
   categories$ = this.categoriesService.getAll();
   advertisementForm = this.fb.group({
-    category: ['', Validators.required],
+    categoryId: ['', Validators.required],
     name: [
       '',
       [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
     ],
-    description: [
-      '',
-      [
-        Validators.required,
-        Validators.minLength(30),
-        Validators.maxLength(300),
-      ],
-    ],
+    description: ['', [Validators.required, Validators.minLength(100)]],
     address: [
-      '',
+      this.userService.user?.address,
       [Validators.required, Validators.minLength(10), Validators.maxLength(60)],
     ],
-    imageUrl: ['', Validators.required],
+    images: ['', Validators.required],
     price: ['', [Validators.required, Validators.maxLength(7)]],
   });
 
   constructor(
     private fb: FormBuilder,
+    private userService: UserService,
     private advertisementsService: AdvertisementsService,
     private categoriesService: CategoriesService,
     private destroy$: DestroyService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private notificationsService: NotificationsService
   ) {}
-
-  private getFormValue(): Advertisement {
-    const advertisement: Advertisement = Object.assign(
-      this.advertisementForm.value
-    );
-
-    const category: Category = Object.assign(
-      this.advertisementForm.value
-    ).category;
-
-    advertisement.categoryId = category.id;
-
-    return advertisement;
-  }
-
-  markCategoryAsTouched() {
-    this.advertisementForm.controls.category.markAsTouched();
-    this.advertisementForm.controls.category.updateValueAndValidity();
-  }
 
   createAdvertisement() {
     if (this.advertisementForm.valid) {
-      const advertisement = this.getFormValue();
+      const advertisement: Advertisement = Object.assign(
+        this.advertisementForm.value
+      );
+
+      advertisement.createdAt = new Date();
+
       this.isLoading = true;
       this.error = '';
 
@@ -103,8 +92,8 @@ export class AdvertisementCreateComponent {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: () => {
-            this.newAdvertisementId = advertisement.id;
             this.isLoading = false;
+            this.notificationsService.showInfo('Новое объявление создано');
 
             this.cdr.markForCheck();
           },

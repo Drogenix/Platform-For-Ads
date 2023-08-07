@@ -2,14 +2,14 @@
   <a [routerLink]="['/advertisements',advertisement.id]">
     <div class="img-wrapper">
       <img class="card-img"
-           [src]="(advertisement.imageUrl && advertisement.imageUrl != 'string') ? advertisement.imageUrl : 'assets/guitar.png'"
+           [src]="advertisement.images[0].url"
            alt="Изображение товара">
     </div>
     <div>
       <div class="card-header">
         <p class="card-title">{{advertisement.name}}</p>
         <p>
-          <span>{{advertisement.price}}</span> ₽
+          <span>{{advertisement.price | mask: 'separator': {suffix:' ₽', separatorLimit:'9999999'} }}</span>
         </p>
       </div>
       <p class="card-info">{{advertisement.address}}</p>

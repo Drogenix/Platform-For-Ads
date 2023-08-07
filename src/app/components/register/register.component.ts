@@ -8,26 +8,31 @@ import { DestroyService } from '../../core/services/destroy.service';
 import { takeUntil } from 'rxjs';
 import { AuthDialogService } from '../../core/services/auth-dialog.service';
 import { NgIf } from '@angular/common';
-
-const REGISTER_ERROR = 'Пользователь с таким номером телефона уже существует';
+import { PhoneInputComponent } from '../phone-input/phone-input.component';
+import { NotificationsService } from '../../core/services/notifications.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
   providers: [DestroyService],
-  imports: [ReactiveFormsModule, NgxMaskDirective, ProgressSpinnerModule, NgIf],
+  imports: [
+    ReactiveFormsModule,
+    NgxMaskDirective,
+    ProgressSpinnerModule,
+    NgIf,
+    PhoneInputComponent,
+  ],
   standalone: true,
 })
 export class RegisterComponent {
   isSubmitting: boolean = false;
   error: string;
   registerForm = this.fb.group({
-    login: [
+    phone: [
       '',
-      [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
+      [Validators.required, Validators.minLength(11), Validators.maxLength(11)],
     ],
-    email: ['', [Validators.required, Validators.email]],
     password: [
       '',
       [Validators.required, Validators.minLength(8), Validators.maxLength(24)],
@@ -39,7 +44,8 @@ export class RegisterComponent {
     private authDialog: AuthDialogService,
     private userService: UserService,
     private router: Router,
-    private destroy$: DestroyService
+    private destroy$: DestroyService,
+    private notificationsService: NotificationsService
   ) {}
 
   register() {
@@ -48,7 +54,6 @@ export class RegisterComponent {
       this.error = '';
 
       const user = this.registerForm.value;
-      user.login = '+7' + user.login;
 
       this.userService
         .register(user)
@@ -56,11 +61,14 @@ export class RegisterComponent {
         .subscribe({
           next: () => {
             this.authDialog.close();
+            this.notificationsService.showInfo(
+              'Аккаунт успешно зарегистрирован'
+            );
             this.router.navigate(['']);
           },
-          error: () => {
+          error: (err) => {
             this.isSubmitting = false;
-            this.error = REGISTER_ERROR;
+            this.error = err;
           },
         });
     }

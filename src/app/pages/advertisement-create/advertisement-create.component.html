@@ -8,20 +8,8 @@
         <label class="form-label">
           Выберите категорию
         </label>
-        <p-cascadeSelect  [optionGroupChildren]="['children', 'children']"
-                          [options]="categories"
-                          (click)="markCategoryAsTouched()"
-                          formControlName="category"
-                          optionLabel="name"
-                          optionGroupLabel="name"
-                          placeholder="Нажмите, чтобы выбрать"
-        ></p-cascadeSelect>
-        <ng-container *ngIf="advertisementForm.controls.category.touched">
-          <p class="alert"
-             *ngIf="advertisementForm.controls.category.errors?.['required']">
-            Выберите категорию
-          </p>
-        </ng-container>
+        <app-category-input [categories]="categories" formControlName="categoryId"></app-category-input>
+        <app-input-errors [control]="advertisementForm.controls.categoryId"></app-input-errors>
       </div>
       <div class="input-field">
         <label class="form-label">
@@ -30,67 +18,30 @@
         <input class="form-input input-big"
                placeholder="Что хотите продать?"
                formControlName="name">
-        <ng-container *ngIf="advertisementForm.controls.name.touched">
-          <p class="alert"
-             *ngIf="advertisementForm.controls.name.errors?.['required']">
-            Введите название объявления
-          </p>
-          <p class="alert"
-             *ngIf="advertisementForm.controls.name.errors?.['minlength']">
-            Минимальная длина названия - 3 символа
-          </p>
-        </ng-container>
+        <app-input-errors [control]="advertisementForm.controls.name"></app-input-errors>
       </div>
       <div class="input-field">
         <label class="form-label">
           Описание
         </label>
-        <textarea class="form-input input-big"
+        <textarea #textArea
+                  class="form-input input-big"
                   placeholder="Расскажите подробнее о товаре или услуге"
-                  formControlName="description"></textarea>
-        <ng-container *ngIf="advertisementForm.controls.description.touched">
-          <p class="alert"
-             *ngIf="advertisementForm.controls.description.errors?.['required']">
-            Введите описание
-          </p>
-          <p class="alert"
-             *ngIf="advertisementForm.controls.description.errors?.['minlength']">
-            Минимальная длина описания - 30 символов
-          </p>
-          <p class="alert"
-             *ngIf="advertisementForm.controls.description.errors?.['maxlength']">
-            Максимальная длина описания - 300 символов
-          </p>
-        </ng-container>
+                  formControlName="description" [maxlength]="descriptionMaxLength"></textarea>
+        <div class="text-area-footer">
+          <app-input-errors [control]="advertisementForm.controls.description"></app-input-errors>
+          <small class="symbols-counter">{{textArea.value.length+'/'+descriptionMaxLength}}</small>
+        </div>
       </div>
       <div class="input-field">
         <label class="form-label">
           Адрес (место проведения сделки)
         </label>
         <app-address-input formControlName="address"></app-address-input>
-        <ng-container *ngIf="advertisementForm.controls.address.touched">
-          <p class="alert"
-             *ngIf="advertisementForm.controls.address.errors?.['required']">
-            Введите адрес
-          </p>
-          <p class="alert"
-             *ngIf="advertisementForm.controls.address.errors?.['minlength']">
-            Минимальная длина адреса - 10 символов
-          </p>
-          <p class="alert"
-             *ngIf="advertisementForm.controls.address.errors?.['maxlength']">
-            Максимальная длина адреса - 60 символов
-          </p>
-        </ng-container>
+        <app-input-errors [control]="advertisementForm.controls.address"></app-input-errors>
       </div>
       <div class="input-field">
-        <app-file-input formControlName="imageUrl"></app-file-input>
-        <ng-container *ngIf="advertisementForm.controls.imageUrl.touched">
-          <p class="alert"
-             *ngIf="advertisementForm.controls.imageUrl.errors?.['required']">
-            Необходимо загрузить изображение
-          </p>
-        </ng-container>
+        <app-image-upload formControlName="images"></app-image-upload>
       </div>
       <div class="input-field">
         <label class="form-label">
@@ -104,12 +55,7 @@
                suffix=" ₽"
                placeholder="0 ₽"
                formControlName="price">
-        <ng-container *ngIf="advertisementForm.controls.price.touched">
-          <p class="alert"
-             *ngIf="advertisementForm.controls.price.errors?.['required']">
-            Введите цену
-          </p>
-        </ng-container>
+      <app-input-errors [control]="advertisementForm.controls.price"></app-input-errors>
       </div>
       <ng-container *ngIf="!isLoading; else loading">
         <button [disabled]="advertisementForm.invalid" class="submit">Разместить объявление</button>
@@ -118,11 +64,6 @@
         <p-progressSpinner strokeWidth="3"
                            animationDuration="1s"></p-progressSpinner>
       </ng-template>
-      <ng-container *ngIf="newAdvertisementId">
-      <span class="new-add-link">Объявление создано!
-      <a [routerLink]="['/advertisements',newAdvertisementId]">Ссылка</a>
-    </span>
-      </ng-container>
       <p class="alert">{{error}}</p>
     </form>
     <p class="rules">Нажимая кнопку «Разместить объявление»<br>
