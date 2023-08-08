@@ -11,6 +11,7 @@ export class NotificationsService {
     const ref = this.dialogService.open(NotificationComponent, {
       closable: false,
       position: 'bottom',
+      showHeader: false,
       modal: false,
       data: {
         message: message,

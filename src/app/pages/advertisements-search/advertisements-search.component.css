@@ -4,45 +4,16 @@ main{
 
 .advertisements-filters{
   display:flex;
+  z-index: 25;
   margin-right: 24px;
   flex-direction: column;
   flex: 1 1;
   background: white;
+}
+
+.filters{
   min-width: 186px;
   max-width: 306px;
-}
-
-.advertisements-filters-overlay{
-  display:flex;
-  align-items:center;
-  justify-content: center;
-  position: fixed;
-  inset:0;
-  background: rgba(255, 255, 255, 0.3);
-}
-
-:host::ng-deep .p-dialog{
-  max-width: 340px;
-  width: 100%;
-}
-
-:host::ng-deep .p-dialog-content{
-  padding:24px;
-  width:100%;
-  border-radius:4px;
-  border:1px solid #E2E8F0;
-}
-
-.dialog-filters .price-input{
-  font-size: 15px;
-  line-height: 18px;
-}
-
-.dialog-filters .submit{
-  font-size: 15px;
-  height: auto;
-  line-height: 18px;
-  margin-top: 16px;
 }
 
 h2{
@@ -135,7 +106,7 @@ form div{
   gap:12px 8px;
 }
 
-.filters{
+.btn-filters{
   display:none;
   height: 31px;
   background: #3B82F6;
@@ -179,12 +150,44 @@ form div{
   font-family:"Inter",sans-serif;
 }
 
+.filters-close{
+  display: none;
+  align-items: center;
+  justify-content:center;
+  padding: 6px;
+  border:none;
+  background:white;
+  border-radius:50%;
+  height:30px;
+  width:30px;
+  margin-top:-24px;
+  margin-left:auto;
+  position:relative;
+  left:12px;
+  top:12px;
+  cursor:pointer;
+  transition:200ms;
+}
+
+.filters-close img{
+  height:12px;
+}
+
+.filters-close:focus{
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #BFDBFE;
+}
+
+.filters-close:hover{
+  background:#e9ecef;
+}
+
 @media screen and (max-width: 992px){
   .advertisements{
     gap:12px;
   }
 }
-
 
 
 @media screen and (min-width: 768px){
@@ -194,17 +197,52 @@ form div{
 }
 
 @media screen and (max-width: 768px){
-  main > .advertisements-filters{
-    display: none;
+  .filters-close{
+    display: flex;
+  }
+
+  .price-input{
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .submit{
+    font-size: 15px;
+    height: auto;
+    line-height: 18px;
+    margin-top: 16px;
+  }
+
+  .btn-filters{
+    display:flex;
+  }
+
+  .advertisements-filters{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    position: fixed;
+    padding: 0 12px;
+    margin:0;
+    inset:0;
+    background: rgba(0, 0, 0, 0.3);
   }
 
   .filters{
     display:flex;
+    flex-direction: column;
+    min-width: 186px;
+    max-width: 340px;
+    width: 100%;
+    background: white;
+    border-radius: 4px;
+    padding:24px;
+    border:1px solid #E2E8F0;
   }
 }
 
 @media screen and (max-width: 768px) and (min-width: 576px){
   .advertisements{
-    grid-template-columns:repeat(auto-fit,158px);
+    grid-template-columns:repeat(auto-fit, minmax(158px, 1fr));
   }
 }
