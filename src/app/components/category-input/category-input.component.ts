@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { Category } from '../../core/entities/category';
@@ -8,6 +8,9 @@ import {
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
+import { CategoriesService } from '../../core/services/categories.service';
+import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-category-input',
@@ -17,6 +20,7 @@ import {
     CascadeSelectModule,
     ReactiveFormsModule,
     FormsModule,
+    TreeSelectModule,
   ],
   providers: [
     {
@@ -28,18 +32,25 @@ import {
   templateUrl: './category-input.component.html',
   styleUrls: ['./category-input.component.css'],
 })
-export class CategoryInputComponent implements ControlValueAccessor {
+export class CategoryInputComponent implements ControlValueAccessor, OnInit {
   @Input() categories: Category[];
-  value: Category;
+
+  categoriesTree: TreeNode[];
   private _onChange: Function;
   private _onTouched: Function;
   private _touched = false;
-  constructor() {}
+  constructor(private categoriesService: CategoriesService) {}
   markAsTouched() {
     if (!this._touched) {
       this._touched = true;
       this._onTouched();
     }
+  }
+
+  ngOnInit() {
+    this.categoriesTree = this.categoriesService.convertCategoriesToTree(
+      this.categories
+    );
   }
 
   registerOnChange(fn: any): void {
@@ -48,11 +59,9 @@ export class CategoryInputComponent implements ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this._onTouched = fn;
   }
-  writeValue(obj: any): void {
-    this.value = obj;
-  }
-  onChange() {
-    const categoryId = this.value.id;
+  writeValue(obj: any): void {}
+  onChange(event: any) {
+    const categoryId = event.node.key;
     this._onChange(categoryId);
   }
 }

@@ -7,3 +7,9 @@
 :host:is(.ng-invalid.ng-touched)::ng-deep .p-cascadeselect{
   border: 1px solid #EF4444;
 }
+
+:host::ng-deep .p-treeselect{
+  border-radius: 4px;
+  display: flex;
+  font-family: "Inter", sans-serif;
+}

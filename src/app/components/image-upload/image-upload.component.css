@@ -1,19 +1,20 @@
 :host::ng-deep p-button[ng-reflect-label="Загрузить"] button{
   font-size: 14px;
   margin-right:0 !important;
-  margin-top:8px;
+  height: 35px;
   border-radius: 4px;
 }
 
 :host::ng-deep p-button{
   display: inline-flex;
   height: 35px;
+  margin-bottom: 8px;
 }
 
 :host::ng-deep .p-fileupload-choose{
   height: 35px;
   border-radius: 4px;
-  margin-top:8px;
+  margin-bottom: 8px;
 }
 
 :host::ng-deep .p-fileupload-content{
@@ -40,7 +41,7 @@
 }
 
 :host::ng-deep .p-fileupload-buttonbar{
-  padding:4px 12px 12px;
+  padding:12px;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
 }
@@ -55,5 +56,4 @@
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   color: black;
-  margin-top:8px;
 }

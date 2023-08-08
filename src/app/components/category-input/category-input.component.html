@@ -1,10 +1,6 @@
-<p-cascadeSelect  [optionGroupChildren]="['children', 'children']"
-                    [options]="categories"
-                    [(ngModel)]="value"
-                    (onChange)="onChange()"
-                    (onHide)="markAsTouched()"
-                    optionLabel="name"
-                    optionGroupLabel="name"
-                    placeholder="Нажмите, чтобы выбрать">
-</p-cascadeSelect>
-
+<p-treeSelect
+  [options]="categoriesTree"
+  (onHide)="markAsTouched()"
+  (onNodeSelect)="onChange($event)"
+  placeholder="Нажмите, чтобы выбрать"
+></p-treeSelect>
