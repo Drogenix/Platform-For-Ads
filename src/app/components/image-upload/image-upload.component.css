@@ -2,8 +2,12 @@
   font-size: 14px;
   margin-right:0 !important;
   margin-top:8px;
-  height: 35px !important;
   border-radius: 4px;
+}
+
+:host::ng-deep p-button{
+  display: inline-flex;
+  height: 35px;
 }
 
 :host::ng-deep .p-fileupload-choose{
