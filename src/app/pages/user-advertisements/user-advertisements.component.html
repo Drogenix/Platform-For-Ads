@@ -1,11 +1,7 @@
 <ng-container *ngIf="(advertisements$ | async) as advertisements; else loading">
   <div class="container animated">
-    <h3>Мой объявления</h3>
+    <h3>Мои объявления</h3>
     <div class="advertisements">
-      <a routerLink="/advertisements/create" class="new-add">
-        <img height="60px" width="60px" alt="Новое объявление" src="assets/icon/new-add.svg">
-        Новое объявление
-      </a>
       <advertisement-card *ngFor="let advertisement of advertisements"
                           [advertisement]="advertisement">
       </advertisement-card>

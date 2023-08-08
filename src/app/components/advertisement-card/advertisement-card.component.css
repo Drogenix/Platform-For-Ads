@@ -31,9 +31,11 @@
   font-size: 18px;
   font-weight: bold;
   line-height: 24px;
-  word-break: break-word;
-  max-height: 48px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 

@@ -10,18 +10,14 @@ import { Advertisement } from '../../core/entities/advertisement';
 import {
   BehaviorSubject,
   combineLatest,
-  debounceTime,
-  distinctUntilChanged,
-  fromEvent,
   map,
-  merge,
   Observable,
+  startWith,
   Subject,
   switchMap,
-  takeUntil,
   tap,
 } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriesService } from '../../core/services/categories.service';
 import { Category } from '../../core/entities/category';
 import { DialogModule } from 'primeng/dialog';
@@ -71,7 +67,7 @@ const SORT_OPTIONS = [
 })
 export class AdvertisementsSearchComponent implements OnInit {
   readonly sortOptions = SORT_OPTIONS;
-  showFilters: boolean = false;
+  showFilters: boolean = true;
   priceForm = this.fb.nonNullable.group({
     minPrice: ['', [Validators.maxLength(9)]],
     maxPrice: ['', [Validators.maxLength(9)]],
@@ -81,59 +77,28 @@ export class AdvertisementsSearchComponent implements OnInit {
     .getAll()
     .pipe(map((categories) => this.convertCategoriesToTree(categories)));
   loading$ = new BehaviorSubject<boolean>(true);
-  private _selectedCategorySubject = new Subject<string>();
   private _selectedSortOption = new BehaviorSubject<SortOption>('date');
-  private _selectedPriceFilters = new BehaviorSubject<PriceFilter | null>(null);
+  private _priceFiltersChanged = new Subject<PriceFilter>();
+
   constructor(
     private advertisementsService: AdvertisementsService,
     private activatedRoute: ActivatedRoute,
     private categoriesService: CategoriesService,
     private notificationsService: NotificationsService,
     private fb: FormBuilder,
-    private destroy$: DestroyService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    fromEvent(window, 'resize')
-      .pipe(debounceTime(200), takeUntil(this.destroy$))
-      .subscribe({
-        next: () => {
-          this.showFilters = window.innerWidth > 768;
-        },
-      });
-
-    this.priceForm.valueChanges
-      .pipe(
-        debounceTime(1000),
-        distinctUntilChanged(),
-        takeUntil(this.destroy$)
-      )
-      .subscribe({
-        next: () => this.filterByPrice(),
-      });
-
-    const advertisementsByName$ = this.activatedRoute.queryParams.pipe(
-      tap(() => this.loading$.next(true)),
-      switchMap((params) => this.advertisementsService.getByName(params['s']))
-    );
-
-    const advertisementsByCategory$ = this._selectedCategorySubject
-      .asObservable()
-      .pipe(
-        tap(() => this.loading$.next(true)),
-        switchMap((categoryId) =>
-          this.advertisementsService.getByCategoryId(categoryId)
-        )
-      );
+    this._checkIsSmallDevice();
 
     const sortOption$ = this._selectedSortOption.asObservable();
 
-    const priceFilters$ = this._selectedPriceFilters.asObservable();
+    const priceFilters$ = this._priceFiltersChanged
+      .asObservable()
+      .pipe(startWith(null));
 
-    const advertisements$ = merge(
-      advertisementsByName$,
-      advertisementsByCategory$
-    ).pipe(tap(() => this.loading$.next(false)));
+    const advertisements$ = this._getAdvertisements();
 
     this.advertisements$ = combineLatest(
       advertisements$,
@@ -142,16 +107,33 @@ export class AdvertisementsSearchComponent implements OnInit {
     ).pipe(
       map(([advertisements, sortOption, priceFilters]) => {
         advertisements = this._sortAdvertisements(advertisements, sortOption);
-        if (priceFilters) {
+
+        if (priceFilters)
           advertisements = this._filterAdvertisementsByPrice(
             advertisements,
             priceFilters
           );
-        }
 
         return advertisements;
       })
     );
+  }
+
+  private _getAdvertisements(): Observable<Advertisement[]> {
+    return this.activatedRoute.queryParams.pipe(
+      tap(() => this.loading$.next(true)),
+      switchMap((params) => {
+        if (params['s']) {
+          return this.advertisementsService.getByName(params['s']);
+        }
+        return this.advertisementsService.getByCategoryId(params['c']);
+      }),
+      tap(() => this.loading$.next(false))
+    );
+  }
+
+  private _checkIsSmallDevice() {
+    if (window.innerWidth < 768) this.showFilters = false;
   }
 
   private _filterAdvertisementsByPrice(
@@ -218,7 +200,11 @@ export class AdvertisementsSearchComponent implements OnInit {
     const categoryId = event.node.key;
 
     if (categoryId) {
-      this._selectedCategorySubject.next(categoryId);
+      this.router.navigate(['search'], {
+        queryParams: {
+          c: categoryId,
+        },
+      });
     }
   }
 
@@ -230,17 +216,13 @@ export class AdvertisementsSearchComponent implements OnInit {
     this.notificationsService.showInfo('Объявления отсортированы');
   }
 
-  toggleFilters() {
-    this.showFilters = !this.showFilters;
+  onSubmit() {
+    const priceFilter: PriceFilter = Object.assign(this.priceForm.value);
+    this._priceFiltersChanged.next(priceFilter);
+    this.notificationsService.showInfo('Фильтры применены');
   }
 
-  filterByPrice() {
-    if (this.priceForm.valid) {
-      const priceFilter: PriceFilter = Object.assign(this.priceForm.value);
-
-      this._selectedPriceFilters.next(priceFilter);
-
-      this.notificationsService.showInfo('Фильтры применены');
-    }
+  toggleFilters() {
+    this.showFilters = !this.showFilters;
   }
 }

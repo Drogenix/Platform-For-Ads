@@ -1,7 +1,7 @@
 <div class="container">
   <div class="search-container">
     <h2>Доска объявлений</h2>
-    <button type="button" class="btn all-categories" (click)="categoriesMenuVisible = !categoriesMenuVisible">
+    <button type="button" class="btn all-categories" (click)="toggleCategoriesMenu()">
       <img src="assets/icon/listed.svg" alt="Список категорий">
       Все категории
     </button>
@@ -10,11 +10,32 @@
       <button class="btn search"
               type="button"
               [disabled]="inputControl.invalid"
-              (click)="goToSearch()">
+              (click)="searchByName()">
         Найти
         <img src="assets/icon/search.svg" alt="Поиск">
       </button>
     </form>
   </div>
-  <app-categories-menu [(visible)]="categoriesMenuVisible"></app-categories-menu>
+  <ng-container *ngIf="categories$ | async as categories">
+    <ng-container *ngIf="!isSmallDevice; else smallMenu">
+      <app-categories-menu [categories]="categories" [(visible)]="showCategories"></app-categories-menu>
+    </ng-container>
+    <ng-template #smallMenu>
+      <ng-container *ngIf="categoriesTree$ | async as categoriesTree">
+        <div *ngIf="showCategories" class="categories-overlay">
+          <div class="categories-tree">
+            <button class="categories-close" pAutoFocus [autofocus]="true" (click)="showCategories = false">
+              <img alt="none" src="assets/close.png">
+            </button>
+            <h4>Все категории</h4>
+            <p-tree
+              selectionMode="single"
+              [value]="categoriesTree"
+              (onNodeSelect)="searchByCategory($event)"
+            ></p-tree>
+          </div>
+        </div>
+      </ng-container>
+    </ng-template>
+  </ng-container>
 </div>

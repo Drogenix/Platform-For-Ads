@@ -1,7 +1,3 @@
-:host::ng-deep p-button[ng-reflect-label="Cancel"]{
-  display: none;
-}
-
 :host::ng-deep p-button[ng-reflect-label="Загрузить"] button{
   font-size: 14px;
   margin-right:0 !important;

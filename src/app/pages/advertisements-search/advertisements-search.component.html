@@ -1,8 +1,8 @@
 <ng-container *ngIf="(advertisements$ | async) as advertisements; else loading">
-  <div class="container animated">
-    <h3>Объявления</h3>
-    <main>
-      <ng-container *ngIf="(categories$ | async) as categories">
+  <ng-container *ngIf="(categories$ | async) as categories">
+    <div class="container animated">
+      <h3>Объявления</h3>
+      <main>
         <div *ngIf="showFilters" class="advertisements-filters">
           <div class="filters">
             <button class="filters-close" pAutoFocus [autofocus]="true" (click)="showFilters = false">
@@ -15,16 +15,16 @@
               (onNodeSelect)="onCategorySelect($event)"
             ></p-tree>
             <h4>Цена</h4>
-            <form [formGroup]="priceForm">
+            <form [formGroup]="priceForm" (ngSubmit)="onSubmit()">
               <div>
                 <input class="price-input" placeholder="Цена от" mask="separator" [maxlength]="9"  formControlName="minPrice"/>
                 <input class="price-input" placeholder="до, руб." mask="separator" [maxlength]="9" formControlName="maxPrice"/>
               </div>
+              <button type="submit" class="submit">Применить фильтры</button>
             </form>
           </div>
         </div>
-      </ng-container>
-      <div class="advertisements-results">
+        <div class="advertisements-results">
           <div class="result-header">
             <p class="result">
               Всего найдено {{ advertisements.length }} объявления(-ий)
@@ -60,13 +60,13 @@
             </ng-container>
           </ng-template>
           <ng-template #noResults>
-            <div>
-              <h2>Ничего не найдено по данному запросу</h2>
-            </div>
+            <h2>Ничего не найдено по данному запросу</h2>
           </ng-template>
         </div>
-    </main>
-  </div>
+      </main>
+    </div>
+
+  </ng-container>
 </ng-container>
 <ng-template #loading>
   <p-progressSpinner

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Category } from '../entities/category';
 import { API_URL } from '../../app.component';
+import { TreeNode } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root',
@@ -56,5 +57,25 @@ export class CategoriesService {
     return this.http
       .get<Category[]>(`${API_URL}/categories`)
       .pipe(map((categories) => this._collectCategories(categories)));
+  }
+
+  convertCategoriesToTree(categories: Category[]): TreeNode[] {
+    const treeNodeArray: TreeNode[] = [];
+
+    categories.forEach((category) => {
+      const node: TreeNode = {
+        key: category.id,
+        label: category.name,
+        selectable: true,
+      };
+
+      if (category.children) {
+        node.children = this.convertCategoriesToTree(category.children);
+      }
+
+      treeNodeArray.push(node);
+    });
+
+    return treeNodeArray;
   }
 }

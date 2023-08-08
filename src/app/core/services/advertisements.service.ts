@@ -56,19 +56,16 @@ export class AdvertisementsService {
 
     return combineLatest(categories$, advertisements$).pipe(
       map(([categories, advertisements]) =>
-        this._getChildrenCategoryAdvertisements(
-          categoryId,
-          categories,
-          advertisements
-        )
+        this._getAdsByCategory(categoryId, categories, advertisements)
       )
     );
   }
 
-  private _gth(parentId: string, categories: Category[]): string[] {
-    debugger;
-
-    let neededCategories: string[] = [];
+  private _getChildCategories(
+    parentId: string,
+    categories: Category[]
+  ): string[] {
+    let childCategories: string[] = [];
 
     for (let i = 0; i < categories.length; i++) {
       const category = categories[i];
@@ -76,33 +73,36 @@ export class AdvertisementsService {
       let categoryId = parentId;
 
       if (category.id === parentId || category.parentId === parentId) {
-        neededCategories.push(category.id);
+        childCategories.push(category.id);
 
         categoryId = category.id;
       }
 
-      neededCategories = neededCategories.concat(
+      childCategories = childCategories.concat(
         this._checkChildren(categoryId, category)
       );
     }
 
-    return neededCategories;
+    return childCategories;
   }
 
   private _checkChildren(categoryId: string, category: Category): string[] {
     if (category.children && category.children.length > 0) {
-      return this._gth(categoryId, category.children);
+      return this._getChildCategories(categoryId, category.children);
     }
 
     return [];
   }
 
-  private _getChildrenCategoryAdvertisements(
+  private _getAdsByCategory(
     parentId: string,
     categories: Category[],
     advertisements: Advertisement[]
   ): Advertisement[] {
-    const advertisementsCategories = this._gth(parentId, categories);
+    const advertisementsCategories = this._getChildCategories(
+      parentId,
+      categories
+    );
 
     const allAdvertisements: Advertisement[] = [];
 

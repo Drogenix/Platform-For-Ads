@@ -65,6 +65,96 @@
   margin-left: 8px;
 }
 
+.categories-overlay{
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  position: fixed;
+  max-width: 100%;
+  padding: 0 12px;
+  margin:0;
+  inset:0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+
+.categories-tree{
+  display:flex;
+  flex-direction: column;
+  min-width: 186px;
+  max-width: 340px;
+  width: 100%;
+  background: white;
+  border-radius: 4px;
+  padding:24px;
+  border:1px solid #E2E8F0;
+}
+
+.categories-close{
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  padding: 6px;
+  border:none;
+  background:white;
+  border-radius:50%;
+  height:30px;
+  width:30px;
+  margin-top:-24px;
+  margin-left:auto;
+  position:relative;
+  left:12px;
+  top:12px;
+  cursor:pointer;
+  transition:200ms;
+}
+
+.categories-close img{
+  height:12px;
+}
+
+.categories-close:focus{
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #BFDBFE;
+}
+
+.categories-close:hover{
+  background:#e9ecef;
+}
+
+:host ::ng-deep .p-tree, p-tree{
+  padding: 0;
+  border: none;
+}
+
+:host ::ng-deep p-treeNode .p-treenode-content{
+  padding: 0 0 0 4px !important;
+}
+
+:host ::ng-deep .p-treenode-label, .pi-chevron-right:before{
+  color: #3B82F6;
+}
+
+:host ::ng-deep .pi-chevron-right:before{
+  font-size: 12px;
+}
+
+:host ::ng-deep p-treeNode .p-tree-toggler{
+  width: 28px !important;
+  height: 28px !important;
+  color: #3B82F6 !important;
+}
+
+:host ::ng-deep .p-dropdown{
+  border-radius: 4px;
+}
+
+:host ::ng-deep .p-inputtext{
+  padding:6px 8px;
+  font-size:15px;
+  font-family:"Inter",sans-serif;
+}
 
 @media screen and (max-width: 785px) {
   .search-box {

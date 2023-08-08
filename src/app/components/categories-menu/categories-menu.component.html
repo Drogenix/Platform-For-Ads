@@ -1,5 +1,4 @@
-<ng-container *ngIf="(categories$ | async) as categories">
-  <p-overlay
+<p-overlay
     [(visible)]="visible"
     showTransitionOptions="0s"
     hideTransitionOptions="0s">
@@ -16,7 +15,7 @@
           </button>
         </div>
           <div class="category-children">
-            <a class="category root-category">
+            <a routerLink="search" [queryParams]="{c:categories[selected].id}" (click)="visible = false" class="category root-category">
               <span>{{ categories[selected].name }}</span>
               <img alt="Выбрать категорию" src="assets/icon/arrow-right.svg" />
             </a>
@@ -24,14 +23,14 @@
               <div
                 class="subcategory"
                 *ngFor="let subcategory of categories[selected].children">
-                <a class="category">
+                <a class="category" routerLink="search" [queryParams]="{c:subcategory.id}" (click)="visible = false">
                   <span>{{ subcategory.name }}</span>
                   <img
                     alt="Выбрать категорию"
                     src="assets/icon/arrow-right.svg"/>
                 </a>
                 <div class="subcategory-children">
-                  <a *ngFor="let children of subcategory.children">
+                  <a routerLink="search" [queryParams]="{c:children.id}" (click)="visible = false" *ngFor="let children of subcategory.children">
                     {{children.name}}
                   </a>
                 </div>
@@ -40,5 +39,4 @@
           </div>
       </div>
     </div>
-  </p-overlay>
-</ng-container>
+</p-overlay>
