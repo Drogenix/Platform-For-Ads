@@ -57,8 +57,6 @@ export class ImageUploadComponent implements ControlValueAccessor {
       });
     }
 
-    debugger;
-
     this._onChange(this.uploadedImages);
   }
 

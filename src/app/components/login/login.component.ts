@@ -10,6 +10,7 @@ import { AuthDialogService } from '../../core/services/auth-dialog.service';
 import { NgIf } from '@angular/common';
 import { PhoneInputComponent } from '../phone-input/phone-input.component';
 import { NotificationsService } from '../../core/services/notifications.service';
+import { OverlayModule } from 'primeng/overlay';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ import { NotificationsService } from '../../core/services/notifications.service'
     NgxMaskDirective,
     NgIf,
     PhoneInputComponent,
+    OverlayModule,
   ],
   standalone: true,
 })

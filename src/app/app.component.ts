@@ -5,7 +5,6 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { SearchComponent } from './components/search/search.component';
 import { UserService } from './core/services/user.service';
-import { ErrorService } from './core/services/error.service';
 
 export const API_URL = 'https://64cbb7c02eafdcdc85193409.mockapi.io/api';
 
@@ -24,12 +23,7 @@ export const API_URL = 'https://64cbb7c02eafdcdc85193409.mockapi.io/api';
   standalone: true,
 })
 export class AppComponent implements OnInit {
-  error$ = this.errorService.error$;
-
-  constructor(
-    private userService: UserService,
-    private errorService: ErrorService
-  ) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.userService.checkAuth();

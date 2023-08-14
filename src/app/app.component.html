@@ -1,14 +1,3 @@
-<ng-container *ngIf="error$ | async; else app">
-  <div class="error">
-    <img alt="Ошибка" height="82px" width="82px" src="assets/error.png" />
-    <p class="error-message">
-      Возникла ошибка! <br/>Сервисы недоступны. Проверьте подключение к интернету или попробуйте позже
-    </p>
-  </div>
-</ng-container>
-
-<ng-template #app>
-  <app-header></app-header>
-  <app-search></app-search>
-  <router-outlet></router-outlet>
-</ng-template>
+<app-header></app-header>
+<app-search></app-search>
+<router-outlet></router-outlet>

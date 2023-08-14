@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { NotificationComponent } from '../../components/notification/notification.component';
 
 @Injectable({
@@ -7,8 +7,13 @@ import { NotificationComponent } from '../../components/notification/notificatio
 })
 export class NotificationsService {
   constructor(private dialogService: DialogService) {}
+
+  private _dialogRef: DynamicDialogRef;
+
   showInfo(message: string) {
-    const ref = this.dialogService.open(NotificationComponent, {
+    if (this._dialogRef) this._dialogRef.close();
+
+    this._dialogRef = this.dialogService.open(NotificationComponent, {
       closable: false,
       position: 'bottom',
       showHeader: false,
@@ -19,6 +24,6 @@ export class NotificationsService {
       styleClass: 'notification',
     });
 
-    setTimeout(() => ref.close(), 2000);
+    setTimeout(() => this._dialogRef.close(), 2000);
   }
 }

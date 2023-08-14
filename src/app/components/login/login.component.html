@@ -36,6 +36,11 @@
       <a (click)="goToRegister()">Зарегистрироваться</a>
     </div>
   </div>
+  <small>
+    Демо-аккаунт:
+    <br>Телефон:  +71517777777
+    <br>Пароль:  password1
+  </small>
   <p class="alert submit-alert">{{error}}</p>
   <ng-container *ngIf="!isSubmitting; else loading">
     <button [disabled]="loginForm.invalid" type="submit">Войти</button>
